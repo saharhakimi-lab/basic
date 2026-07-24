@@ -3,135 +3,419 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>שיעור 1: מה זו בכלל רשת? | האקדמיה לרשתות</title>
+    <title>אקדמיית האחוואנים - שיעור 1: מה זו בכלל רשת?</title>
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- Google Fonts: Heebo & JetBrains Mono -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@700;800;900&family=Assistant:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
-        body {
-            font-family: 'Heebo', sans-serif;
-            background-color: #0a0f1d;
-            color: #e2e8f0;
-        }
-        .code-font {
-            font-family: 'JetBrains Mono', monospace;
-        }
-        /* Custom scrollbar for cyber look */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0f172a;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #3b82f6;
-            border-radius: 3px;
-        }
-        /* Pulse glow animation */
-        @keyframes pulse-glow {
-            0%, 100% { filter: drop-shadow(0 0 5px rgba(59, 130, 246, 0.6)); }
-            50% { filter: drop-shadow(0 0 15px rgba(59, 130, 246, 1)); }
-        }
-        .glow-active {
-            animation: pulse-glow 2s infinite;
+        :root {
+            /* Day Ops */
+            --bg: #eef2f7;
+            --grid-line: rgba(15, 23, 42, 0.05);
+            --card: #ffffff;
+            --panel-border: #dbe2ec;
+            --text: #0f172a;
+            --text-muted: #5b6b82;
+            --cyan: #0e7490;
+            --cyan-soft: #e0f6fb;
+            --green: #047857;
+            --green-soft: #e1f8ef;
+            --amber: #b45309;
+            --amber-soft: #fdf1dd;
+            --violet: #6d28d9;
+            --violet-soft: #f1e9fc;
+            --shadow: 0 20px 40px -14px rgba(15, 23, 42, 0.14);
+            --radius: 18px;
         }
 
-        /* Floating Help Bot Widget */
-        #bot-fab {
-            position: fixed;
-            bottom: 24px;
-            left: 24px;
-            z-index: 200;
-            width: 72px;
-            height: 72px;
-            border-radius: 9999px;
-            background: linear-gradient(135deg, #3b82f6, #06b6d4, #6366f1);
-            background-size: 200% 200%;
-            animation: bot-glow 3s ease infinite;
+        body.dark {
+            /* Night Ops */
+            --bg: #090d16;
+            --grid-line: rgba(34, 211, 238, 0.06);
+            --card: #10182a;
+            --panel-border: rgba(34, 211, 238, 0.16);
+            --text: #e7edf6;
+            --text-muted: #8493ac;
+            --cyan: #22d3ee;
+            --cyan-soft: rgba(34, 211, 238, 0.12);
+            --green: #34d399;
+            --green-soft: rgba(52, 211, 153, 0.12);
+            --amber: #fbbf24;
+            --amber-soft: rgba(251, 191, 36, 0.12);
+            --violet: #a78bfa;
+            --violet-soft: rgba(167, 139, 250, 0.12);
+            --shadow: 0 20px 50px -14px rgba(0, 0, 0, 0.6);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: 'Assistant', 'Heebo', sans-serif;
+            background-color: var(--bg);
+            background-image:
+                linear-gradient(var(--grid-line) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+            background-size: 42px 42px;
+            color: var(--text);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .code-font, .mono { font-family: 'JetBrains Mono', monospace; }
+
+        /* HEADER STYLES */
+        header {
+            position: relative;
+            background: linear-gradient(160deg, #fbf3e2 0%, #f7ecd6 55%, #f9efdb 100%);
+            color: #b91c1c;
+            padding: 34px 20px 46px;
+            text-align: center;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(185, 28, 28, 0.22);
+        }
+
+        body.dark header {
+            background: linear-gradient(160deg, #180909 0%, #0d0404 55%, #130707 100%);
+            border-bottom: 1px solid rgba(239, 68, 68, 0.22);
+        }
+
+        .hero-row {
+            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.5);
-            cursor: pointer;
-            border: none;
-            transition: transform 0.2s;
-            padding: 0;
-            overflow: hidden;
+            gap: 34px;
+            max-width: 1300px;
+            margin: 0 auto;
+            flex-wrap: wrap-reverse;
         }
-        #bot-fab:hover { transform: scale(1.1); }
-        @keyframes bot-glow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+
+        .hero-image img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #b91c1c;
+            box-shadow: 0 0 0 5px rgba(185, 28, 28, 0.12), 0 14px 30px -10px rgba(185, 28, 28, 0.35);
+            background: #fff;
         }
-        #bot-panel {
+
+        .hero-text {
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .statusbar {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12.5px;
+            letter-spacing: 0.4px;
+            color: #b45309;
+            margin-bottom: 18px;
+            flex-wrap: wrap;
+        }
+
+        .statusbar .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #b91c1c;
+            box-shadow: 0 0 0 4px rgba(185, 28, 28, 0.2);
+            animation: pulse 1.8s ease-in-out infinite;
+        }
+
+        .statusbar .sep { opacity: 0.4; }
+
+        h1.hero-title {
+            font-family: 'Rubik', sans-serif;
+            font-size: 32px;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+            color: #b91c1c;
+            margin: 0 0 6px 0;
+        }
+
+        body.dark h1.hero-title {
+            color: #f87171;
+        }
+
+        header p.subtitle {
+            margin: 4px 0 20px;
+            color: #c2410c;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        body.dark header p.subtitle {
+            color: #fb923c;
+        }
+
+        .protocol-row {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .protocol-chip {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            font-weight: 600;
+            color: #b91c1c;
+            background: rgba(255, 255, 255, 0.55);
+            border: 1px solid rgba(185, 28, 28, 0.3);
+            padding: 6px 13px;
+            border-radius: 8px;
+        }
+
+        body.dark .protocol-chip {
+            color: #fca5a5;
+            background: rgba(0, 0, 0, 0.4);
+            border-color: rgba(239, 68, 68, 0.3);
+        }
+
+        /* CARD & PANEL DESIGN */
+        .panel {
+            position: relative;
+            background: var(--card);
+            padding: 28px;
+            border-radius: var(--radius);
+            border: 1px solid var(--panel-border);
+            box-shadow: var(--shadow);
+            transition: background 0.3s ease, border-color 0.3s ease;
+        }
+
+        .panel-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            padding-bottom: 14px;
+            border-bottom: 1px dashed var(--panel-border);
+        }
+
+        .panel-head h2 {
+            color: var(--text);
+            font-family: 'Rubik', sans-serif;
+            font-size: 22px;
+            font-weight: 800;
+            margin: 0;
+        }
+
+        .panel-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11.5px;
+            font-weight: 700;
+            color: var(--cyan);
+            background: var(--cyan-soft);
+            border: 1px solid var(--panel-border);
+            padding: 4px 11px;
+            border-radius: 7px;
+        }
+
+        /* DARK MODE TOGGLE BUTTON */
+        .darkBtn {
             position: fixed;
-            bottom: 108px;
-            left: 24px;
-            z-index: 200;
-            width: 290px;
+            top: 22px;
+            left: 22px;
+            width: 46px;
+            height: 46px;
+            border: 1px solid rgba(185, 28, 28, 0.35);
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 19px;
+            z-index: 9999;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            color: #b91c1c;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.18);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease;
+        }
+        .darkBtn:hover { transform: scale(1.1); }
+
+        /* WIDGET BOT (AHWANIM BOT) */
+        .bot-widget {
+            position: fixed;
+            bottom: 13px;
+            left: 13px;
+            width: 178px;
+            max-width: calc(100vw - 26px);
+            background: var(--card);
+            color: var(--text);
+            border-radius: 11px;
+            overflow: hidden;
+            box-shadow: 0 11px 24px rgba(0,0,0,0.28);
+            z-index: 9999;
+            animation: floatBot 4s ease-in-out infinite;
+            border: 1px solid var(--panel-border);
+            transition: width 0.25s ease, height 0.25s ease, opacity 0.2s ease;
+        }
+
+        .bot-widget.collapsed {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            animation: none;
+            cursor: pointer;
+        }
+
+        .bot-widget.collapsed .bot-header, 
+        .bot-widget.collapsed .bot-body > *:not(.bot-avatar) {
             display: none;
         }
-        #bot-panel.open { display: block; }
-        .bot-ping {
-            position: absolute;
-            top: 3px;
-            right: 3px;
-            width: 14px;
-            height: 14px;
-            border-radius: 9999px;
-            background: #ef4444;
-            z-index: 10;
+
+        .bot-widget.collapsed .bot-body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            height: 100%;
         }
-        .bot-ping::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 9999px;
-            background: #ef4444;
-            animation: bot-ping-anim 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+
+        .bot-widget.collapsed .bot-avatar {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            border: 2px solid var(--cyan);
+            box-shadow: 0 4px 11px rgba(0,0,0,0.3);
         }
-        @keyframes bot-ping-anim {
-            75%, 100% { transform: scale(2); opacity: 0; }
+
+        .bot-close {
+            margin-right: auto;
+            background: none;
+            border: none;
+            color: #eaf6fb;
+            cursor: pointer;
+            font-size: 10px;
+            line-height: 1;
+            padding: 1px 2px;
         }
+
+        .bot-header {
+            background: linear-gradient(135deg, #0b2540, #062a2e);
+            color: #eaf6fb;
+            padding: 8px 10px;
+            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 8px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .bot-body { padding: 11px; }
+
+        .bot-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: block;
+            margin: 0 auto 7px auto;
+            object-fit: cover;
+            border: 2px solid var(--cyan);
+            box-shadow: 0 0 0 3px var(--cyan-soft);
+        }
+
+        .bot-btn {
+            display: block;
+            text-align: center;
+            padding: 7px;
+            background: var(--green);
+            color: #06231a;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 800;
+            font-size: 8.5px;
+            font-family: 'JetBrains Mono', monospace;
+            transition: transform 0.2s ease;
+        }
+
+        @keyframes floatBot {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 3px; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between overflow-x-hidden">
 
-    <!-- TOP BAR -->
-    <header class="border-b border-blue-900/40 bg-slate-950/80 backdrop-blur sticky top-0 z-50 px-4 py-3">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <div class="flex items-center gap-3">
-                <div class="bg-blue-600/20 p-2 rounded-lg border border-blue-500/30 text-blue-400">
-                    <i data-lucide="network" class="w-6 h-6"></i>
+    <!-- DARK MODE SWITCH BUTTON -->
+    <button class="darkBtn" onclick="toggleDark()" title="החלף מצב תצוגה" id="darkToggleBtn">🌙</button>
+
+    <!-- HEADER -->
+    <header>
+        <div class="hero-row">
+            <div class="hero-image">
+                <img src="https://lh3.googleusercontent.com/d/1oIkZlLHZWtFgoDblyxziTALQZwsyxAOo" alt="אווטר">
+            </div>
+            <div class="hero-text">
+                <div class="statusbar">
+                    <span class="dot"></span>
+                    <span>session: net_class_01</span>
+                    <span class="sep">//</span>
+                    <span>academy.net.local</span>
+                    <span class="sep">//</span>
+                    <span>192.168.1.0/24</span>
                 </div>
-                <div>
-                    <h1 class="font-black text-lg tracking-wide text-white">NET_ACADEMY // <span class="text-blue-400">CLASS_01</span></h1>
-                    <p class="text-xs text-slate-400">מבוא לרשתות: הניצוץ הראשון של המידע</p>
+                
+                <div class="flex flex-col items-center justify-center gap-1 mb-2">
+                    <span class="bg-red-500/10 text-red-600 dark:text-red-400 text-xs font-extrabold px-3 py-1 rounded-full border border-red-500/20">🔥 NET_ACADEMY // CLASS_01</span>
+                    <h1 class="hero-title">מה זו בכלל רשת?</h1>
+                </div>
+
+                <p class="subtitle">מבוא לרשתות: הניצוץ הראשון של המידע</p>
+                <div class="protocol-row">
+                    <span class="protocol-chip">ROUTING</span>
+                    <span class="protocol-chip">PACKETS</span>
+                    <span class="protocol-chip">HOSTS</span>
+                    <span class="protocol-chip">PROTOCOLS</span>
+                    <span class="protocol-chip">AI ASSISTANT</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gamification / XP Bar inside Header -->
+        <div class="max-w-4xl mx-auto mt-6 pt-4 border-t border-red-900/10 dark:border-red-500/20 flex flex-wrap items-center justify-between gap-4 px-4">
+            <div class="flex items-center gap-3">
+                <i data-lucide="award" class="w-5 h-5 text-amber-600 dark:text-amber-400"></i>
+                <span class="text-xs font-bold text-slate-700 dark:text-slate-300">רמה:</span>
+                <span class="text-xs font-black text-amber-600 dark:text-amber-400" id="user-level">טירון רשתות</span>
+                <div class="w-24 bg-slate-300 dark:bg-slate-800 h-2 rounded-full overflow-hidden border border-slate-400/30">
+                    <div id="level-bar" class="bg-amber-500 h-full w-1/5 transition-all duration-500"></div>
                 </div>
             </div>
             
-            <!-- Gamification & Progress Status -->
-            <div class="flex items-center gap-6">
-                <div class="hidden md:flex items-center gap-2 bg-slate-900 px-3 py-1.5 rounded-full border border-slate-800">
-                    <span class="text-xs text-slate-400">רמה:</span>
-                    <span class="text-xs font-bold text-yellow-500" id="user-level">טירון רשתות</span>
-                    <div class="w-16 bg-slate-800 h-1.5 rounded-full overflow-hidden">
-                        <div id="level-bar" class="bg-yellow-500 h-full w-1/5 transition-all duration-500"></div>
-                    </div>
-                </div>
-                
-                <div class="flex items-center gap-2 bg-blue-950/40 border border-blue-500/30 px-3 py-1.5 rounded-lg text-blue-400">
-                    <i data-lucide="zap" class="w-4 h-4 text-yellow-400 animate-pulse"></i>
-                    <span class="text-xs font-bold">XP:</span>
-                    <span class="text-sm font-black code-font" id="xp-counter">0</span>
-                </div>
+            <div class="flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 px-3 py-1 rounded-lg text-amber-600 dark:text-amber-400">
+                <i data-lucide="zap" class="w-4 h-4 animate-pulse"></i>
+                <span class="text-xs font-bold">XP:</span>
+                <span class="text-sm font-black code-font" id="xp-counter">0</span>
             </div>
         </div>
     </header>
@@ -141,19 +425,22 @@
         
         <!-- SIDEBAR: PROGRESS & STEPS -->
         <aside class="lg:col-span-3 flex flex-col gap-4">
-            <div class="bg-slate-950/80 border border-slate-800/80 rounded-xl p-5">
-                <h3 class="text-sm font-bold text-slate-300 mb-4 tracking-wider uppercase border-b border-slate-800 pb-2">מפת המשימה</h3>
+            <div class="panel p-5">
+                <div class="panel-head mb-4 pb-2">
+                    <h2 class="text-sm font-extrabold tracking-wider uppercase">מפת המשימה</h2>
+                    <span class="panel-tag mono">LAB_STEPS</span>
+                </div>
                 <nav class="flex flex-col gap-2">
                     <!-- Step 1 -->
-                    <button id="btn-step-1" onclick="switchStep(1)" class="w-full text-right flex items-center justify-between p-3 rounded-lg bg-blue-950/30 border border-blue-500/40 text-blue-300 transition-all font-bold">
+                    <button id="btn-step-1" onclick="switchStep(1)" class="w-full text-right flex items-center justify-between p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-red-600 dark:text-red-400 transition-all font-bold">
                         <div class="flex items-center gap-3">
                             <span class="code-font text-xs opacity-60">01.</span>
                             <span>התעלומה והקופסה</span>
                         </div>
-                        <i data-lucide="help-circle" class="w-4 h-4 text-blue-400"></i>
+                        <i data-lucide="help-circle" class="w-4 h-4"></i>
                     </button>
                     <!-- Step 2 -->
-                    <button id="btn-step-2" onclick="switchStep(2)" class="w-full text-right flex items-center justify-between p-3 rounded-lg bg-slate-900/40 border border-slate-800 text-slate-400 hover:bg-slate-900 hover:text-slate-200 transition-all">
+                    <button id="btn-step-2" onclick="switchStep(2)" class="w-full text-right flex items-center justify-between p-3 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-cyan-600 transition-all">
                         <div class="flex items-center gap-3">
                             <span class="code-font text-xs opacity-60">02.</span>
                             <span>מה זו באמת רשת?</span>
@@ -161,7 +448,7 @@
                         <i data-lucide="info" class="w-4 h-4 opacity-50"></i>
                     </button>
                     <!-- Step 3 -->
-                    <button id="btn-step-3" onclick="switchStep(3)" class="w-full text-right flex items-center justify-between p-3 rounded-lg bg-slate-900/40 border border-slate-800 text-slate-400 hover:bg-slate-900 hover:text-slate-200 transition-all">
+                    <button id="btn-step-3" onclick="switchStep(3)" class="w-full text-right flex items-center justify-between p-3 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-cyan-600 transition-all">
                         <div class="flex items-center gap-3">
                             <span class="code-font text-xs opacity-60">03.</span>
                             <span>סימולציית ניתוב</span>
@@ -169,7 +456,7 @@
                         <i data-lucide="play" class="w-4 h-4 opacity-50"></i>
                     </button>
                     <!-- Step 4 -->
-                    <button id="btn-step-4" onclick="switchStep(4)" class="w-full text-right flex items-center justify-between p-3 rounded-lg bg-slate-900/40 border border-slate-800 text-slate-400 hover:bg-slate-900 hover:text-slate-200 transition-all">
+                    <button id="btn-step-4" onclick="switchStep(4)" class="w-full text-right flex items-center justify-between p-3 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-cyan-600 transition-all">
                         <div class="flex items-center gap-3">
                             <span class="code-font text-xs opacity-60">04.</span>
                             <span>שיחת ה-AI הראשונה שלי</span>
@@ -177,7 +464,7 @@
                         <i data-lucide="message-square" class="w-4 h-4 opacity-50"></i>
                     </button>
                     <!-- Step 5 -->
-                    <button id="btn-step-5" onclick="switchStep(5)" class="w-full text-right flex items-center justify-between p-3 rounded-lg bg-slate-900/40 border border-slate-800 text-slate-400 hover:bg-slate-900 hover:text-slate-200 transition-all">
+                    <button id="btn-step-5" onclick="switchStep(5)" class="w-full text-right flex items-center justify-between p-3 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-cyan-600 transition-all">
                         <div class="flex items-center gap-3">
                             <span class="code-font text-xs opacity-60">05.</span>
                             <span>השוואת עמיתים וסיום</span>
@@ -187,17 +474,17 @@
                 </nav>
             </div>
 
-            <!-- SYSTEM LOG / FUN FACTS -->
-            <div class="bg-slate-950/80 border border-slate-800/80 rounded-xl p-5 flex-grow flex flex-col justify-between">
+            <!-- SYSTEM LOG -->
+            <div class="panel p-5 flex-grow flex flex-col justify-between">
                 <div>
-                    <h4 class="text-xs font-bold text-slate-400 tracking-wider mb-3">יומן מערכת זמני</h4>
-                    <div id="system-log" class="text-xs code-font text-emerald-400/80 space-y-2 h-48 overflow-y-auto bg-slate-900/50 p-3 rounded border border-slate-800">
+                    <h4 class="text-xs font-bold tracking-wider mb-3 text-slate-500 dark:text-slate-400">יומן מערכת זמני</h4>
+                    <div id="system-log" class="text-xs code-font text-emerald-600 dark:text-emerald-400 space-y-2 h-48 overflow-y-auto bg-slate-100 dark:bg-slate-900 p-3 rounded-xl border border-slate-200 dark:border-slate-800">
                         <p>[11:04:02] מערכת NET_ACADEMY נטענה בהצלחה.</p>
                         <p>[11:04:03] ממתין לפעולת משתמש ראשונית...</p>
                     </div>
                 </div>
-                <div class="mt-4 pt-4 border-t border-slate-800/50">
-                    <button onclick="resetProgress()" class="text-xs text-red-400 hover:text-red-300 flex items-center gap-1.5 transition-colors">
+                <div class="mt-4 pt-4 border-t border-slate-200 dark:border-slate-800">
+                    <button onclick="resetProgress()" class="text-xs text-red-500 hover:text-red-600 flex items-center gap-1.5 transition-colors font-bold">
                         <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
                         <span>אפס התקדמות שיעור</span>
                     </button>
@@ -208,117 +495,120 @@
         <!-- CONTENT DISPLAY AREA -->
         <section class="lg:col-span-9 flex flex-col gap-6">
 
-            <!-- STEP 1: INTRO (THE MYSTERY) -->
+            <!-- STEP 1: INTRO -->
             <div id="step-1" class="step-container space-y-6">
-                <div class="bg-gradient-to-r from-blue-950 to-slate-950 border border-blue-900/50 rounded-2xl p-6 md:p-8 relative overflow-hidden">
-                    <div class="absolute -right-20 -top-20 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
-                    <span class="bg-blue-900/60 border border-blue-400/30 text-blue-300 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-widest">משימת פתיחה מהפנטת</span>
+                <div class="panel p-6 md:p-8">
+                    <div class="panel-head">
+                        <h2>איך ההודעה הזו הגיעה אליך למסך?</h2>
+                        <span class="panel-tag mono">MISSION_01</span>
+                    </div>
                     
-                    <h2 class="text-2xl md:text-3xl font-black text-white mt-4 mb-3">איך ההודעה הזו הגיעה אליך למסך?</h2>
-                    <p class="text-slate-300 leading-relaxed text-base md:text-lg">
-                        ברגע זה ממש, מיליוני חתיכות קטנות של מידע רצות מתחת לאדמה, בתוך האוקיינוס, ועוברות דרך עשרות מחשבים שונים רק כדי שתוכל לראות את הדף הזה. <span class="text-blue-400 font-bold">לאן החבילות רצות? מי מכוון אותן? מה קורה כשאחת מהן הולכת לאיבוד?</span>
+                    <p class="leading-relaxed text-base md:text-lg mb-6">
+                        ברגע זה ממש, מיליוני חתיכות קטנות של מידע רצות מתחת לאדמה, בתוך האוקיינוס, ועוברות דרך עשרות מחשבים שונים רק כדי שתוכל לראות את הדף הזה. <span class="text-cyan-600 dark:text-cyan-400 font-bold">לאן החבילות רצות? מי מכוון אותן? מה קורה כשאחת מהן הולכת לאיבוד?</span>
                     </p>
 
-                    <div class="mt-8 bg-slate-900/90 border border-slate-800 p-6 rounded-xl">
-                        <h3 class="text-amber-400 font-bold mb-3 flex items-center gap-2">
+                    <div class="bg-slate-100 dark:bg-slate-900 border border-amber-500/30 p-6 rounded-2xl">
+                        <h3 class="text-amber-600 dark:text-amber-400 font-bold mb-3 flex items-center gap-2">
                             <i data-lucide="alert-triangle" class="w-5 h-5"></i>
                             ניסוי מחשבתי: חילוץ החבילה
                         </h3>
-                        <p class="text-slate-300 text-sm mb-4 leading-relaxed">
+                        <p class="text-sm mb-4 leading-relaxed">
                             תאר לעצמך ששלחת לחבר הודעת תמונה של "הכלב אכל לי את שיעורי הבית". התמונה חולקה ל-5 חלקים נפרדים. כל חלק נשלח בדרך אחרת בעולם.
                         </p>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <div class="bg-slate-950 p-4 rounded-lg border border-slate-800 text-center">
+                            <div class="bg-white dark:bg-slate-950 p-4 rounded-xl border border-slate-200 dark:border-slate-800 text-center shadow-sm">
                                 <span class="text-xl">🗺️</span>
-                                <h4 class="text-white font-bold mt-2 text-sm">חלק 1 עבר דרך אירופה</h4>
+                                <h4 class="font-bold mt-2 text-sm">חלק 1 עבר דרך אירופה</h4>
                             </div>
-                            <div class="bg-slate-950 p-4 rounded-lg border border-slate-800 text-center">
+                            <div class="bg-white dark:bg-slate-950 p-4 rounded-xl border border-slate-200 dark:border-slate-800 text-center shadow-sm">
                                 <span class="text-xl">🛰️</span>
-                                <h4 class="text-white font-bold mt-2 text-sm">חלק 2 עבר דרך לוויין בחלל</h4>
+                                <h4 class="font-bold mt-2 text-sm">חלק 2 עבר דרך לוויין בחלל</h4>
                             </div>
-                            <div class="bg-slate-950 p-4 rounded-lg border border-slate-800 text-center">
+                            <div class="bg-white dark:bg-slate-950 p-4 rounded-xl border border-slate-200 dark:border-slate-800 text-center shadow-sm">
                                 <span class="text-xl">🌊</span>
-                                <h4 class="text-white font-bold mt-2 text-sm">חלק 3 טבע בכבל תת-ימי</h4>
+                                <h4 class="font-bold mt-2 text-sm">חלק 3 טבע בכבל תת-ימי</h4>
                             </div>
                         </div>
                         
-                        <div class="mt-6 border-t border-slate-800 pt-4">
-                            <p class="text-xs text-slate-400 mb-3 font-bold">שאלה מהירה: מה לדעתך קורה לתמונה אצל החבר אם חלק 3 לא הגיע?</p>
+                        <div class="mt-6 border-t border-slate-200 dark:border-slate-800 pt-4">
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mb-3 font-bold">שאלה מהירה: מה לדעתך קורה לתמונה אצל החבר אם חלק 3 לא הגיע?</p>
                             <div class="flex flex-wrap gap-2">
-                                <button onclick="answerIntro(1)" class="bg-slate-950 hover:bg-slate-800 border border-slate-700 text-slate-300 text-xs px-4 py-2.5 rounded transition-all">הוא יראה חור שחור במקום חלק מהתמונה</button>
-                                <button onclick="answerIntro(2)" class="bg-slate-950 hover:bg-slate-800 border border-slate-700 text-slate-300 text-xs px-4 py-2.5 rounded transition-all">המחשב של החבר יבקש מהמחשב שלך לשלוח שוב רק את חלק 3</button>
-                                <button onclick="answerIntro(3)" class="bg-slate-950 hover:bg-slate-800 border border-slate-700 text-slate-300 text-xs px-4 py-2.5 rounded transition-all">שום דבר לא יעבוד והוא לא יקבל כלום</button>
+                                <button onclick="answerIntro(1)" class="bg-white dark:bg-slate-950 hover:bg-slate-200 dark:hover:bg-slate-800 border border-slate-300 dark:border-slate-700 text-xs px-4 py-2.5 rounded-xl transition-all font-semibold">הוא יראה חור שחור במקום חלק מהתמונה</button>
+                                <button onclick="answerIntro(2)" class="bg-white dark:bg-slate-950 hover:bg-slate-200 dark:hover:bg-slate-800 border border-slate-300 dark:border-slate-700 text-xs px-4 py-2.5 rounded-xl transition-all font-semibold">המחשב של החבר יבקש מהמחשב שלך לשלוח שוב רק את חלק 3</button>
+                                <button onclick="answerIntro(3)" class="bg-white dark:bg-slate-950 hover:bg-slate-200 dark:hover:bg-slate-800 border border-slate-300 dark:border-slate-700 text-xs px-4 py-2.5 rounded-xl transition-all font-semibold">שום דבר לא יעבוד והוא לא יקבל כלום</button>
                             </div>
-                            <div id="intro-feedback" class="mt-4 hidden p-3 rounded-lg text-sm font-semibold"></div>
+                            <div id="intro-feedback" class="mt-4 hidden p-3 rounded-xl text-sm font-semibold"></div>
                         </div>
                     </div>
                 </div>
                 <div class="flex justify-end">
-                    <button onclick="switchStep(2)" class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-6 py-3 rounded-xl flex items-center gap-2 transition-all">
+                    <button onclick="switchStep(2)" class="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white font-bold px-6 py-3 rounded-xl flex items-center gap-2 shadow-lg transition-all">
                         <span>נעבור לגלות את האמת</span>
                         <i data-lucide="arrow-left" class="w-5 h-5"></i>
                     </button>
                 </div>
             </div>
 
-            <!-- STEP 2: CONCEPT (WHAT IS A NETWORK REALLY?) -->
+            <!-- STEP 2: CONCEPT -->
             <div id="step-2" class="step-container space-y-6 hidden">
-                <div class="bg-slate-950 border border-slate-800/80 rounded-2xl p-6 md:p-8">
-                    <span class="text-emerald-400 text-xs font-bold uppercase tracking-wider">תיאוריה בגובה העיניים</span>
-                    <h2 class="text-2xl font-black text-white mt-2 mb-4">רשת תקשורת: המילון הלא רשמי</h2>
+                <div class="panel p-6 md:p-8">
+                    <div class="panel-head">
+                        <h2>רשת תקשורת: המילון הלא רשמי</h2>
+                        <span class="panel-tag mono">THEORY_STATION</span>
+                    </div>
                     
-                    <p class="text-slate-300 leading-relaxed mb-6">
+                    <p class="leading-relaxed mb-6">
                         אם נפשיט את כל המושגים המפחידים, רשת היא בסך הכל מערכת שמחברת בין **שני קצוות ומאפשרת להם להחליף מידע**. אבל בשביל לעשות את זה, אנחנו חייבים כמה שחקנים מרכזיים על המגרש:
                     </p>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="bg-slate-900 border border-slate-800/80 p-5 rounded-xl hover:border-blue-500/40 transition-all">
+                        <div class="bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-xl hover:border-cyan-500/50 transition-all">
                             <div class="flex items-center gap-3 mb-3">
-                                <div class="bg-blue-900/40 p-2 rounded-lg text-blue-400"><i data-lucide="laptop" class="w-6 h-6"></i></div>
-                                <h3 class="text-white font-black">מכשירי קצה (Host/End Device)</h3>
+                                <div class="bg-cyan-500/20 p-2 rounded-lg text-cyan-600 dark:text-cyan-400"><i data-lucide="laptop" class="w-6 h-6"></i></div>
+                                <h3 class="font-black">מכשירי קצה (Host/End Device)</h3>
                             </div>
-                            <p class="text-slate-400 text-sm leading-relaxed">
-                                המחשב שלך, הטלפון שלך, הטלוויזיה החכמה, ואפילו המקרר שמזמין חלב לבד. הם המקור של המידע או היעד שלו. הם איפה שהמשתמש נוגע.
+                            <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-400">
+                                המחשב שלך, הטלפון שלך, הטלוויזיה החכמה, ואפילו המקרר שמזמין חלב לבד. הם המקור של המידע או היעד שלו.
                             </p>
                         </div>
 
-                        <div class="bg-slate-900 border border-slate-800/80 p-5 rounded-xl hover:border-emerald-500/40 transition-all">
+                        <div class="bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-xl hover:border-emerald-500/50 transition-all">
                             <div class="flex items-center gap-3 mb-3">
-                                <div class="bg-emerald-900/40 p-2 rounded-lg text-emerald-400"><i data-lucide="cable" class="w-6 h-6"></i></div>
-                                <h3 class="text-white font-black">תווך תקשורת (Media)</h3>
+                                <div class="bg-emerald-500/20 p-2 rounded-lg text-emerald-600 dark:text-emerald-400"><i data-lucide="cable" class="w-6 h-6"></i></div>
+                                <h3 class="font-black">תווך תקשורת (Media)</h3>
                             </div>
-                            <p class="text-slate-400 text-sm leading-relaxed">
-                                החיבור הפיזי או האלחוטי. כבל נחושת (Ethernet), סיב אופטי שמעביר אור במהירות עצומה, או גלי רדיו באוויר (Wi-Fi). הצינור שבו המידע זורם.
+                            <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-400">
+                                החיבור הפיזי או האלחוטי. כבל נחושת (Ethernet), סיב אופטי שמעביר אור במהירות עצומה, או גלי רדיו באוויר (Wi-Fi).
                             </p>
                         </div>
 
-                        <div class="bg-slate-900 border border-slate-800/80 p-5 rounded-xl hover:border-purple-500/40 transition-all">
+                        <div class="bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-xl hover:border-purple-500/50 transition-all">
                             <div class="flex items-center gap-3 mb-3">
-                                <div class="bg-purple-900/40 p-2 rounded-lg text-purple-400"><i data-lucide="shuffle" class="w-6 h-6"></i></div>
-                                <h3 class="text-white font-black">מכשירי ביניים (Intermediary Devices)</h3>
+                                <div class="bg-purple-500/20 p-2 rounded-lg text-purple-600 dark:text-purple-400"><i data-lucide="shuffle" class="w-6 h-6"></i></div>
+                                <h3 class="font-black">מכשירי ביניים (Intermediary Devices)</h3>
                             </div>
-                            <p class="text-slate-400 text-sm leading-relaxed">
-                                הנתב (Router) או המתג (Switch). הם המדריכים של הצומת. הם מקבלים חבילת מידע ומחליטים בשבריר שנייה לאיזה כיוון לשלוח אותה כדי שתגיע ליעד בצורה המהירה ביותר.
+                            <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-400">
+                                הנתב (Router) או המתג (Switch). הם המדריכים של הצומת. מקבלים חבילת מידע ומחליטים לאיזה כיוון לשלוח אותה.
                             </p>
                         </div>
 
-                        <div class="bg-slate-900 border border-slate-800/80 p-5 rounded-xl hover:border-amber-500/40 transition-all">
+                        <div class="bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-xl hover:border-amber-500/50 transition-all">
                             <div class="flex items-center gap-3 mb-3">
-                                <div class="bg-amber-900/40 p-2 rounded-lg text-amber-400"><i data-lucide="handshake" class="w-6 h-6"></i></div>
-                                <h3 class="text-white font-black">פרוטוקול (Protocol)</h3>
+                                <div class="bg-amber-500/20 p-2 rounded-lg text-amber-600 dark:text-amber-400"><i data-lucide="handshake" class="w-6 h-6"></i></div>
+                                <h3 class="font-black">פרוטוקול (Protocol)</h3>
                             </div>
-                            <p class="text-slate-400 text-sm leading-relaxed">
+                            <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-400">
                                 ספר החוקים. ללא הסכמה מראש, שום מכשיר לא יבין את השני. פרוטוקול מגדיר מתי מדברים, באיזו שפה, ומה עושים כשיש שגיאה.
                             </p>
                         </div>
                     </div>
                 </div>
                 <div class="flex justify-between">
-                    <button onclick="switchStep(1)" class="bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 font-bold px-5 py-3 rounded-xl flex items-center gap-2 transition-all">
+                    <button onclick="switchStep(1)" class="bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 font-bold px-5 py-3 rounded-xl flex items-center gap-2 transition-all">
                         <i data-lucide="arrow-right" class="w-5 h-5"></i>
                         <span>חזרה לפתיחה</span>
                     </button>
-                    <button onclick="switchStep(3)" class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-6 py-3 rounded-xl flex items-center gap-2 transition-all">
+                    <button onclick="switchStep(3)" class="bg-gradient-to-r from-red-600 to-red-700 text-white font-bold px-6 py-3 rounded-xl flex items-center gap-2 shadow-lg transition-all">
                         <span>לסימולטור המעשי!</span>
                         <i data-lucide="arrow-left" class="w-5 h-5"></i>
                     </button>
@@ -327,84 +617,79 @@
 
             <!-- STEP 3: INTERACTIVE ROUTING SIMULATOR -->
             <div id="step-3" class="step-container space-y-6 hidden">
-                <div class="bg-slate-950 border border-slate-800 rounded-2xl p-6 md:p-8">
-                    <div class="flex justify-between items-start flex-wrap gap-4">
+                <div class="panel p-6 md:p-8">
+                    <div class="panel-head">
                         <div>
-                            <span class="bg-purple-900/60 border border-purple-400/30 text-purple-300 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-widest">תחנת "נסה בעצמך"</span>
-                            <h2 class="text-2xl font-black text-white mt-3">סימולטור ניתוב: החבילה הראשונה שלי</h2>
-                            <p class="text-slate-400 text-sm mt-1">המשימה שלך: לחבר את הקווים ולנתב את חבילת המידע הירוקה מהלפטופ שלך אל שרת התקליטים של ספוטיפיי!</p>
+                            <h2>סימולטור ניתוב: החבילה הראשונה שלי</h2>
+                            <p class="text-slate-500 dark:text-slate-400 text-xs mt-1">לחבר את הקווים ולנתב את חבילת המידע הירוקה מהלפטופ אל שרת ספוטיפיי!</p>
                         </div>
-                        <div class="bg-slate-900 border border-slate-800 px-4 py-2 rounded-lg text-xs font-mono text-emerald-400">
-                            מטרה: להשיג 100% רוחב פס ללא שגיאות
-                        </div>
+                        <span class="panel-tag mono">GOAL: 100% BANDWIDTH</span>
                     </div>
 
                     <!-- Simulator Playground -->
-                    <div class="mt-8 bg-slate-900 rounded-xl p-4 md:p-6 border border-slate-800 relative min-h-[400px] flex flex-col justify-between overflow-hidden">
+                    <div class="mt-6 bg-slate-100 dark:bg-slate-900 rounded-2xl p-4 md:p-6 border border-slate-200 dark:border-slate-800 relative min-h-[380px] flex flex-col justify-between overflow-hidden">
                         
-                        <!-- Grid elements representing nodes -->
                         <div class="grid grid-cols-3 gap-6 md:gap-12 relative z-10 my-auto">
                             
                             <!-- Source Column -->
                             <div class="flex flex-col justify-center items-center gap-4">
-                                <div id="node-laptop" class="w-20 h-20 bg-slate-950 border-2 border-blue-500 rounded-xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-slate-900 transition-all glow-active shadow-lg shadow-blue-500/20">
-                                    <i data-lucide="laptop" class="w-8 h-8 text-blue-400"></i>
-                                    <span class="text-[10px] font-bold mt-1 text-slate-300">לפטופ (מקור)</span>
+                                <div id="node-laptop" class="w-20 h-20 bg-white dark:bg-slate-950 border-2 border-cyan-500 rounded-2xl flex flex-col items-center justify-center text-center shadow-lg">
+                                    <i data-lucide="laptop" class="w-8 h-8 text-cyan-600 dark:text-cyan-400"></i>
+                                    <span class="text-[10px] font-bold mt-1">לפטופ (מקור)</span>
                                 </div>
                             </div>
 
                             <!-- Intermediary Column (Routers) -->
                             <div class="flex flex-col justify-around gap-6">
                                 <!-- Router A -->
-                                <div id="node-router-a" onclick="selectRouter('A')" class="w-24 p-2 bg-slate-950 border border-slate-700 hover:border-purple-400 rounded-xl flex flex-col items-center justify-center text-center cursor-pointer transition-all">
-                                    <i data-lucide="router" class="w-7 h-7 text-slate-400" id="icon-router-a"></i>
-                                    <span class="text-xs font-bold mt-1 text-white">נתב צפוני (A)</span>
-                                    <span class="text-[10px] text-emerald-400 font-mono mt-1" id="ping-a">עומס: נמוך</span>
+                                <div id="node-router-a" onclick="selectRouter('A')" class="w-28 p-3 bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 hover:border-purple-500 rounded-2xl flex flex-col items-center justify-center text-center cursor-pointer transition-all shadow-sm">
+                                    <i data-lucide="router" class="w-7 h-7 text-slate-500" id="icon-router-a"></i>
+                                    <span class="text-xs font-bold mt-1">נתב צפוני (A)</span>
+                                    <span class="text-[10px] text-emerald-600 dark:text-emerald-400 font-mono mt-1" id="ping-a">עומס: נמוך</span>
                                 </div>
                                 <!-- Router B -->
-                                <div id="node-router-b" onclick="selectRouter('B')" class="w-24 p-2 bg-slate-950 border border-slate-700 hover:border-purple-400 rounded-xl flex flex-col items-center justify-center text-center cursor-pointer transition-all">
-                                    <i data-lucide="router" class="w-7 h-7 text-slate-400" id="icon-router-b"></i>
-                                    <span class="text-xs font-bold mt-1 text-white">נתב דרומי (B)</span>
-                                    <span class="text-[10px] text-red-400 font-mono mt-1" id="ping-b">עומס: גבוה!</span>
+                                <div id="node-router-b" onclick="selectRouter('B')" class="w-28 p-3 bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 hover:border-purple-500 rounded-2xl flex flex-col items-center justify-center text-center cursor-pointer transition-all shadow-sm">
+                                    <i data-lucide="router" class="w-7 h-7 text-slate-500" id="icon-router-b"></i>
+                                    <span class="text-xs font-bold mt-1">נתב דרומי (B)</span>
+                                    <span class="text-[10px] text-red-500 font-mono mt-1" id="ping-b">עומס: גבוה!</span>
                                 </div>
                             </div>
 
                             <!-- Destination Column -->
                             <div class="flex flex-col justify-center items-center">
-                                <div id="node-server" class="w-20 h-20 bg-slate-950 border-2 border-slate-700 rounded-xl flex flex-col items-center justify-center text-center">
-                                    <i data-lucide="server" class="w-8 h-8 text-slate-400" id="icon-server"></i>
-                                    <span class="text-[10px] font-bold mt-1 text-slate-400">ספוטיפיי (יעד)</span>
+                                <div id="node-server" class="w-20 h-20 bg-white dark:bg-slate-950 border-2 border-slate-300 dark:border-slate-700 rounded-2xl flex flex-col items-center justify-center text-center shadow-sm">
+                                    <i data-lucide="server" class="w-8 h-8 text-slate-500" id="icon-server"></i>
+                                    <span class="text-[10px] font-bold mt-1 text-slate-500">ספוטיפיי (יעד)</span>
                                 </div>
                             </div>
 
                         </div>
 
-                        <!-- Info and Actions -->
-                        <div class="border-t border-slate-800 pt-4 mt-6 flex flex-col sm:flex-row justify-between items-center gap-4 relative z-10 bg-slate-900/95 rounded-lg p-2">
-                            <div class="text-xs text-slate-300 text-center sm:text-right">
+                        <!-- Actions -->
+                        <div class="border-t border-slate-200 dark:border-slate-800 pt-4 mt-6 flex flex-col sm:flex-row justify-between items-center gap-4 relative z-10 bg-white/80 dark:bg-slate-950/80 rounded-xl p-3">
+                            <div class="text-xs text-center sm:text-right">
                                 <p class="font-bold">הוראות שליטה מנכ"ל הרשת:</p>
-                                <p class="text-slate-400">לחץ על אחד הנתבים (A או B) כדי לכוון אליו את זרם החבילות מתוך הלפטופ שלך, ואז לחץ על שיגור!</p>
+                                <p class="text-slate-500 dark:text-slate-400">לחץ על אחד הנתבים (A או B) כדי לכוון אליו את זרם החבילות, ואז לחץ על שיגור!</p>
                             </div>
-                            <div class="flex gap-2">
-                                <button id="btn-fire-packet" onclick="firePacket()" class="bg-purple-600 hover:bg-purple-500 text-white font-bold px-4 py-2 rounded-lg text-sm transition-all flex items-center gap-1.5 disabled:opacity-50" disabled>
-                                    <i data-lucide="send" class="w-4 h-4"></i>
-                                    <span>שגר חבילה</span>
-                                </button>
-                            </div>
+                            <button id="btn-fire-packet" onclick="firePacket()" class="bg-purple-600 hover:bg-purple-700 text-white font-bold px-5 py-2.5 rounded-xl text-sm transition-all flex items-center gap-1.5 disabled:opacity-40" disabled>
+                                <i data-lucide="send" class="w-4 h-4"></i>
+                                <span>שגר חבילה</span>
+                            </button>
                         </div>
 
-                        <!-- Inline packet visual effect wrapper -->
-                        <div id="packet-visual" class="absolute w-4 h-4 bg-emerald-400 rounded-full blur-[1px] shadow-lg shadow-emerald-400/80 hidden z-20 transition-all duration-1000 ease-in-out"></div>
+                        <!-- Inline packet visual effect -->
+                        <div id="packet-visual" class="absolute w-4 h-4 bg-emerald-500 rounded-full blur-[1px] shadow-lg shadow-emerald-500/80 hidden z-20 transition-all duration-1000 ease-in-out"></div>
                     </div>
 
-                    <div id="sim-feedback" class="mt-4 hidden p-4 rounded-xl text-sm font-bold flex items-center gap-3"></div>
+                    <div id="sim-feedback" class="mt-4 hidden p-4 rounded-2xl text-sm font-bold flex items-center gap-3"></div>
                 </div>
+
                 <div class="flex justify-between">
-                    <button onclick="switchStep(2)" class="bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 font-bold px-5 py-3 rounded-xl flex items-center gap-2 transition-all">
+                    <button onclick="switchStep(2)" class="bg-slate-200 dark:bg-slate-800 font-bold px-5 py-3 rounded-xl flex items-center gap-2 transition-all">
                         <i data-lucide="arrow-right" class="w-5 h-5"></i>
                         <span>חזרה להסבר</span>
                     </button>
-                    <button id="btn-to-step-4" onclick="switchStep(4)" class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-6 py-3 rounded-xl flex items-center gap-2 transition-all disabled:opacity-40 disabled:pointer-events-none" disabled>
+                    <button id="btn-to-step-4" onclick="switchStep(4)" class="bg-gradient-to-r from-red-600 to-red-700 text-white font-bold px-6 py-3 rounded-xl flex items-center gap-2 shadow-lg transition-all disabled:opacity-40" disabled>
                         <span>המשך לרגע ה-AI</span>
                         <i data-lucide="arrow-left" class="w-5 h-5"></i>
                     </button>
@@ -413,60 +698,51 @@
 
             <!-- STEP 4: AI CONNECT-BOT -->
             <div id="step-4" class="step-container space-y-6 hidden">
-                <div class="bg-slate-950 border border-slate-800 rounded-2xl p-6 md:p-8">
-                    <div class="flex justify-between items-start flex-wrap gap-4 border-b border-slate-800 pb-4">
+                <div class="panel p-6 md:p-8">
+                    <div class="panel-head">
                         <div>
-                            <span class="bg-amber-900/60 border border-amber-400/30 text-amber-300 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-widest">רגע ה-AI</span>
-                            <h2 class="text-2xl font-black text-white mt-3">בוט המעבדה: Connect-Bot</h2>
-                            <p class="text-slate-400 text-sm mt-1">אני לא בוחן אותך. בוט ה-AI שלנו בודק אם הבנת את השיעור דרך שיחה חברית פתוחה!</p>
+                            <h2>בוט המעבדה: Connect-Bot</h2>
+                            <p class="text-slate-500 dark:text-slate-400 text-xs mt-1">בוט ה-AI שלנו בודק אם הבנת את השיעור דרך שיחה פתוחה!</p>
                         </div>
-                        <div class="bg-slate-900/80 border border-slate-800 px-3 py-1 rounded text-xs text-yellow-400 code-font flex items-center gap-2">
-                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                            <span>STATUS: LIVE_ASSISTANT</span>
-                        </div>
+                        <span class="panel-tag mono">STATUS: LIVE_ASSISTANT</span>
                     </div>
 
-                    <!-- Simulated Chat Interface -->
-                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mt-6">
-                        <!-- AI Identity -->
-                        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-4 text-center">
-                            <div class="w-16 h-16 bg-blue-900/40 rounded-full border border-blue-500 flex items-center justify-center mx-auto overflow-hidden">
+                    <!-- Chat Interface -->
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mt-4">
+                        <div class="bg-slate-100 dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-4 text-center">
+                            <div class="w-16 h-16 bg-red-500/20 rounded-full border border-red-500 flex items-center justify-center mx-auto overflow-hidden">
                                 <img src="https://lh3.googleusercontent.com/d/1fzqv93VKIW_VT8-e1HdJxBmbU2sFnwlb" alt="Avatar" class="w-full h-full object-cover">
                             </div>
                             <div>
-                                <h3 class="font-bold text-white text-sm">הנחיות בוט-הרשת</h3>
-                                <p class="text-xs text-slate-400 mt-1">מערכת ה-AI המקומית בוחנת את הבנת המושגים שלך.</p>
+                                <h3 class="font-bold text-sm">הנחיות בוט-הרשת</h3>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">בוחן את הבנת המושגים שלך.</p>
                             </div>
-                            <div class="bg-slate-950 p-2.5 rounded border border-slate-800 text-right">
-                                <span class="text-[10px] text-slate-500 block">משימה פתוחה:</span>
-                                <span class="text-xs text-amber-400">תגיד לבוט במילים שלך מה ההבדל בין מחשב קצה לבין ראוטר.</span>
+                            <div class="bg-white dark:bg-slate-950 p-3 rounded-xl border border-slate-200 dark:border-slate-800 text-right">
+                                <span class="text-[10px] text-slate-400 block font-bold">משימה פתוחה:</span>
+                                <span class="text-xs text-amber-600 dark:text-amber-400 font-semibold">תגיד לבוט במילים שלך מה ההבדל בין מחשב קצה לבין ראוטר.</span>
                             </div>
                         </div>
 
-                        <!-- Chat Area -->
-                        <div class="md:col-span-3 flex flex-col h-[350px] bg-slate-900 rounded-xl border border-slate-800 overflow-hidden">
-                            <!-- Messages -->
+                        <div class="md:col-span-3 flex flex-col h-[350px] bg-slate-100 dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden">
                             <div id="chat-messages" class="flex-grow overflow-y-auto p-4 space-y-3 flex flex-col">
-                                <!-- Bot Greeting -->
-                                <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 max-w-[85%] self-start text-xs text-slate-300">
-                                    <span class="text-[10px] font-bold text-blue-400 block mb-1">CONNECT_BOT // </span>
+                                <div class="bg-white dark:bg-slate-950 p-3.5 rounded-2xl border border-slate-200 dark:border-slate-800 max-w-[85%] self-start text-xs">
+                                    <span class="text-[10px] font-bold text-cyan-600 dark:text-cyan-400 block mb-1">CONNECT_BOT // </span>
                                     שלום לך! אני הבוט שיעזור לך לוודא שאתה לא יוצא מכאן בלי מושג. 🚀 
                                     <br><br>
                                     אז תגיד לי בשפה חופשית שלך: <b>מה ההבדל בין מחשב קצה (לפטופ, טלפון) לנתב/ראוטר בתוך רשת תקשורת?</b>
                                 </div>
                             </div>
                             
-                            <!-- Input -->
-                            <div class="p-3 border-t border-slate-800 bg-slate-950 flex gap-2">
-                                <input type="text" id="chat-input" onkeypress="handleChatKey(event)" placeholder="הקלד תשובה או שאלה לבוט..." class="flex-grow bg-slate-900 text-white border border-slate-800 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-blue-500">
-                                <button onclick="sendChatMessage()" class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-1.5 transition-all">
+                            <div class="p-3 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 flex gap-2">
+                                <input type="text" id="chat-input" onkeypress="handleChatKey(event)" placeholder="הקלד תשובה או שאלה לבוט..." class="flex-grow bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-xl px-4 py-2 text-sm focus:outline-none focus:border-red-500">
+                                <button onclick="sendChatMessage()" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-xl text-sm font-bold flex items-center gap-1.5 transition-all shadow-md">
                                     <i data-lucide="send" class="w-4 h-4"></i>
                                 </button>
                             </div>
                         </div>
                     </div>
 
-                    <div id="ai-bonus-alert" class="mt-4 hidden bg-yellow-950/40 border border-yellow-500/30 text-yellow-300 p-4 rounded-xl flex items-center justify-between">
+                    <div id="ai-bonus-alert" class="mt-4 hidden bg-amber-500/10 border border-amber-500/30 text-amber-700 dark:text-amber-300 p-4 rounded-2xl flex items-center justify-between">
                         <div class="flex items-center gap-3">
                             <span class="text-xl">🏆</span>
                             <div>
@@ -474,42 +750,43 @@
                                 <p class="text-xs opacity-80">דיברת עם בוט ה-AI והוכחת הבנה איכותית במבנה הרשת.</p>
                             </div>
                         </div>
-                        <span class="font-mono text-xs text-yellow-400 font-bold">+50 XP</span>
+                        <span class="font-mono text-xs font-bold bg-amber-500/20 px-3 py-1 rounded-full">+50 XP</span>
                     </div>
-
                 </div>
+
                 <div class="flex justify-between">
-                    <button onclick="switchStep(3)" class="bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 font-bold px-5 py-3 rounded-xl flex items-center gap-2 transition-all">
+                    <button onclick="switchStep(3)" class="bg-slate-200 dark:bg-slate-800 font-bold px-5 py-3 rounded-xl flex items-center gap-2 transition-all">
                         <i data-lucide="arrow-right" class="w-5 h-5"></i>
                         <span>חזרה למעבדה</span>
                     </button>
-                    <button id="btn-to-step-5" onclick="switchStep(5)" class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-6 py-3 rounded-xl flex items-center gap-2 transition-all disabled:opacity-40 disabled:pointer-events-none" disabled>
+                    <button id="btn-to-step-5" onclick="switchStep(5)" class="bg-gradient-to-r from-red-600 to-red-700 text-white font-bold px-6 py-3 rounded-xl flex items-center gap-2 shadow-lg transition-all disabled:opacity-40" disabled>
                         <span>לסיום וסגירת השיעור</span>
                         <i data-lucide="arrow-left" class="w-5 h-5"></i>
                     </button>
                 </div>
             </div>
 
-            <!-- STEP 5: REFLECTION & TEAMWORK -->
+            <!-- STEP 5: REFLECTION -->
             <div id="step-5" class="step-container space-y-6 hidden">
-                <div class="bg-slate-950 border border-slate-800 rounded-2xl p-6 md:p-8">
-                    <span class="text-pink-400 text-xs font-bold uppercase tracking-wider">משוב עמיתים וסגירת דוח</span>
-                    <h2 class="text-2xl font-black text-white mt-2 mb-4">תעודת ההאקר שלך מוכנה!</h2>
+                <div class="panel p-6 md:p-8">
+                    <div class="panel-head">
+                        <h2>תעודת ההאקר שלך מוכנה!</h2>
+                        <span class="panel-tag mono">FINAL_REPORT</span>
+                    </div>
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <!-- Reflection form -->
-                        <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-4">
-                            <h3 class="font-bold text-white text-base">דוח רפלקציה עצמית למורה</h3>
-                            <p class="text-xs text-slate-400">השלם את המחשבות שלך על השיעור והמידע הזה יישלח למורה שלך בקליק.</p>
+                        <div class="bg-slate-100 dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-4">
+                            <h3 class="font-bold text-base">דוח רפלקציה עצמית למורה</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400">השלם את המחשבות שלך על השיעור והמידע הזה יישלח למורה שלך בקליק.</p>
                             
                             <div class="space-y-3">
                                 <div>
-                                    <label class="block text-xs text-slate-300 mb-1">1. מהו הדבר החדש שהכי הפתיע אותך בשיעור היום?</label>
-                                    <textarea id="reflection-q1" class="w-full bg-slate-950 border border-slate-800 rounded p-2.5 text-sm text-white focus:outline-none focus:border-purple-500" rows="2" placeholder="למשל: לא ידעתי שהמידע שלי נחתך לחלקים קטנים..."></textarea>
+                                    <label class="block text-xs text-slate-600 dark:text-slate-400 mb-1 font-semibold">1. מהו הדבר החדש שהכי הפתיע אותך בשיעור היום?</label>
+                                    <textarea id="reflection-q1" class="w-full bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-xl p-2.5 text-sm focus:outline-none focus:border-red-500" rows="2" placeholder="למשל: לא ידעתי שהמידע שלי נחתך לחלקים קטנים..."></textarea>
                                 </div>
                                 <div>
-                                    <label class="block text-xs text-slate-300 mb-1">2. כמה בטוח אתה מרגיש לעבור לשיעור הבא (1-5)?</label>
-                                    <select id="reflection-q2" class="w-full bg-slate-950 border border-slate-800 rounded p-2.5 text-sm text-white focus:outline-none focus:border-purple-500">
+                                    <label class="block text-xs text-slate-600 dark:text-slate-400 mb-1 font-semibold">2. כמה בטוח אתה מרגיש לעבור לשיעור הבא (1-5)?</label>
+                                    <select id="reflection-q2" class="w-full bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-xl p-2.5 text-sm focus:outline-none focus:border-red-500">
                                         <option value="5">5 - מבין מעולה, מוכן לטרוף את האינטרנט</option>
                                         <option value="4">4 - מבין טוב, קצת תרגול נוסף יעזור</option>
                                         <option value="3">3 - מבין חצי חצי, עדיין מבולבל מחלק מהמונחים</option>
@@ -520,27 +797,26 @@
                             </div>
                         </div>
 
-                        <!-- Share card and report exports -->
-                        <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 flex flex-col justify-between">
+                        <div class="bg-slate-100 dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 flex flex-col justify-between">
                             <div>
-                                <h3 class="font-bold text-white text-base mb-2">שתף הצלחה עם החברים</h3>
-                                <p class="text-xs text-slate-400 mb-4">העתק את קוד ההישג שלך ושלח לחבר או בקבוצת הכיתה כדי להשוות תוצאות!</p>
+                                <h3 class="font-bold text-base mb-2">שתף הצלחה עם החברים</h3>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 mb-4">העתק את קוד ההישג שלך ושלח לחבר או בקבוצת הכיתה כדי להשוות תוצאות!</p>
                                 
-                                <div class="bg-slate-950 p-3 rounded border border-slate-800 code-font text-xs flex justify-between items-center text-emerald-400">
+                                <div class="bg-white dark:bg-slate-950 p-3 rounded-xl border border-slate-300 dark:border-slate-800 code-font text-xs flex justify-between items-center text-emerald-600 dark:text-emerald-400">
                                     <span id="share-code">NET-ACAD-CLASS1-XP120</span>
-                                    <button onclick="copyShareCode()" class="text-blue-400 hover:text-blue-300 transition-colors flex items-center gap-1">
+                                    <button onclick="copyShareCode()" class="text-cyan-600 dark:text-cyan-400 font-bold hover:underline flex items-center gap-1">
                                         <i data-lucide="copy" class="w-3.5 h-3.5"></i>
                                         <span>העתק</span>
                                     </button>
                                 </div>
                             </div>
 
-                            <div class="mt-6 pt-6 border-t border-slate-800/80 space-y-3">
-                                <button onclick="exportTeacherReport()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 rounded-lg text-sm transition-all flex items-center justify-center gap-2">
+                            <div class="mt-6 pt-6 border-t border-slate-200 dark:border-slate-800 space-y-3">
+                                <button onclick="exportTeacherReport()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl text-sm transition-all flex items-center justify-center gap-2 shadow-lg">
                                     <i data-lucide="download" class="w-4 h-4"></i>
                                     <span>ייצא דוח מסכם למורה</span>
                                 </button>
-                                <p class="text-[10px] text-slate-400 text-center">בלחיצה כאן יורד קובץ טקסט פשוט שמכיל את התשובות שלך, שאותו תוכל לשלוח למורה.</p>
+                                <p class="text-[10px] text-slate-500 text-center">בלחיצה כאן יורד קובץ טקסט פשוט שמכיל את התשובות שלך, שאותו תוכל לשלוח למורה.</p>
                             </div>
                         </div>
                     </div>
@@ -551,21 +827,41 @@
     </main>
 
     <!-- FOOTER -->
-    <footer class="border-t border-slate-900 bg-slate-950 py-4 px-4 text-center">
-        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-slate-500">
-            <p>© 2026 NET_ACADEMY - הדרך שלך לרשתות ותקשורת מחשבים</p>
+    <footer class="mt-12 bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 py-6 px-4 text-center">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 text-xs font-mono text-slate-500">
+            <p>© 2026 אקדמיית האחוואנים // NET_ACADEMY - הדרך שלך לרשתות ותקשורת</p>
             <div class="flex gap-4">
                 <span>שיעור 1 מתוך 10</span>
                 <span>•</span>
-                <span class="text-blue-400">RTL תומך באופן מלא</span>
+                <span class="text-cyan-600 dark:text-cyan-400">RTL FULL SUPPORT</span>
             </div>
         </div>
     </footer>
 
-    <!-- Notification system toast -->
-    <div id="toast" class="fixed bottom-6 right-6 bg-slate-900 border border-blue-500 text-white px-4 py-3 rounded-xl shadow-2xl z-50 transform translate-y-20 opacity-0 transition-all duration-300 flex items-center gap-3">
-        <i data-lucide="info" class="w-5 h-5 text-blue-400" id="toast-icon"></i>
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="fixed bottom-6 right-6 bg-slate-900 border border-cyan-500 text-white px-4 py-3 rounded-xl shadow-2xl z-50 transform translate-y-20 opacity-0 transition-all duration-300 flex items-center gap-3">
+        <i data-lucide="info" class="w-5 h-5 text-cyan-400" id="toast-icon"></i>
         <span id="toast-message" class="text-sm"></span>
+    </div>
+
+    <!-- WIDGET BOT (AHWANIM BOT) -->
+    <div class="bot-widget collapsed" id="botWidget" onclick="expandBot(event)">
+        <div class="bot-header" onclick="toggleBot(event)">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>NODE: DAN-GPT // ONLINE</span>
+            <button class="bot-close" onclick="toggleBot(event)" title="סגור/פתח">✕</button>
+        </div>
+
+        <div class="bot-body">
+            <img class="bot-avatar" src="https://lh3.googleusercontent.com/d/1fzqv93VKIW_VT8-e1HdJxBmbU2sFnwlb" alt="דן GPT עוזר הפרויקט">
+
+            <p class="font-bold text-[10px] text-center mb-1">שלום תלמידים 👋</p>
+            <p class="text-[9px] text-center text-slate-500 dark:text-slate-400 mb-2">אני דן GPT, עוזר השיעור והפרויקט שלכם. אפשר להיעזר בי 24/7 בלחיצה כאן!</p>
+
+            <a class="bot-btn" href="https://gemini.google.com/gem/13FFjtbW5S3yg0EE1qBEQiP8GEMwoepKu?usp=sharing" target="_blank" rel="noopener">
+                $ connect --gem dan-gpt
+            </a>
+        </div>
     </div>
 
     <!-- MAIN JAVASCRIPT LOGIC -->
@@ -574,7 +870,6 @@
         let xp = 0;
         let activeStep = 1;
         let selectedRouterNode = null;
-        let routerALoaded = false;
         let hasPassedSim = false;
         let hasPassedAi = false;
         let currentLevel = "טירון רשתות";
@@ -595,6 +890,26 @@
             loadSavedProgress();
             addLog("יוזם האזנה לאירועים...");
         };
+
+        // Dark Mode Toggle
+        function toggleDark() {
+            document.body.classList.toggle("dark");
+            const btn = document.getElementById("darkToggleBtn");
+            btn.textContent = document.body.classList.contains("dark") ? "☀️" : "🌙";
+        }
+
+        // Floating Bot Expand/Collapse
+        function toggleBot(evt){
+            evt.stopPropagation();
+            document.getElementById("botWidget").classList.toggle("collapsed");
+        }
+
+        function expandBot(evt){
+            const widget = document.getElementById("botWidget");
+            if (widget.classList.contains("collapsed")) {
+                widget.classList.remove("collapsed");
+            }
+        }
 
         // LocalStorage logic
         function loadSavedProgress() {
@@ -647,7 +962,6 @@
                 document.getElementById('reflection-q1').value = "";
                 document.getElementById('reflection-q2').selectedIndex = 0;
                 
-                // Reset SIM elements
                 document.getElementById('btn-to-step-4').disabled = true;
                 document.getElementById('btn-to-step-5').disabled = true;
                 document.getElementById('sim-feedback').classList.add('hidden');
@@ -655,14 +969,13 @@
                 
                 const simA = document.getElementById('node-router-a');
                 const simB = document.getElementById('node-router-b');
-                simA.className = simA.className.replace('border-purple-500 bg-purple-950/20', 'border-slate-700');
-                simB.className = simB.className.replace('border-purple-500 bg-purple-950/20', 'border-slate-700');
+                simA.classList.remove('border-purple-500', 'bg-purple-500/10');
+                simB.classList.remove('border-purple-500', 'bg-purple-500/10');
                 document.getElementById('btn-fire-packet').disabled = true;
 
-                // Reset Chat
                 document.getElementById('chat-messages').innerHTML = `
-                    <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 max-w-[85%] self-start text-xs text-slate-300">
-                        <span class="text-[10px] font-bold text-blue-400 block mb-1">CONNECT_BOT // </span>
+                    <div class="bg-white dark:bg-slate-950 p-3.5 rounded-2xl border border-slate-200 dark:border-slate-800 max-w-[85%] self-start text-xs">
+                        <span class="text-[10px] font-bold text-cyan-600 dark:text-cyan-400 block mb-1">CONNECT_BOT // </span>
                         שלום לך! אני הבוט שיעזור לך לוודא שאתה לא יוצא מכאן בלי מושג. 🚀 
                         <br><br>
                         אז תגיד לי בשפה חופשית שלך: <b>מה ההבדל בין מחשב קצה (לפטופ, טלפון) לנתב/ראוטר בתוך רשת תקשורת?</b>
@@ -677,20 +990,18 @@
 
         // Navigation between steps
         function switchStep(stepNum) {
-            // Hide all steps
             for (let i = 1; i <= 5; i++) {
                 document.getElementById(`step-${i}`).classList.add('hidden');
                 const btn = document.getElementById(`btn-step-${i}`);
                 if (btn) {
-                    btn.className = "w-full text-right flex items-center justify-between p-3 rounded-lg bg-slate-900/40 border border-slate-800 text-slate-400 hover:bg-slate-900 hover:text-slate-200 transition-all";
+                    btn.className = "w-full text-right flex items-center justify-between p-3 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-cyan-600 transition-all";
                 }
             }
 
-            // Show active step
             document.getElementById(`step-${stepNum}`).classList.remove('hidden');
             const activeBtn = document.getElementById(`btn-step-${stepNum}`);
             if (activeBtn) {
-                activeBtn.className = "w-full text-right flex items-center justify-between p-3 rounded-lg bg-blue-950/30 border border-blue-500/40 text-blue-300 transition-all font-bold";
+                activeBtn.className = "w-full text-right flex items-center justify-between p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-red-600 dark:text-red-400 transition-all font-bold";
             }
 
             activeStep = stepNum;
@@ -698,14 +1009,12 @@
             addLog(`מעבר לשלב ${stepNum}: המערכת מוכנה.`);
         }
 
-        // Helper: Add logs to sidebar console
         function addLog(text) {
             const time = new Date().toLocaleTimeString('he-IL', { hour12: false });
             systemLog.innerHTML += `<p>[${time}] ${text}</p>`;
             systemLog.scrollTop = systemLog.scrollHeight;
         }
 
-        // Helper: Toast notifications
         function showToast(message) {
             toastMsg.innerText = message;
             toastEl.classList.remove('translate-y-20', 'opacity-0');
@@ -717,12 +1026,10 @@
             }, 3000);
         }
 
-        // Level and XP management
         function addXP(amount) {
             xp += amount;
             xpCounter.innerText = xp;
             
-            // Check levels
             if (xp >= 150) {
                 currentLevel = "מנהל רשתות מומחה";
                 levelBar.style.width = "100%";
@@ -747,64 +1054,54 @@
             document.getElementById('share-code').innerText = `NET-ACAD-CLASS1-XP${xp}-${currentLevel.replace(/ /g, '_')}`;
         }
 
-        // STEP 1: Intro Quiz Event
+        // STEP 1 Quiz
         function answerIntro(choice) {
             const feedback = document.getElementById('intro-feedback');
-            feedback.classList.remove('hidden', 'bg-red-950/40', 'text-red-300', 'bg-emerald-950/40', 'text-emerald-300');
+            feedback.classList.remove('hidden', 'bg-red-500/20', 'text-red-600', 'dark:text-red-400', 'bg-emerald-500/20', 'text-emerald-600', 'dark:text-emerald-400');
             
             if (choice === 2) {
-                feedback.className += ' bg-emerald-950/40 text-emerald-300 p-3 rounded-lg text-sm';
+                feedback.className += ' bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30';
                 feedback.innerHTML = `🌟 <b>נכון מאוד!</b> רשתות תקשורת חכמות יודעות לזהות שגיאות, ולהורות למקור לשלוח מחדש רק את פיסות המידע החסרות כדי להשלים את התמונה במלואה. לזה קוראים 'פרוטוקול אמין'!`;
                 addXP(20);
                 addLog("בוצע מענה נכון על חידון הפתיחה.");
             } else if (choice === 1) {
-                feedback.className += ' bg-red-950/40 text-red-300 p-3 rounded-lg text-sm';
-                feedback.innerHTML = `❌ <b>כמעט נכון!</b> זה אמנם קורה בשידורים חיים (כמו זום שנתקע קצת), אבל בדפדפנים והודעות רגילות יש מנגנון אמינות מתוחכם שמבקש את החלק החסר מחדש. בוא נלמד איך זה עובד.`;
+                feedback.className += ' bg-red-500/20 text-red-600 dark:text-red-400 border border-red-500/30';
+                feedback.innerHTML = `❌ <b>כמעט נכון!</b> זה אמנם קורה בשידורים חיים (כמו זום שנתקע קצת), אבל בדפדפנים והודעות רגילות יש מנגנון אמינות מתוחכם שמבקש את החלק החסר מחדש.`;
                 addXP(5);
             } else {
-                feedback.className += ' bg-red-950/40 text-red-300 p-3 rounded-lg text-sm';
-                feedback.innerHTML = `❌ <b>לא מדויק.</b> המחשב של החבר לא מוותר כל כך מהר! יש לו מנגנונים לבקש שידור חוזר של המידע החסר. בוא נתקדם ונראה איך.`;
+                feedback.className += ' bg-red-500/20 text-red-600 dark:text-red-400 border border-red-500/30';
+                feedback.innerHTML = `❌ <b>לא מדויק.</b> המחשב של החבר לא מוותר כל כך מהר! יש לו מנגנונים לבקש שידור חוזר של המידע החסר.`;
                 addXP(5);
             }
         }
 
-        // STEP 3: Simulator select router
+        // STEP 3 Simulator
         function selectRouter(routerId) {
             const nodeA = document.getElementById('node-router-a');
             const nodeB = document.getElementById('node-router-b');
             
-            // Clean active classes
-            nodeA.className = nodeA.className.replace(' border-purple-500 bg-purple-950/20', '');
-            nodeB.className = nodeB.className.replace(' border-purple-500 bg-purple-950/20', '');
+            nodeA.classList.remove('border-purple-500', 'bg-purple-500/10');
+            nodeB.classList.remove('border-purple-500', 'bg-purple-500/10');
 
             if (routerId === 'A') {
                 selectedRouterNode = 'A';
-                nodeA.className += ' border-purple-500 bg-purple-950/20';
+                nodeA.classList.add('border-purple-500', 'bg-purple-500/10');
                 addLog("נבחר נתיב דרך נתב צפוני (עומס נמוך).");
             } else {
                 selectedRouterNode = 'B';
-                nodeB.className += ' border-purple-500 bg-purple-950/20';
+                nodeB.classList.add('border-purple-500', 'bg-purple-500/10');
                 addLog("נבחר נתיב דרך נתב דרומי (עומס גבוה).");
             }
 
             document.getElementById('btn-fire-packet').disabled = false;
         }
 
-        // STEP 3: Simulator Fire Packet
         function firePacket() {
             const packet = document.getElementById('packet-visual');
             const startNode = document.getElementById('node-laptop');
-            let targetNode;
-
-            if (selectedRouterNode === 'A') {
-                targetNode = document.getElementById('node-router-a');
-            } else {
-                targetNode = document.getElementById('node-router-b');
-            }
-
+            let targetNode = selectedRouterNode === 'A' ? document.getElementById('node-router-a') : document.getElementById('node-router-b');
             const destNode = document.getElementById('node-server');
 
-            // Reset packet view location to starting point
             const startRect = startNode.getBoundingClientRect();
             const parentRect = startNode.parentElement.parentElement.getBoundingClientRect();
             
@@ -814,19 +1111,16 @@
 
             addLog("התחלת שיגור חבילת מידע...");
 
-            // First hop (to router)
             setTimeout(() => {
                 const targetRect = targetNode.getBoundingClientRect();
                 packet.style.top = `${targetRect.top - parentRect.top + 20}px`;
                 packet.style.left = `${targetRect.left - parentRect.left + 40}px`;
 
-                // Second hop (to destination server)
                 setTimeout(() => {
                     const destRect = destNode.getBoundingClientRect();
                     packet.style.top = `${destRect.top - parentRect.top + 30}px`;
                     packet.style.left = `${destRect.left - parentRect.left + 30}px`;
 
-                    // Evaluate results
                     setTimeout(() => {
                         packet.classList.add('hidden');
                         evaluateSimResults();
@@ -839,10 +1133,10 @@
 
         function evaluateSimResults() {
             const feedback = document.getElementById('sim-feedback');
-            feedback.classList.remove('hidden', 'bg-red-950/40', 'text-red-300', 'bg-emerald-950/40', 'text-emerald-300');
+            feedback.classList.remove('hidden', 'bg-red-500/20', 'text-red-600', 'dark:text-red-400', 'bg-emerald-500/20', 'text-emerald-600', 'dark:text-emerald-400');
 
             if (selectedRouterNode === 'A') {
-                feedback.className += ' bg-emerald-950/40 text-emerald-300';
+                feedback.className += ' bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30';
                 feedback.innerHTML = `
                     <div class="flex items-center gap-2">
                         <span>🚀</span>
@@ -859,13 +1153,13 @@
                 document.getElementById('btn-to-step-4').disabled = false;
                 addLog("סימולציית ניתוב הושלמה בהצלחה.");
             } else {
-                feedback.className += ' bg-red-950/40 text-red-300';
+                feedback.className += ' bg-red-500/20 text-red-600 dark:text-red-400 border border-red-500/30';
                 feedback.innerHTML = `
                     <div class="flex items-center gap-2">
                         <span>⚠️</span>
                         <div>
                             <p class="font-bold">תקלה! החבילה הגיעה בדיליי גבוה (120 מילי-שניות) ואיבדה חלק מהפריימים.</p>
-                            <p class="text-xs opacity-90">בחרת בנתב הדרומי שהיה עמוס מאוד. נסה לשנות את הנתיב לנתב הצפוני היציב יותר ולשגר שוב!</p>
+                            <p class="text-xs opacity-90">בחרת בנתב הדרומי שהיה עמוס מאוד. נסה לשנות את הנתיב לנתב הצפוני היציב יותר!</p>
                         </div>
                     </div>
                 `;
@@ -874,11 +1168,9 @@
             }
         }
 
-        // STEP 4: Chat logic (Connect-Bot Simulator)
+        // STEP 4: Chat logic
         function handleChatKey(event) {
-            if (event.key === 'Enter') {
-                sendChatMessage();
-            }
+            if (event.key === 'Enter') sendChatMessage();
         }
 
         function sendChatMessage() {
@@ -886,24 +1178,21 @@
             const messageText = input.value.trim();
             if (!messageText) return;
 
-            // Render User message
             const messagesArea = document.getElementById('chat-messages');
             messagesArea.innerHTML += `
-                <div class="bg-blue-600 text-white p-3 rounded-xl max-w-[85%] self-end text-xs">
-                    <span class="text-[10px] font-bold text-slate-200 block mb-1">אתה // </span>
+                <div class="bg-red-600 text-white p-3 rounded-2xl max-w-[85%] self-end text-xs shadow-md">
+                    <span class="text-[10px] font-bold opacity-80 block mb-1">אתה // </span>
                     ${messageText}
                 </div>
             `;
 
             input.value = '';
             messagesArea.scrollTop = messagesArea.scrollHeight;
-
             addLog("נשלחה תשובת תלמיד לבוט ה-AI.");
 
-            // Bot generating response animation
             const typingId = "typing-" + Date.now();
             messagesArea.innerHTML += `
-                <div id="${typingId}" class="bg-slate-950 p-3 rounded-xl border border-slate-800 max-w-[85%] self-start text-xs text-slate-500 italic">
+                <div id="${typingId}" class="bg-white dark:bg-slate-950 p-3 rounded-2xl border border-slate-200 dark:border-slate-800 max-w-[85%] self-start text-xs text-slate-400 italic">
                     מנתח את התשובה שלך...
                 </div>
             `;
@@ -912,12 +1201,11 @@
             setTimeout(() => {
                 document.getElementById(typingId).remove();
                 
-                // Simulated AI NLP Analysis logic
                 let botResponse = "";
                 let isPassed = false;
 
                 const textLower = messageText.toLowerCase();
-                const keywordsHost = ["קצה", "לפטופ", "טלפון", "מחשב", "אייפון", "לקוח", "מדבר", "יוצר", "שולח", "קצה", "מכשיר קצה"];
+                const keywordsHost = ["קצה", "לפטופ", "טלפון", "מחשב", "אייפון", "לקוח", "מדבר", "יוצר", "שולח", "מכשיר קצה"];
                 const keywordsRouter = ["נתב", "ראוטר", "צומת", "מכוון", "מעביר", "מנתב", "מחבר", "דרך", "כיוון", "מנהל"];
 
                 const containsHost = keywordsHost.some(k => textLower.includes(k));
@@ -927,16 +1215,16 @@
                     botResponse = `🎯 <b>וואו, תיאור פצצה!</b> הבנת בדיוק את ההבדל: מכשירי קצה הם המקור והיעד (הצרכנים של הרשת), ואילו הנתב הוא כמו "השוטר בצומת" שמכוון את התנועה בין הרשתות השונות. אתה לגמרי בכיוון הנכון!`;
                     isPassed = true;
                 } else if (containsHost) {
-                    botResponse = `👍 דיברת יפה על מכשירי הקצה (הם אכן המכשירים שמהם מתחילים ושם מסיימים), אבל מה עם ה<b>נתב (ראוטר)</b>? מה התפקיד שלו בתנועה של המידע?`;
+                    botResponse = `👍 דיברת יפה על מכשירי הקצה, אבל מה עם ה<b>נתב (ראוטר)</b>? מה התפקיד שלו בתנועה של המידע?`;
                 } else if (containsRouter) {
-                    botResponse = `👍 תיארת מעולה את תפקידו של הנתב להכווין ולנתב חבילות, אבל אשמח אם תסביר לי - מהן אותן "מכונות קצה" (Hosts) שמהן המידע בכלל מגיע ואליהן הוא נשלח?`;
+                    botResponse = `👍 תיארת מעולה את תפקידו של הנתב, אבל מהן אותן "מכונות קצה" (Hosts) שמהן המידע בכלל מגיע?`;
                 } else {
-                    botResponse = `🤔 הממ... תשובה מעניינת, אבל תנסה להשתמש במילים כמו 'מחשב', 'טלפון', 'נתב' או 'לנתב'. מה עושה מכשיר קצה לעומת מה שעושה ראוטר שמקשר בין רשתות? תן עוד ניסיון!`;
+                    botResponse = `🤔 הממ... תשובה מעניינת, אבל תנסה להשתמש במילים כמו 'מחשב', 'טלפון', 'נתב' או 'לנתב'. מה עושה מכשיר קצה לעומת מה שעושה ראוטר?`;
                 }
 
                 messagesArea.innerHTML += `
-                    <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 max-w-[85%] self-start text-xs text-slate-300">
-                        <span class="text-[10px] font-bold text-blue-400 block mb-1">CONNECT_BOT // </span>
+                    <div class="bg-white dark:bg-slate-950 p-3.5 rounded-2xl border border-slate-200 dark:border-slate-800 max-w-[85%] self-start text-xs">
+                        <span class="text-[10px] font-bold text-cyan-600 dark:text-cyan-400 block mb-1">CONNECT_BOT // </span>
                         ${botResponse}
                     </div>
                 `;
@@ -950,14 +1238,11 @@
                     addLog("בוט ה-AI אישר הבנת תלמיד איכותית.");
                 }
 
-            }, 1500);
+            }, 1200);
         }
 
-        // Copy Share Code
         function copyShareCode() {
             const code = document.getElementById('share-code').innerText;
-            
-            // Legacy/iframe robust copy method
             const tempInput = document.createElement("input");
             tempInput.value = code;
             document.body.appendChild(tempInput);
@@ -969,7 +1254,6 @@
             addLog("קוד שיתוף הועתק ללוח.");
         }
 
-        // Export Report to Teacher (Local text file generator)
         function exportTeacherReport() {
             const q1 = document.getElementById('reflection-q1').value;
             const q2 = document.getElementById('reflection-q2').value;
@@ -983,7 +1267,6 @@
 =============================================
 דוח מסכם - שיעור 1: מה זו בכלל רשת?
 =============================================
-שם התלמיד: [נא להקליד שם מלא כאן]
 דירוג XP סופי: ${xp} XP
 דרגה נוכחית: ${currentLevel}
 
@@ -1011,37 +1294,6 @@
             
             showToast("הדוח הורד בהצלחה! העבר אותו למורה.");
             addLog("דוח פעילות מסכם הורד למחשב המשתמש.");
-        }
-    </script>
-
-    <!-- Floating Help Bot Widget -->
-    <div id="bot-panel" dir="rtl">
-        <div style="background-color: #0f172a; border-radius: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); border: 1px solid rgba(59,130,246,0.3); overflow: hidden;">
-            <div style="background: linear-gradient(135deg, #3b82f6, #06b6d4); padding: 14px 16px; color: white; display: flex; align-items: center; gap: 12px;">
-                <img src="https://lh3.googleusercontent.com/d/1fzqv93VKIW_VT8-e1HdJxBmbU2sFnwlb" alt="Avatar" style="width: 44px; height: 44px; border-radius: 9999px; object-fit: cover; border: 2px solid rgba(255,255,255,0.8); flex-shrink: 0;">
-                <strong style="font-size: 14px;">בוט העזרה שלי</strong>
-                <button onclick="toggleBotPanel()" style="margin-right: auto; background: none; border: none; color: white; font-size: 20px; line-height: 1; cursor: pointer;">&times;</button>
-            </div>
-            <div style="padding: 16px; display: flex; flex-direction: column; gap: 12px;">
-                <p style="font-size: 13px; color: #cbd5e1; line-height: 1.6; margin: 0;">
-                    תקועים בשיעור? נתקלתם בשאלה על רשתות? הבוט כאן בשבילכם 24/7 - שאלו אותו כל שאלה!
-                </p>
-                <a href="https://gemini.google.com/gem/13FFjtbW5S3yg0EE1qBEQiP8GEMwoepKu?usp=sharing" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; justify-content: center; gap: 8px; background: linear-gradient(135deg, #3b82f6, #06b6d4); color: white; font-weight: 700; padding: 10px 16px; border-radius: 10px; text-decoration: none; font-size: 13px;">
-                    <span>לפתיחת הבוט לחצו כאן</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" style="width: 16px; height: 16px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                    </svg>
-                </a>
-            </div>
-        </div>
-    </div>
-    <button id="bot-fab" onclick="toggleBotPanel()" aria-label="פתיחת בוט עזרה">
-        <span class="bot-ping"></span>
-        <img src="https://lh3.googleusercontent.com/d/1fzqv93VKIW_VT8-e1HdJxBmbU2sFnwlb" alt="Avatar" style="width: 52px; height: 52px; border-radius: 9999px; object-fit: cover;">
-    </button>
-    <script>
-        function toggleBotPanel() {
-            document.getElementById('bot-panel').classList.toggle('open');
         }
     </script>
 </body>
