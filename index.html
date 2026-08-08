@@ -70,12 +70,12 @@
 
         .code-font, .mono { font-family: 'JetBrains Mono', monospace; }
 
-        /* HEADER STYLES */
+        /* HEADER STYLES (הוקטן בחצי) */
         header {
             position: relative;
             background: linear-gradient(160deg, #fbf3e2 0%, #f7ecd6 55%, #f9efdb 100%);
             color: #b91c1c;
-            padding: 34px 20px 46px;
+            padding: 16px 20px 18px;
             text-align: center;
             overflow: hidden;
             border-bottom: 1px solid rgba(185, 28, 28, 0.22);
@@ -91,19 +91,19 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 34px;
+            gap: 20px;
             max-width: 1300px;
             margin: 0 auto;
             flex-wrap: wrap-reverse;
         }
 
         .hero-image img {
-            width: 100px;
-            height: 100px;
+            width: 70px; /* הוקטן כדי לחסוך גובה */
+            height: 70px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid #b91c1c;
-            box-shadow: 0 0 0 5px rgba(185, 28, 28, 0.12), 0 14px 30px -10px rgba(185, 28, 28, 0.35);
+            border: 2px solid #b91c1c;
+            box-shadow: 0 0 0 4px rgba(185, 28, 28, 0.12), 0 8px 20px -6px rgba(185, 28, 28, 0.35);
             background: #fff;
         }
 
@@ -117,21 +117,21 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 8px;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 12.5px;
+            font-size: 11px;
             letter-spacing: 0.4px;
             color: #b45309;
-            margin-bottom: 18px;
+            margin-bottom: 8px;
             flex-wrap: wrap;
         }
 
         .statusbar .dot {
-            width: 8px;
-            height: 8px;
+            width: 6px;
+            height: 6px;
             border-radius: 50%;
             background: #b91c1c;
-            box-shadow: 0 0 0 4px rgba(185, 28, 28, 0.2);
+            box-shadow: 0 0 0 3px rgba(185, 28, 28, 0.2);
             animation: pulse 1.8s ease-in-out infinite;
         }
 
@@ -139,11 +139,11 @@
 
         h1.hero-title {
             font-family: 'Rubik', sans-serif;
-            font-size: 32px;
+            font-size: 22px; /* הוקטן משמעותית מ-32px */
             font-weight: 900;
             letter-spacing: -0.5px;
             color: #b91c1c;
-            margin: 0 0 6px 0;
+            margin: 0 0 2px 0;
         }
 
         body.dark h1.hero-title {
@@ -151,10 +151,10 @@
         }
 
         header p.subtitle {
-            margin: 4px 0 20px;
+            margin: 2px 0 10px;
             color: #c2410c;
             font-weight: 700;
-            font-size: 16px;
+            font-size: 13px;
         }
 
         body.dark header p.subtitle {
@@ -164,19 +164,19 @@
         .protocol-row {
             display: flex;
             justify-content: center;
-            gap: 10px;
+            gap: 8px;
             flex-wrap: wrap;
         }
 
         .protocol-chip {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 12px;
+            font-size: 10.5px;
             font-weight: 600;
             color: #b91c1c;
             background: rgba(255, 255, 255, 0.55);
             border: 1px solid rgba(185, 28, 28, 0.3);
-            padding: 6px 13px;
-            border-radius: 8px;
+            padding: 4px 10px;
+            border-radius: 6px;
         }
 
         body.dark .protocol-chip {
@@ -385,8 +385,8 @@
                     <span>192.168.1.0/24</span>
                 </div>
                 
-                <div class="flex flex-col items-center justify-center gap-1 mb-2">
-                    <span class="bg-red-500/10 text-red-600 dark:text-red-400 text-xs font-extrabold px-3 py-1 rounded-full border border-red-500/20">🔥 NET_ACADEMY // CLASS_01</span>
+                <div class="flex flex-col items-center justify-center gap-1 mb-1">
+                    <span class="bg-red-500/10 text-red-600 dark:text-red-400 text-[11px] font-extrabold px-2.5 py-0.5 rounded-full border border-red-500/20">🔥 NET_ACADEMY // CLASS_01</span>
                     <h1 class="hero-title">מה זו בכלל רשת?</h1>
                 </div>
 
@@ -402,9 +402,9 @@
         </div>
 
         <!-- Gamification / XP Bar inside Header -->
-        <div class="max-w-4xl mx-auto mt-6 pt-4 border-t border-red-900/10 dark:border-red-500/20 flex flex-wrap items-center justify-between gap-4 px-4">
+        <div class="max-w-4xl mx-auto mt-3 pt-3 border-t border-red-900/10 dark:border-red-500/20 flex flex-wrap items-center justify-between gap-4 px-4">
             <div class="flex items-center gap-3">
-                <i data-lucide="award" class="w-5 h-5 text-amber-600 dark:text-amber-400"></i>
+                <i data-lucide="award" class="w-4 h-4 text-amber-600 dark:text-amber-400"></i>
                 <span class="text-xs font-bold text-slate-700 dark:text-slate-300">רמה:</span>
                 <span class="text-xs font-black text-amber-600 dark:text-amber-400" id="user-level">טירון רשתות</span>
                 <div class="w-24 bg-slate-300 dark:bg-slate-800 h-2 rounded-full overflow-hidden border border-slate-400/30">
@@ -412,10 +412,10 @@
                 </div>
             </div>
             
-            <div class="flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 px-3 py-1 rounded-lg text-amber-600 dark:text-amber-400">
-                <i data-lucide="zap" class="w-4 h-4 animate-pulse"></i>
+            <div class="flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 px-3 py-0.5 rounded-lg text-amber-600 dark:text-amber-400">
+                <i data-lucide="zap" class="w-3.5 h-3.5 animate-pulse"></i>
                 <span class="text-xs font-bold">XP:</span>
-                <span class="text-sm font-black code-font" id="xp-counter">0</span>
+                <span class="text-xs font-black code-font" id="xp-counter">0</span>
             </div>
         </div>
     </header>
