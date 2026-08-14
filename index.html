@@ -33,6 +33,11 @@
             --violet-soft: #f1e9fc;
             --shadow: 0 20px 40px -14px rgba(15, 23, 42, 0.14);
             --radius: 18px;
+
+            /* משתנים מהעיצוב החדש */
+            --primary-red: #a82828;
+            --purple-border: #7b1fa2;
+            --accent-gold: #e6a100;
         }
 
         body.dark {
@@ -70,112 +75,199 @@
 
         .code-font, .mono { font-family: 'JetBrains Mono', monospace; }
 
-        /* HEADER STYLES (הוקטן בחצי) */
-        header {
+        /* --- עיצוב ה-HERO הראשי החדש --- */
+        .hero-container {
+            background-color: #faefd9;
+            border: 1px solid #ebd9b8;
+            border-radius: 20px;
+            padding: 20px;
+            max-width: 1280px;
+            margin: 20px auto 10px auto;
             position: relative;
-            background: linear-gradient(160deg, #fbf3e2 0%, #f7ecd6 55%, #f9efdb 100%);
-            color: #b91c1c;
-            padding: 16px 20px 18px;
-            text-align: center;
-            overflow: hidden;
-            border-bottom: 1px solid rgba(185, 28, 28, 0.22);
+            box-shadow: 0 6px 20px rgba(168, 40, 40, 0.05);
+            box-sizing: border-box;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
         }
 
-        body.dark header {
-            background: linear-gradient(160deg, #180909 0%, #0d0404 55%, #130707 100%);
-            border-bottom: 1px solid rgba(239, 68, 68, 0.22);
+        body.dark .hero-container {
+            background-color: #180d0d;
+            border-color: #3d1c1c;
+            box-shadow: 0 6px 25px rgba(0,0,0,0.5);
         }
 
-        .hero-row {
-            position: relative;
+        .top-bar {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            gap: 20px;
-            max-width: 1300px;
-            margin: 0 auto;
-            flex-wrap: wrap-reverse;
-        }
-
-        .hero-image img {
-            width: 70px; /* הוקטן כדי לחסוך גובה */
-            height: 70px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid #b91c1c;
-            box-shadow: 0 0 0 4px rgba(185, 28, 28, 0.12), 0 8px 20px -6px rgba(185, 28, 28, 0.35);
-            background: #fff;
-        }
-
-        .hero-text {
-            flex: 1;
-            min-width: 280px;
-        }
-
-        .statusbar {
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 11px;
-            letter-spacing: 0.4px;
-            color: #b45309;
-            margin-bottom: 8px;
+            color: #b87a4d;
+            font-size: 0.8em;
+            margin-bottom: 12px;
+            direction: ltr;
+        }
+
+        body.dark .top-bar {
+            color: #d99a6c;
+        }
+
+        .status-dot {
+            height: 8px;
+            width: 8px;
+            background-color: #4CAF50;
+            border-radius: 50%;
+            display: inline-block;
+            margin-left: 5px;
+            box-shadow: 0 0 8px #4CAF50;
+        }
+
+        .hero-main-layout {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            justify-content: space-between;
             flex-wrap: wrap;
         }
 
-        .statusbar .dot {
-            width: 6px;
-            height: 6px;
+        .hero-right-sec {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex: 1.2;
+            min-width: 320px;
+        }
+
+        .avatar-main-container {
+            flex-shrink: 0;
+        }
+
+        .avatar-main-link {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 90px;
+            height: 90px;
+            background-color: #faefd9;
+            border: 4px solid var(--purple-border);
             border-radius: 50%;
-            background: #b91c1c;
-            box-shadow: 0 0 0 3px rgba(185, 28, 28, 0.2);
-            animation: pulse 1.8s ease-in-out infinite;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(123, 31, 162, 0.25);
+            transition: transform 0.3s ease;
         }
 
-        .statusbar .sep { opacity: 0.4; }
-
-        h1.hero-title {
-            font-family: 'Rubik', sans-serif;
-            font-size: 22px; /* הוקטן משמעותית מ-32px */
-            font-weight: 900;
-            letter-spacing: -0.5px;
-            color: #b91c1c;
-            margin: 0 0 2px 0;
+        body.dark .avatar-main-link {
+            background-color: #180d0d;
         }
 
-        body.dark h1.hero-title {
+        .avatar-main-link:hover { 
+            transform: scale(1.05);
+        }
+
+        .avatar-main-link img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .hero-text {
+            text-align: right;
+        }
+
+        .hero-header-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .hero-pill-top {
+            display: inline-block;
+            background: #fdf3e3;
+            border: 1px solid #e0cda9;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 0.78em;
+            color: var(--primary-red);
+            font-weight: bold;
+            margin-bottom: 2px;
+        }
+
+        body.dark .hero-pill-top {
+            background: #2a1414;
+            border-color: #4a2424;
             color: #f87171;
         }
 
-        header p.subtitle {
-            margin: 2px 0 10px;
-            color: #c2410c;
-            font-weight: 700;
-            font-size: 13px;
+        .hero-title {
+            font-size: 1.6em;
+            font-weight: 900;
+            color: var(--primary-red);
+            margin: 2px 0;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+            font-family: 'Rubik', sans-serif;
         }
 
-        body.dark header p.subtitle {
+        body.dark .hero-title {
+            color: #f87171;
+        }
+
+        .hero-subtitle {
+            font-size: 0.88em;
+            color: #8c4320;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        body.dark .hero-subtitle {
             color: #fb923c;
+        }
+
+        .dashboard-stats {
+            display: flex;
+            justify-content: flex-start;
+            gap: 8px;
+            margin: 4px 0;
+            font-size: 0.8em;
+            font-weight: bold;
+            color: #8c4320;
+        }
+
+        body.dark .dashboard-stats {
+            color: #fcd34d;
+        }
+
+        .stat-badge {
+            background: #fbf0d9;
+            border: 1px solid #d9be93;
+            padding: 2px 8px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        body.dark .stat-badge {
+            background: #261616;
+            border-color: #4a2b2b;
         }
 
         .protocol-row {
             display: flex;
-            justify-content: center;
-            gap: 8px;
+            justify-content: flex-start;
+            gap: 6px;
             flex-wrap: wrap;
+            margin-top: 6px;
         }
 
         .protocol-chip {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 10.5px;
+            font-size: 10px;
             font-weight: 600;
-            color: #b91c1c;
-            background: rgba(255, 255, 255, 0.55);
-            border: 1px solid rgba(185, 28, 28, 0.3);
-            padding: 4px 10px;
+            color: var(--primary-red);
+            background: rgba(255, 255, 255, 0.65);
+            border: 1px solid rgba(168, 40, 40, 0.25);
+            padding: 2px 8px;
             border-radius: 6px;
         }
 
@@ -369,59 +461,66 @@
     <!-- DARK MODE SWITCH BUTTON -->
     <button class="darkBtn" onclick="toggleDark()" title="החלף מצב תצוגה" id="darkToggleBtn">🌙</button>
 
-    <!-- HEADER -->
-    <header>
-        <div class="hero-row">
-            <div class="hero-image">
-                <img src="https://lh3.googleusercontent.com/d/1oIkZlLHZWtFgoDblyxziTALQZwsyxAOo" alt="אווטר">
-            </div>
-            <div class="hero-text">
-                <div class="statusbar">
-                    <span class="dot"></span>
-                    <span>session: net_class_01</span>
-                    <span class="sep">//</span>
-                    <span>academy.net.local</span>
-                    <span class="sep">//</span>
-                    <span>192.168.1.0/24</span>
-                </div>
-                
-                <div class="flex flex-col items-center justify-center gap-1 mb-1">
-                    <span class="bg-red-500/10 text-red-600 dark:text-red-400 text-[11px] font-extrabold px-2.5 py-0.5 rounded-full border border-red-500/20">🔥 NET_ACADEMY // CLASS_01</span>
-                    <h1 class="hero-title">מה זו בכלל רשת?</h1>
-                </div>
-
-                <p class="subtitle">מבוא לרשתות: הניצוץ הראשון של המידע</p>
-                <div class="protocol-row">
-                    <span class="protocol-chip">ROUTING</span>
-                    <span class="protocol-chip">PACKETS</span>
-                    <span class="protocol-chip">HOSTS</span>
-                    <span class="protocol-chip">PROTOCOLS</span>
-                    <span class="protocol-chip">AI ASSISTANT</span>
-                </div>
-            </div>
+    <!-- HEADER הראשי החדש -->
+    <header class="hero-container">
+        <div class="top-bar">
+            <span>192.168.1.0/24 // academy.net.local // session: net_class_01 <span class="status-dot"></span></span>
         </div>
 
-        <!-- Gamification / XP Bar inside Header -->
-        <div class="max-w-4xl mx-auto mt-3 pt-3 border-t border-red-900/10 dark:border-red-500/20 flex flex-wrap items-center justify-between gap-4 px-4">
-            <div class="flex items-center gap-3">
-                <i data-lucide="award" class="w-4 h-4 text-amber-600 dark:text-amber-400"></i>
-                <span class="text-xs font-bold text-slate-700 dark:text-slate-300">רמה:</span>
-                <span class="text-xs font-black text-amber-600 dark:text-amber-400" id="user-level">טירון רשתות</span>
-                <div class="w-24 bg-slate-300 dark:bg-slate-800 h-2 rounded-full overflow-hidden border border-slate-400/30">
-                    <div id="level-bar" class="bg-amber-500 h-full w-1/5 transition-all duration-500"></div>
+        <div class="hero-main-layout">
+            <div class="hero-right-sec">
+                <div class="avatar-main-container">
+                    <div class="avatar-main-link" title="לוגו אקדמיית האחוואנים">
+                        <img src="https://lh3.googleusercontent.com/d/1oIkZlLHZWtFgoDblyxziTALQZwsyxAOo" alt="אווטר">
+                    </div>
+                </div>
+
+                <div class="hero-text">
+                    <div class="hero-header-row">
+                        <div class="hero-pill-top">🔥 NET_ACADEMY // CLASS_01</div>
+                    </div>
+                    
+                    <h1 class="hero-title">מה זו בכלרשת?</h1>
+                    <div class="hero-subtitle">מבוא לרשתות: הניצוץ הראשון של המידע</div>
+                    
+                    <div class="dashboard-stats">
+                        <span class="stat-badge">
+                            <i data-lucide="award" class="w-3.5 h-3.5 text-amber-600 dark:text-amber-400"></i>
+                            <span>רמה:</span>
+                            <span id="user-level" class="text-amber-600 dark:text-amber-400 font-extrabold">טירון רשתות</span>
+                        </span>
+                        <span class="stat-badge">
+                            <i data-lucide="zap" class="w-3.5 h-3.5 text-amber-500 animate-pulse"></i>
+                            <span>XP:</span>
+                            <span id="xp-counter" class="code-font font-black">0</span>
+                        </span>
+                    </div>
+
+                    <div class="protocol-row">
+                        <span class="protocol-chip">ROUTING</span>
+                        <span class="protocol-chip">PACKETS</span>
+                        <span class="protocol-chip">HOSTS</span>
+                        <span class="protocol-chip">PROTOCOLS</span>
+                        <span class="protocol-chip">AI ASSISTANT</span>
+                    </div>
                 </div>
             </div>
-            
-            <div class="flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 px-3 py-0.5 rounded-lg text-amber-600 dark:text-amber-400">
-                <i data-lucide="zap" class="w-3.5 h-3.5 animate-pulse"></i>
-                <span class="text-xs font-bold">XP:</span>
-                <span class="text-xs font-black code-font" id="xp-counter">0</span>
+
+            <!-- XP Progress Bar inside Left Section -->
+            <div class="w-full sm:w-auto flex flex-col gap-2 p-3 rounded-xl bg-white/40 dark:bg-black/20 border border-[#ebd9b8] dark:border-red-900/30 min-w-[220px]">
+                <div class="flex justify-between items-center text-xs font-bold">
+                    <span>התקדמות ברמה:</span>
+                    <span class="text-xs font-mono text-amber-600 dark:text-amber-400">NET_XP</span>
+                </div>
+                <div class="w-full bg-slate-300 dark:bg-slate-800 h-2.5 rounded-full overflow-hidden border border-slate-400/30">
+                    <div id="level-bar" class="bg-amber-500 h-full w-1/5 transition-all duration-500"></div>
+                </div>
             </div>
         </div>
     </header>
 
     <!-- MAIN BODY -->
-    <main class="flex-grow max-w-7xl w-full mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 py-6 grid grid-cols-1 lg:grid-cols-12 gap-8">
         
         <!-- SIDEBAR: PROGRESS & STEPS -->
         <aside class="lg:col-span-3 flex flex-col gap-4">
@@ -1285,12 +1384,13 @@
 
             const blob = new Blob([reportText], { type: 'text/plain;charset=utf-8' });
             const url = URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = `NET_ACADEMY_Lesson1_Report.txt`;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+            const link = document.getElementById('a');
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `NET_ACADEMY_Lesson1_Report.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
             
             showToast("הדוח הורד בהצלחה! העבר אותו למורה.");
             addLog("דוח פעילות מסכם הורד למחשב המשתמש.");
