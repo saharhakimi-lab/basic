@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>אקדמיית האחוואנים - שיעור 1: מה זו בכלל רשת?</title>
+    <title>אקדמיית האחוואנים - מבוא לרשתות תקשורת</title>
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -16,13 +16,12 @@
     
     <style>
         :root {
-            /* Day Ops */
-            --bg: #eef2f7;
-            --grid-line: rgba(15, 23, 42, 0.05);
+            --bg: #fbf8ee;
+            --grid-line: rgba(185, 28, 28, 0.05);
             --card: #ffffff;
-            --panel-border: #dbe2ec;
-            --text: #0f172a;
-            --text-muted: #5b6b82;
+            --panel-border: #f0e6d2;
+            --text: #2c1810;
+            --text-muted: #7c685c;
             --cyan: #0e7490;
             --cyan-soft: #e0f6fb;
             --green: #047857;
@@ -31,17 +30,11 @@
             --amber-soft: #fdf1dd;
             --violet: #6d28d9;
             --violet-soft: #f1e9fc;
-            --shadow: 0 20px 40px -14px rgba(15, 23, 42, 0.14);
+            --shadow: 0 20px 40px -14px rgba(185, 28, 28, 0.1);
             --radius: 18px;
-
-            /* משתנים מהעיצוב החדש */
-            --primary-red: #a82828;
-            --purple-border: #7b1fa2;
-            --accent-gold: #e6a100;
         }
 
         body.dark {
-            /* Night Ops */
             --bg: #090d16;
             --grid-line: rgba(34, 211, 238, 0.06);
             --card: #10182a;
@@ -75,209 +68,89 @@
 
         .code-font, .mono { font-family: 'JetBrains Mono', monospace; }
 
-        /* --- עיצוב ה-HERO הראשי החדש --- */
-        .hero-container {
-            background-color: #faefd9;
+        .header-card {
+            background: #f7edd8;
             border: 1px solid #ebd9b8;
-            border-radius: 20px;
-            padding: 20px;
-            max-width: 1280px;
-            margin: 20px auto 10px auto;
-            position: relative;
-            box-shadow: 0 6px 20px rgba(168, 40, 40, 0.05);
-            box-sizing: border-box;
-            transition: background-color 0.3s ease, border-color 0.3s ease;
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(139, 30, 15, 0.05);
         }
 
-        body.dark .hero-container {
-            background-color: #180d0d;
-            border-color: #3d1c1c;
-            box-shadow: 0 6px 25px rgba(0,0,0,0.5);
+        body.dark .header-card {
+            background: #150d0d;
+            border-color: #2e1515;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
-        .top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .statusbar {
             font-family: 'JetBrains Mono', monospace;
-            color: #b87a4d;
-            font-size: 0.8em;
-            margin-bottom: 12px;
-            direction: ltr;
+            font-size: 11px;
+            color: #8c7355;
         }
 
-        body.dark .top-bar {
-            color: #d99a6c;
-        }
-
-        .status-dot {
-            height: 8px;
-            width: 8px;
-            background-color: #4CAF50;
-            border-radius: 50%;
-            display: inline-block;
-            margin-left: 5px;
-            box-shadow: 0 0 8px #4CAF50;
-        }
-
-        .hero-main-layout {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-        }
-
-        .hero-right-sec {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            flex: 1.2;
-            min-width: 320px;
-        }
-
-        .avatar-main-container {
-            flex-shrink: 0;
-        }
-
-        .avatar-main-link {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 90px;
-            height: 90px;
-            background-color: #faefd9;
-            border: 4px solid var(--purple-border);
-            border-radius: 50%;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(123, 31, 162, 0.25);
-            transition: transform 0.3s ease;
-        }
-
-        body.dark .avatar-main-link {
-            background-color: #180d0d;
-        }
-
-        .avatar-main-link:hover { 
-            transform: scale(1.05);
-        }
-
-        .avatar-main-link img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 50%;
-        }
-
-        .hero-text {
-            text-align: right;
-        }
-
-        .hero-header-row {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .hero-pill-top {
-            display: inline-block;
-            background: #fdf3e3;
-            border: 1px solid #e0cda9;
-            padding: 2px 10px;
-            border-radius: 12px;
-            font-size: 0.78em;
-            color: var(--primary-red);
-            font-weight: bold;
-            margin-bottom: 2px;
-        }
-
-        body.dark .hero-pill-top {
-            background: #2a1414;
-            border-color: #4a2424;
-            color: #f87171;
-        }
+        body.dark .statusbar { color: #a38c72; }
 
         .hero-title {
-            font-size: 1.6em;
-            font-weight: 900;
-            color: var(--primary-red);
-            margin: 2px 0;
-            letter-spacing: -0.5px;
-            line-height: 1.2;
             font-family: 'Rubik', sans-serif;
+            font-weight: 900;
+            color: #8b1e0f;
+            line-height: 1.1;
         }
 
-        body.dark .hero-title {
-            color: #f87171;
+        body.dark .hero-title { color: #f87171; }
+
+        .hero-avatar-img {
+            width: 82px;
+            height: 82px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #6b21a8;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            background: #fff;
         }
 
-        .hero-subtitle {
-            font-size: 0.88em;
-            color: #8c4320;
-            font-weight: 600;
-            margin-bottom: 6px;
+        .filter-btn {
+            background: #f2e3c6;
+            color: #5c4731;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 14px;
+            border-radius: 999px;
+            transition: all 0.2s;
+            cursor: pointer;
         }
 
-        body.dark .hero-subtitle {
-            color: #fb923c;
+        .filter-btn:hover {
+            background: #e2d1b0;
         }
 
-        .dashboard-stats {
-            display: flex;
-            justify-content: flex-start;
-            gap: 8px;
-            margin: 4px 0;
-            font-size: 0.8em;
-            font-weight: bold;
-            color: #8c4320;
+        .filter-btn.active {
+            background: #d97706;
+            color: #ffffff;
+            box-shadow: 0 2px 8px rgba(217, 119, 6, 0.3);
         }
 
-        body.dark .dashboard-stats {
-            color: #fcd34d;
+        body.dark .filter-btn {
+            background: #281c1a;
+            color: #d1b89d;
         }
 
-        .stat-badge {
-            background: #fbf0d9;
-            border: 1px solid #d9be93;
-            padding: 2px 8px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
+        body.dark .filter-btn:hover {
+            background: #3a2927;
         }
 
-        body.dark .stat-badge {
-            background: #261616;
-            border-color: #4a2b2b;
+        body.dark .filter-btn.active {
+            background: #d97706;
+            color: #ffffff;
         }
 
-        .protocol-row {
-            display: flex;
-            justify-content: flex-start;
-            gap: 6px;
-            flex-wrap: wrap;
-            margin-top: 6px;
+        .header-tab-btn {
+            transition: transform 0.15s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+        }
+        .header-tab-btn:hover {
+            transform: translateY(-2px);
         }
 
-        .protocol-chip {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 10px;
-            font-weight: 600;
-            color: var(--primary-red);
-            background: rgba(255, 255, 255, 0.65);
-            border: 1px solid rgba(168, 40, 40, 0.25);
-            padding: 2px 8px;
-            border-radius: 6px;
-        }
-
-        body.dark .protocol-chip {
-            color: #fca5a5;
-            background: rgba(0, 0, 0, 0.4);
-            border-color: rgba(239, 68, 68, 0.3);
-        }
-
-        /* CARD & PANEL DESIGN */
         .panel {
             position: relative;
             background: var(--card);
@@ -318,21 +191,20 @@
             border-radius: 7px;
         }
 
-        /* DARK MODE TOGGLE BUTTON */
         .darkBtn {
             position: fixed;
             top: 22px;
             left: 22px;
             width: 46px;
             height: 46px;
-            border: 1px solid rgba(185, 28, 28, 0.35);
+            border: 1px solid rgba(139, 30, 15, 0.35);
             border-radius: 50%;
             cursor: pointer;
             font-size: 19px;
             z-index: 9999;
             background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(10px);
-            color: #b91c1c;
+            color: #8b1e0f;
             box-shadow: 0 4px 15px rgba(0,0,0,0.18);
             display: flex;
             align-items: center;
@@ -341,7 +213,6 @@
         }
         .darkBtn:hover { transform: scale(1.1); }
 
-        /* WIDGET BOT (AHWANIM BOT) */
         .bot-widget {
             position: fixed;
             bottom: 13px;
@@ -445,89 +316,157 @@
             100% { transform: translateY(0); }
         }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.4; }
-        }
-
-        /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: var(--bg); }
         ::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 3px; }
     </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between overflow-x-hidden">
+<body class="min-h-screen flex flex-col justify-between overflow-x-hidden p-3 md:p-6">
 
     <!-- DARK MODE SWITCH BUTTON -->
     <button class="darkBtn" onclick="toggleDark()" title="החלף מצב תצוגה" id="darkToggleBtn">🌙</button>
 
-    <!-- HEADER הראשי החדש -->
-    <header class="hero-container">
-        <div class="top-bar">
-            <span>192.168.1.0/24 // academy.net.local // session: net_class_01 <span class="status-dot"></span></span>
+    <!-- MODAL POPUP FOR HEADER ACTIONS -->
+    <div id="header-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white dark:bg-slate-900 border border-amber-900/20 dark:border-amber-500/30 rounded-3xl p-6 max-w-lg w-full shadow-2xl space-y-4 relative animate-fade-in">
+            <button onclick="closeModal()" class="absolute top-4 left-4 text-slate-400 hover:text-slate-600 dark:hover:text-white text-xl font-bold">✕</button>
+            <div id="modal-content">
+                <!-- Dynamic Content Loaded Via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- HEADER EXACTLY AS IN SCREENSHOT (FULLY ACTIVE) -->
+    <header class="header-card p-4 md:p-6 max-w-7xl mx-auto w-full mb-8">
+        <!-- Top Statusbar -->
+        <div class="statusbar flex items-center gap-2 mb-4">
+            <span>10.0.30.0/24</span>
+            <span class="opacity-50">//</span>
+            <span>academy.tikshuv.local</span>
+            <span class="opacity-50">//</span>
+            <span>session: active</span>
+            <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-pulse"></span>
         </div>
 
-        <div class="hero-main-layout">
-            <div class="hero-right-sec">
-                <div class="avatar-main-container">
-                    <div class="avatar-main-link" title="לוגו אקדמיית האחוואנים">
-                        <img src="https://lh3.googleusercontent.com/d/1oIkZlLHZWtFgoDblyxziTALQZwsyxAOo" alt="אווטר">
+        <!-- Main Header Grid: 2 Columns -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+            
+            <!-- Left Controls Column (Search + Mid Quiz + Tabs + Tags) -->
+            <div class="lg:col-span-5 space-y-3">
+                
+                <!-- Search Box (Active) -->
+                <div class="bg-[#1e0a0a] dark:bg-[#0a0505] text-white rounded-2xl p-2.5 flex items-center justify-between border border-amber-900/40 shadow-inner focus-within:ring-2 focus-within:ring-amber-500">
+                    <div class="flex items-center gap-2 pr-2 text-slate-300 text-sm w-full">
+                        <i data-lucide="search" class="w-4 h-4 opacity-70"></i>
+                        <input type="text" id="header-search-input" onkeyup="handleHeaderSearch(event)" placeholder="חפש מונח, פקודה, או רכיב (לחץ Enter)..." class="bg-transparent text-xs text-white placeholder-slate-400 focus:outline-none w-full">
                     </div>
+                    <span class="code-font text-emerald-400 text-xs font-bold pl-2 cursor-pointer" onclick="executeSearch()">&lt;_</span>
                 </div>
 
-                <div class="hero-text">
-                    <div class="hero-header-row">
-                        <div class="hero-pill-top">🔥 NET_ACADEMY // CLASS_01</div>
-                    </div>
-                    
-                    <h1 class="hero-title">מה זו בכלרשת?</h1>
-                    <div class="hero-subtitle">מבוא לרשתות: הניצוץ הראשון של המידע</div>
-                    
-                    <div class="dashboard-stats">
-                        <span class="stat-badge">
-                            <i data-lucide="award" class="w-3.5 h-3.5 text-amber-600 dark:text-amber-400"></i>
-                            <span>רמה:</span>
-                            <span id="user-level" class="text-amber-600 dark:text-amber-400 font-extrabold">טירון רשתות</span>
-                        </span>
-                        <span class="stat-badge">
-                            <i data-lucide="zap" class="w-3.5 h-3.5 text-amber-500 animate-pulse"></i>
-                            <span>XP:</span>
-                            <span id="xp-counter" class="code-font font-black">0</span>
-                        </span>
-                    </div>
+                <!-- Mid-Lesson Quiz Button (Active) -->
+                <button onclick="openMidQuizModal()" class="w-full bg-gradient-to-r from-amber-500 via-orange-600 to-red-700 text-white font-extrabold py-2.5 px-4 rounded-2xl shadow-md hover:brightness-110 active:scale-98 transition-all text-center text-sm flex items-center justify-center gap-2">
+                    <span>🎲 התחל מבחן אמצע שיעור!</span>
+                </button>
 
-                    <div class="protocol-row">
-                        <span class="protocol-chip">ROUTING</span>
-                        <span class="protocol-chip">PACKETS</span>
-                        <span class="protocol-chip">HOSTS</span>
-                        <span class="protocol-chip">PROTOCOLS</span>
-                        <span class="protocol-chip">AI ASSISTANT</span>
-                    </div>
+                <!-- 3 Feature Tabs (Active Buttons) -->
+                <div class="grid grid-cols-3 gap-2 text-xs font-bold text-center">
+                    <button onclick="openResourceModal('files')" class="header-tab-btn bg-[#ebdcc1] dark:bg-[#201514] hover:bg-[#e0cfb0] dark:hover:bg-[#2e1d1c] text-[#634b35] dark:text-[#d1b89d] p-2.5 rounded-2xl flex flex-col items-center justify-center gap-1 border border-amber-900/10">
+                        <span>📁 קבצי הסבר ותוכניות</span>
+                    </button>
+                    <button onclick="openResourceModal('hardware')" class="header-tab-btn bg-[#991b1b] hover:bg-[#801616] text-white p-2.5 rounded-2xl flex flex-col items-center justify-center gap-1 shadow-md">
+                        <span>🌐 רכיבי רשת פיזיים</span>
+                    </button>
+                    <button onclick="openResourceModal('slides')" class="header-tab-btn bg-[#ebdcc1] dark:bg-[#201514] hover:bg-[#e0cfb0] dark:hover:bg-[#2e1d1c] text-[#634b35] dark:text-[#d1b89d] p-2.5 rounded-2xl flex flex-col items-center justify-center gap-1 border border-amber-900/10">
+                        <span>🎨 מצגות שיעור</span>
+                    </button>
                 </div>
+
+                <!-- Filter Chips (Active Filtering) -->
+                <div class="flex items-center justify-center gap-1.5 flex-wrap pt-1">
+                    <button onclick="setFilterCategory(this, 'הכל')" class="filter-btn active">הכל</button>
+                    <button onclick="setFilterCategory(this, 'תשתית')" class="filter-btn">תשתית</button>
+                    <button onclick="setFilterCategory(this, 'נתבים')" class="filter-btn">נתבים</button>
+                    <button onclick="setFilterCategory(this, 'פרוטוקולים')" class="filter-btn">פרוטוקולים</button>
+                    <button onclick="setFilterCategory(this, 'תרגיל')" class="filter-btn">תרגיל</button>
+                    <button onclick="setFilterCategory(this, 'סיכום')" class="filter-btn">סיכום</button>
+                </div>
+
             </div>
 
-            <!-- XP Progress Bar inside Left Section -->
-            <div class="w-full sm:w-auto flex flex-col gap-2 p-3 rounded-xl bg-white/40 dark:bg-black/20 border border-[#ebd9b8] dark:border-red-900/30 min-w-[220px]">
-                <div class="flex justify-between items-center text-xs font-bold">
-                    <span>התקדמות ברמה:</span>
-                    <span class="text-xs font-mono text-amber-600 dark:text-amber-400">NET_XP</span>
+            <!-- Right Content Column (Pills + Titles + Avatar) -->
+            <div class="lg:col-span-7 flex flex-col lg:items-start text-right space-y-2">
+                
+                <div class="flex items-center gap-2 flex-wrap">
+                    <button onclick="openResourceModal('files')" class="bg-[#0284c7] hover:bg-[#0369a1] text-white text-[11px] font-extrabold px-3 py-1 rounded-full shadow-sm flex items-center gap-1 transition-colors">
+                        📁 חומרי לימוד
+                    </button>
+                    <span class="bg-[#eddcb8] dark:bg-[#2a1a18] text-[#78350f] dark:text-[#f59e0b] text-[11px] font-extrabold px-3 py-1 rounded-full border border-amber-600/20">
+                        ✨ אקדמיית האחוואנים
+                    </span>
                 </div>
-                <div class="w-full bg-slate-300 dark:bg-slate-800 h-2.5 rounded-full overflow-hidden border border-slate-400/30">
+
+                <div class="flex items-center justify-between w-full gap-4">
+                    <div class="space-y-1">
+                        <h1 class="hero-title text-2xl md:text-3xl">מבוא לרשתות תקשורת</h1>
+                        <h2 class="hero-title text-xl md:text-2xl opacity-90">שיעור בסיס: הבנת הרשת</h2>
+                        <p class="text-xs md:text-sm text-[#5c4731] dark:text-[#c4b5a5] font-semibold">
+                            הכרת הרכיבים הבסיסיים של רשתות תקשורת ומודל OSI.
+                        </p>
+                    </div>
+
+                    <!-- Avatar Image -->
+                    <div class="flex-shrink-0 cursor-pointer" onclick="showToast('המורה דן: שמח לראות אותך בשיעור!')">
+                        <img src="https://lh3.googleusercontent.com/d/1oIkZlLHZWtFgoDblyxziTALQZwsyxAOo" alt="אווטר המורה" class="hero-avatar-img hover:scale-105 transition-transform">
+                    </div>
+                </div>
+
+                <!-- Bottom Resource Pills (Interactive) -->
+                <div class="flex items-center gap-2 pt-1">
+                    <button onclick="openResourceModal('files')" class="bg-[#ebdcc1] dark:bg-[#201514] hover:bg-[#e0cfb0] text-[#78350f] dark:text-[#fca5a5] text-xs font-bold px-3 py-1 rounded-full border border-amber-900/10 transition-colors">
+                        📚 25 משאבי שיעור
+                    </button>
+                    <button onclick="switchStep(4)" class="bg-[#ebdcc1] dark:bg-[#201514] hover:bg-[#e0cfb0] text-[#78350f] dark:text-[#fca5a5] text-xs font-bold px-3 py-1 rounded-full border border-amber-900/10 transition-colors">
+                        🤖 1 בוט תרגול
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Bottom Banner / Quote Strip -->
+        <div class="mt-5 pt-3 border-t border-amber-900/10 dark:border-amber-500/10 text-center text-xs font-extrabold text-[#78350f] dark:text-[#f59e0b] bg-[#ebdcc1]/50 dark:bg-[#1a0f0e] py-2 px-4 rounded-xl">
+            העצמה: תרגול בסיסי הוא המפתח להבנת רשתות שורדנותיות וחזקות של רשתות מורכבות! 🧠 🛰️ חפשו IP-חוקר בשורת הפקודה כדי לראות את כתובת ה-LAN שלך! ||
+        </div>
+
+        <!-- Gamification / XP Bar -->
+        <div class="mt-3 flex flex-wrap items-center justify-between gap-4 px-2">
+            <div class="flex items-center gap-3">
+                <i data-lucide="award" class="w-4 h-4 text-amber-600 dark:text-amber-400"></i>
+                <span class="text-xs font-bold text-slate-700 dark:text-slate-300">רמה:</span>
+                <span class="text-xs font-black text-amber-600 dark:text-amber-400" id="user-level">טירון רשתות</span>
+                <div class="w-24 bg-slate-300 dark:bg-slate-800 h-2 rounded-full overflow-hidden border border-slate-400/30">
                     <div id="level-bar" class="bg-amber-500 h-full w-1/5 transition-all duration-500"></div>
                 </div>
+            </div>
+            
+            <div class="flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 px-3 py-0.5 rounded-lg text-amber-600 dark:text-amber-400">
+                <i data-lucide="zap" class="w-3.5 h-3.5 animate-pulse"></i>
+                <span class="text-xs font-bold">XP:</span>
+                <span class="text-xs font-black code-font" id="xp-counter">0</span>
             </div>
         </div>
     </header>
 
     <!-- MAIN BODY -->
-    <main class="flex-grow max-w-7xl w-full mx-auto px-4 py-6 grid grid-cols-1 lg:grid-cols-12 gap-8">
+    <main class="flex-grow max-w-7xl w-full mx-auto px-2 py-4 grid grid-cols-1 lg:grid-cols-12 gap-8">
         
         <!-- SIDEBAR: PROGRESS & STEPS -->
         <aside class="lg:col-span-3 flex flex-col gap-4">
             <div class="panel p-5">
                 <div class="panel-head mb-4 pb-2">
-                    <h2 class="text-sm font-extrabold tracking-wider uppercase">מפת המשימה</h2>
-                    <span class="panel-tag mono">LAB_STEPS</span>
+                    <h2 class="text-sm font-extrabold tracking-wider uppercase">מפת השיעור</h2>
+                    <span class="panel-tag mono">LESSON_MAP</span>
                 </div>
                 <nav class="flex flex-col gap-2">
                     <!-- Step 1 -->
@@ -981,13 +920,11 @@
         const toastEl = document.getElementById('toast');
         const toastMsg = document.getElementById('toast-message');
 
-        // Initialize lucide icons
         lucide.createIcons();
 
-        // Load progress from LocalStorage on mount
         window.onload = function() {
             loadSavedProgress();
-            addLog("יוזם האזנה לאירועים...");
+            addLog("יוזם האזנה לאירועים בכותרת ובמערכת...");
         };
 
         // Dark Mode Toggle
@@ -1007,6 +944,106 @@
             const widget = document.getElementById("botWidget");
             if (widget.classList.contains("collapsed")) {
                 widget.classList.remove("collapsed");
+            }
+        }
+
+        // HEADER ACTIVE FUNCTIONALITIES
+        function closeModal() {
+            document.getElementById('header-modal').classList.add('hidden');
+        }
+
+        function openMidQuizModal() {
+            const modalContent = document.getElementById('modal-content');
+            modalContent.innerHTML = `
+                <div class="text-right">
+                    <span class="bg-amber-500/20 text-amber-600 text-xs font-bold px-3 py-1 rounded-full">🎲 מבחן אמצע שיעור מהיר</span>
+                    <h3 class="text-lg font-bold mt-3 mb-2">בדיקת עירנות רשת!</h3>
+                    <p class="text-xs text-slate-600 dark:text-slate-400 mb-4">מהו תפקידו הראשי של הנתב (Router) ברשת התקשורת?</p>
+                    
+                    <div class="space-y-2">
+                        <button onclick="submitHeaderQuiz(false)" class="w-full text-right p-3 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-medium transition-colors">
+                            1. לאחסן את התמונות והקבצים של כל המשתמשים
+                        </button>
+                        <button onclick="submitHeaderQuiz(true)" class="w-full text-right p-3 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-medium transition-colors">
+                            2. לקבל חבילות מידע ולנתב אותן ליעד הנכון בדרך היעילה ביותר
+                        </button>
+                        <button onclick="submitHeaderQuiz(false)" class="w-full text-right p-3 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-medium transition-colors">
+                            3. לייצר את גלי הרדיו של ה-Wi-Fi בלבד
+                        </button>
+                    </div>
+                </div>
+            `;
+            document.getElementById('header-modal').classList.remove('hidden');
+            addLog("פתיחת מבחן אמצע שיעור מהכותרת.");
+        }
+
+        function submitHeaderQuiz(isCorrect) {
+            if (isCorrect) {
+                addXP(25);
+                showToast("תשובה נכונה! +25 XP נוספו לך.");
+                addLog("מבחן אמצע שיעור עבר בהצלחה.");
+                closeModal();
+            } else {
+                showToast("תשובה שגויה, נסה שוב!");
+                addLog("טעות במבחן אמצע שיעור.");
+            }
+        }
+
+        function openResourceModal(type) {
+            const modalContent = document.getElementById('modal-content');
+            let title = "";
+            let items = [];
+
+            if (type === 'files') {
+                title = "📁 קבצי הסבר ותוכניות שיעור";
+                items = ["מצגת_מבוא_לרשתות_OSI.pdf", "תרגיל_בית_מבנה_חבילה.docx", "מדריך_סמלי_רשת_PacketTracer.pdf"];
+            } else if (type === 'hardware') {
+                title = "🌐 רכיבי רשת פיזיים";
+                items = ["נתב ביתי (Router / Gateway)", "מתג רשת (Switch Layer 2)", "כבל Cat6 Ethernet אופייני", "כרטיס רשת אלחוטי (Wi-Fi NIC)"];
+            } else {
+                title = "🎨 מצגות שיעור";
+                items = ["שיעור 1: מבוא ומודל OSI.pptx", "שיעור 2: כתובות IP ו-MAC.pptx"];
+            }
+
+            modalContent.innerHTML = `
+                <div class="text-right">
+                    <h3 class="text-lg font-bold mb-3">${title}</h3>
+                    <ul class="space-y-2">
+                        ${items.map(item => `
+                            <li class="bg-slate-100 dark:bg-slate-800 p-3 rounded-xl text-xs flex justify-between items-center font-semibold">
+                                <span>${item}</span>
+                                <button onclick="showToast('מוריד קובץ: ${item}')" class="text-cyan-600 dark:text-cyan-400 hover:underline">הורד</button>
+                            </li>
+                        `).join('')}
+                    </ul>
+                </div>
+            `;
+            document.getElementById('header-modal').classList.remove('hidden');
+            addLog(`פתיחת משאב בכותרת: ${type}`);
+        }
+
+        function setFilterCategory(btn, category) {
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            showToast(`סינון הוחל: ${category}`);
+            addLog(`סינון כותרת שונה ל: ${category}`);
+        }
+
+        function handleHeaderSearch(e) {
+            if (e.key === 'Enter') {
+                executeSearch();
+            }
+        }
+
+        function executeSearch() {
+            const val = document.getElementById('header-search-input').value.trim();
+            if (val) {
+                showToast(`מחפש ברשת: "${val}"...`);
+                addLog(`שאילתת חיפוש בכותרת: ${val}`);
+            } else {
+                showToast("אנא הקלד מונח לחיפוש.");
             }
         }
 
@@ -1087,7 +1124,6 @@
             }
         }
 
-        // Navigation between steps
         function switchStep(stepNum) {
             for (let i = 1; i <= 5; i++) {
                 document.getElementById(`step-${i}`).classList.add('hidden');
@@ -1252,7 +1288,7 @@
                 document.getElementById('btn-to-step-4').disabled = false;
                 addLog("סימולציית ניתוב הושלמה בהצלחה.");
             } else {
-                feedback.className += ' bg-red-500/20 text-red-600 dark:text-red-400 border border-red-500/30';
+                feedback.className += ' bg-[#991b1b]/20 text-red-600 dark:text-red-400 border border-red-500/30';
                 feedback.innerHTML = `
                     <div class="flex items-center gap-2">
                         <span>⚠️</span>
@@ -1364,7 +1400,7 @@
 
             const reportText = `
 =============================================
-דוח מסכם - שיעור 1: מה זו בכלל רשת?
+דוח מסכם - מבוא לרשתות תקשורת: שיעור בסיס
 =============================================
 דירוג XP סופי: ${xp} XP
 דרגה נוכחית: ${currentLevel}
@@ -1384,13 +1420,12 @@
 
             const blob = new Blob([reportText], { type: 'text/plain;charset=utf-8' });
             const url = URL.createObjectURL(blob);
-            const link = document.getElementById('a');
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `NET_ACADEMY_Lesson1_Report.txt`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `NET_ACADEMY_Lesson1_Report.txt`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
             
             showToast("הדוח הורד בהצלחה! העבר אותו למורה.");
             addLog("דוח פעילות מסכם הורד למחשב המשתמש.");
