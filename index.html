@@ -119,9 +119,7 @@
             cursor: pointer;
         }
 
-        .filter-btn:hover {
-            background: #e2d1b0;
-        }
+        .filter-btn:hover { background: #e2d1b0; }
 
         .filter-btn.active {
             background: #d97706;
@@ -134,9 +132,7 @@
             color: #d1b89d;
         }
 
-        body.dark .filter-btn:hover {
-            background: #3a2927;
-        }
+        body.dark .filter-btn:hover { background: #3a2927; }
 
         body.dark .filter-btn.active {
             background: #d97706;
@@ -147,9 +143,7 @@
             transition: transform 0.15s ease, background-color 0.2s ease, box-shadow 0.2s ease;
             cursor: pointer;
         }
-        .header-tab-btn:hover {
-            transform: translateY(-2px);
-        }
+        .header-tab-btn:hover { transform: translateY(-2px); }
 
         .panel {
             position: relative;
@@ -316,7 +310,6 @@
             100% { transform: translateY(0); }
         }
 
-        /* ANIMATED MARQUEE TICKER */
         .marquee-container {
             overflow: hidden;
             white-space: nowrap;
@@ -334,7 +327,6 @@
             100% { transform: translateX(-100%); }
         }
 
-        /* CRAZY DATE WIDGET STYLING */
         .crazy-date-box {
             background: linear-gradient(135deg, #1e1b4b, #311042, #022c22);
             border: 2px solid #a855f7;
@@ -372,16 +364,13 @@
     <div id="header-modal" class="fixed inset-0 bg-black/70 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-white dark:bg-slate-900 border border-amber-900/20 dark:border-amber-500/30 rounded-3xl p-6 max-w-2xl w-full shadow-2xl space-y-4 relative animate-fade-in max-h-[90vh] overflow-y-auto">
             <button onclick="closeModal()" class="absolute top-4 left-4 text-slate-400 hover:text-slate-600 dark:hover:text-white text-xl font-bold bg-slate-100 dark:bg-slate-800 w-8 h-8 rounded-full flex items-center justify-center">✕</button>
-            <div id="modal-content">
-                <!-- Dynamic Content Loaded Via JS -->
-            </div>
+            <div id="modal-content"></div>
         </div>
     </div>
 
-    <!-- IMPROVED & CENTERED HEADER (RTL CORRECTED) -->
+    <!-- HEADER -->
     <header class="header-card p-4 md:p-6 max-w-7xl mx-auto w-full mb-8">
         
-        <!-- Top Statusbar -->
         <div class="statusbar flex items-center gap-2 mb-4">
             <span>10.0.30.0/24</span>
             <span class="opacity-50">//</span>
@@ -391,13 +380,9 @@
             <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-pulse"></span>
         </div>
 
-        <!-- Main Header Grid: RIGHT COLUMN (Title & Topic) | LEFT COLUMN (Controls & Quizzes) -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
             
-            <!-- RIGHT COLUMN (lg:col-span-7) -> LESSON TITLE, TOPIC, AVATAR, CRAZY DATE WIDGET -->
             <div class="lg:col-span-7 flex flex-col space-y-3">
-                
-                <!-- Pills & Badges -->
                 <div class="flex items-center gap-2 flex-wrap">
                     <span class="bg-[#eddcb8] dark:bg-[#2a1a18] text-[#78350f] dark:text-[#f59e0b] text-[11px] font-extrabold px-3 py-1 rounded-full border border-amber-600/20">
                         ✨ אקדמיית האחוואנים
@@ -408,7 +393,6 @@
                     </span>
                 </div>
 
-                <!-- Main Titles & Avatar -->
                 <div class="flex items-start justify-between w-full gap-4">
                     <div class="space-y-1">
                         <h1 class="hero-title text-2xl md:text-3xl">מבוא לרשתות תקשורת</h1>
@@ -418,13 +402,11 @@
                         </p>
                     </div>
 
-                    <!-- Avatar Image -->
                     <div class="flex-shrink-0 cursor-pointer" onclick="showToast('המורה דן: שמח לראות אותך בשיעור!')">
                         <img src="https://lh3.googleusercontent.com/d/1oIkZlLHZWtFgoDblyxziTALQZwsyxAOo" alt="אווטר המורה" class="hero-avatar-img hover:scale-105 transition-transform">
                     </div>
                 </div>
 
-                <!-- CRAZY CYBER DATE WIDGET -->
                 <div class="crazy-date-box rounded-2xl p-3 text-white flex items-center justify-between shadow-lg">
                     <div class="flex items-center gap-3">
                         <div class="bg-purple-500/20 p-2 rounded-xl border border-purple-400/30 text-cyan-300 animate-pulse">
@@ -441,7 +423,6 @@
                     </div>
                 </div>
 
-                <!-- Filter Chips (Active Filtering Controls) -->
                 <div class="flex items-center gap-1.5 flex-wrap pt-1">
                     <span class="text-xs font-bold text-slate-500 ml-1">סינון מהיר:</span>
                     <button onclick="setFilterCategory(this, 'הכל')" class="filter-btn active">הכל</button>
@@ -451,13 +432,9 @@
                     <button onclick="setFilterCategory(this, 'תרגיל')" class="filter-btn">תרגיל</button>
                     <button onclick="setFilterCategory(this, 'סיכום')" class="filter-btn">סיכום</button>
                 </div>
-
             </div>
 
-            <!-- LEFT COLUMN (lg:col-span-5) -> SEARCH & 3-TIER QUIZZES -->
             <div class="lg:col-span-5 space-y-3">
-                
-                <!-- Search Box -->
                 <div class="bg-[#1e0a0a] dark:bg-[#0a0505] text-white rounded-2xl p-2.5 flex items-center justify-between border border-amber-900/40 shadow-inner focus-within:ring-2 focus-within:ring-amber-500">
                     <div class="flex items-center gap-2 pr-2 text-slate-300 text-sm w-full">
                         <i data-lucide="search" class="w-4 h-4 opacity-70"></i>
@@ -466,12 +443,10 @@
                     <span class="code-font text-emerald-400 text-xs font-bold pl-2 cursor-pointer" onclick="executeSearch()">&lt;_</span>
                 </div>
 
-                <!-- Mid-Lesson Quick Quiz Button -->
                 <button onclick="openMidQuizModal()" class="w-full bg-gradient-to-r from-amber-500 via-orange-600 to-red-700 text-white font-extrabold py-2.5 px-4 rounded-2xl shadow-md hover:brightness-110 active:scale-98 transition-all text-center text-sm flex items-center justify-center gap-2">
                     <span>🎲 התחל מבחן אמצע שיעור מהיר!</span>
                 </button>
 
-                <!-- 3 QUIZ TIER BUTTONS (REPLACED UNNEEDED DOWNLOAD FILES) -->
                 <div class="space-y-1.5">
                     <div class="text-xs font-extrabold text-[#78350f] dark:text-[#f59e0b] flex items-center gap-1">
                         <i data-lucide="brain-circuit" class="w-4 h-4"></i>
@@ -479,29 +454,24 @@
                     </div>
                     
                     <div class="grid grid-cols-3 gap-2">
-                        <!-- Basic Quiz -->
                         <button onclick="startTierQuiz('basic')" class="header-tab-btn bg-emerald-600 hover:bg-emerald-700 text-white p-2.5 rounded-2xl flex flex-col items-center justify-center gap-1 shadow-md border border-emerald-400/30">
                             <span class="text-xs font-black">🟢 בסיס</span>
                             <span class="text-[10px] opacity-90">5 שאלות</span>
                         </button>
-                        <!-- Intermediate Quiz -->
                         <button onclick="startTierQuiz('intermediate')" class="header-tab-btn bg-amber-600 hover:bg-amber-700 text-white p-2.5 rounded-2xl flex flex-col items-center justify-center gap-1 shadow-md border border-amber-400/30">
                             <span class="text-xs font-black">🟡 בינוני</span>
                             <span class="text-[10px] opacity-90">5 שאלות</span>
                         </button>
-                        <!-- Hard Quiz -->
                         <button onclick="startTierQuiz('hard')" class="header-tab-btn bg-red-700 hover:bg-red-800 text-white p-2.5 rounded-2xl flex flex-col items-center justify-center gap-1 shadow-md border border-red-400/30">
                             <span class="text-xs font-black">🔴 קשה</span>
                             <span class="text-[10px] opacity-90">5 שאלות</span>
                         </button>
                     </div>
                 </div>
-
             </div>
 
         </div>
 
-        <!-- DYNAMIC ANIMATED MARQUEE TICKER (MOVING STRIP) -->
         <div class="mt-5 pt-2 border-t border-amber-900/10 dark:border-amber-500/10 bg-[#ebdcc1]/50 dark:bg-[#1a0f0e] rounded-xl overflow-hidden py-2 px-3">
             <div class="marquee-container">
                 <div class="marquee-content text-xs font-extrabold text-[#78350f] dark:text-[#f59e0b] space-x-12 space-x-reverse">
@@ -513,7 +483,6 @@
             </div>
         </div>
 
-        <!-- Gamification / XP Bar -->
         <div class="mt-3 flex flex-wrap items-center justify-between gap-4 px-2">
             <div class="flex items-center gap-3">
                 <i data-lucide="award" class="w-4 h-4 text-amber-600 dark:text-amber-400"></i>
@@ -535,7 +504,7 @@
     <!-- MAIN BODY -->
     <main class="flex-grow max-w-7xl w-full mx-auto px-2 py-4 grid grid-cols-1 lg:grid-cols-12 gap-8">
         
-        <!-- SIDEBAR: PROGRESS & STEPS -->
+        <!-- SIDEBAR -->
         <aside class="lg:col-span-3 flex flex-col gap-4">
             <div class="panel p-5">
                 <div class="panel-head mb-4 pb-2">
@@ -543,7 +512,6 @@
                     <span class="panel-tag mono">LESSON_MAP</span>
                 </div>
                 <nav class="flex flex-col gap-2">
-                    <!-- Step 1 -->
                     <button id="btn-step-1" onclick="switchStep(1)" class="w-full text-right flex items-center justify-between p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-red-600 dark:text-red-400 transition-all font-bold">
                         <div class="flex items-center gap-3">
                             <span class="code-font text-xs opacity-60">01.</span>
@@ -551,7 +519,6 @@
                         </div>
                         <i data-lucide="help-circle" class="w-4 h-4"></i>
                     </button>
-                    <!-- Step 2 -->
                     <button id="btn-step-2" onclick="switchStep(2)" class="w-full text-right flex items-center justify-between p-3 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-cyan-600 transition-all">
                         <div class="flex items-center gap-3">
                             <span class="code-font text-xs opacity-60">02.</span>
@@ -559,7 +526,6 @@
                         </div>
                         <i data-lucide="info" class="w-4 h-4 opacity-50"></i>
                     </button>
-                    <!-- Step 3 -->
                     <button id="btn-step-3" onclick="switchStep(3)" class="w-full text-right flex items-center justify-between p-3 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-cyan-600 transition-all">
                         <div class="flex items-center gap-3">
                             <span class="code-font text-xs opacity-60">03.</span>
@@ -567,7 +533,6 @@
                         </div>
                         <i data-lucide="play" class="w-4 h-4 opacity-50"></i>
                     </button>
-                    <!-- Step 4 -->
                     <button id="btn-step-4" onclick="switchStep(4)" class="w-full text-right flex items-center justify-between p-3 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-cyan-600 transition-all">
                         <div class="flex items-center gap-3">
                             <span class="code-font text-xs opacity-60">04.</span>
@@ -575,7 +540,6 @@
                         </div>
                         <i data-lucide="message-square" class="w-4 h-4 opacity-50"></i>
                     </button>
-                    <!-- Step 5 -->
                     <button id="btn-step-5" onclick="switchStep(5)" class="w-full text-right flex items-center justify-between p-3 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-cyan-600 transition-all">
                         <div class="flex items-center gap-3">
                             <span class="code-font text-xs opacity-60">05.</span>
@@ -586,7 +550,6 @@
                 </nav>
             </div>
 
-            <!-- SYSTEM LOG -->
             <div class="panel p-5 flex-grow flex flex-col justify-between">
                 <div>
                     <h4 class="text-xs font-bold tracking-wider mb-3 text-slate-500 dark:text-slate-400">יומן מערכת זמני</h4>
@@ -732,35 +695,36 @@
                 <div class="panel p-6 md:p-8">
                     <div class="panel-head">
                         <div>
-                            <h2>סימולטור ניתוב: החבילה הראשונה שלי</h2>
-                            <p class="text-slate-500 dark:text-slate-400 text-xs mt-1">לחבר את הקווים ולנתב את חבילת המידע הירוקה מהלפטופ אל שרת ספוטיפיי!</p>
+                            <h2>סימולטור ניתוב: מסע מעטפת המידע</h2>
+                            <p class="text-slate-500 dark:text-slate-400 text-xs mt-1">בחר נתב, שגר את המעטפה ועקוב אחר המסע הלוך וחזור!</p>
                         </div>
-                        <span class="panel-tag mono">GOAL: 100% BANDWIDTH</span>
+                        <span class="panel-tag mono">GOAL: FULL RTT SIMULATION</span>
                     </div>
 
                     <!-- Simulator Playground -->
-                    <div class="mt-6 bg-slate-100 dark:bg-slate-900 rounded-2xl p-4 md:p-6 border border-slate-200 dark:border-slate-800 relative min-h-[380px] flex flex-col justify-between overflow-hidden">
+                    <div class="mt-6 bg-slate-100 dark:bg-slate-900 rounded-2xl p-4 md:p-6 border border-slate-200 dark:border-slate-800 relative min-h-[420px] flex flex-col justify-between overflow-hidden">
                         
                         <div class="grid grid-cols-3 gap-6 md:gap-12 relative z-10 my-auto">
                             
                             <!-- Source Column -->
                             <div class="flex flex-col justify-center items-center gap-4">
-                                <div id="node-laptop" class="w-20 h-20 bg-white dark:bg-slate-950 border-2 border-cyan-500 rounded-2xl flex flex-col items-center justify-center text-center shadow-lg">
+                                <div id="node-laptop" class="w-24 h-24 bg-white dark:bg-slate-950 border-2 border-cyan-500 rounded-2xl flex flex-col items-center justify-center text-center shadow-lg p-2">
                                     <i data-lucide="laptop" class="w-8 h-8 text-cyan-600 dark:text-cyan-400"></i>
-                                    <span class="text-[10px] font-bold mt-1">לפטופ (מקור)</span>
+                                    <span class="text-xs font-bold mt-1">לפטופ (מקור)</span>
+                                    <span class="text-[9px] text-slate-400 code-font">192.168.1.10</span>
                                 </div>
                             </div>
 
                             <!-- Intermediary Column (Routers) -->
                             <div class="flex flex-col justify-around gap-6">
                                 <!-- Router A -->
-                                <div id="node-router-a" onclick="selectRouter('A')" class="w-28 p-3 bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 hover:border-purple-500 rounded-2xl flex flex-col items-center justify-center text-center cursor-pointer transition-all shadow-sm">
+                                <div id="node-router-a" onclick="selectRouter('A')" class="w-32 p-3 bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 hover:border-purple-500 rounded-2xl flex flex-col items-center justify-center text-center cursor-pointer transition-all shadow-sm">
                                     <i data-lucide="router" class="w-7 h-7 text-slate-500" id="icon-router-a"></i>
                                     <span class="text-xs font-bold mt-1">נתב צפוני (A)</span>
                                     <span class="text-[10px] text-emerald-600 dark:text-emerald-400 font-mono mt-1" id="ping-a">עומס: נמוך</span>
                                 </div>
                                 <!-- Router B -->
-                                <div id="node-router-b" onclick="selectRouter('B')" class="w-28 p-3 bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 hover:border-purple-500 rounded-2xl flex flex-col items-center justify-center text-center cursor-pointer transition-all shadow-sm">
+                                <div id="node-router-b" onclick="selectRouter('B')" class="w-32 p-3 bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 hover:border-purple-500 rounded-2xl flex flex-col items-center justify-center text-center cursor-pointer transition-all shadow-sm">
                                     <i data-lucide="router" class="w-7 h-7 text-slate-500" id="icon-router-b"></i>
                                     <span class="text-xs font-bold mt-1">נתב דרומי (B)</span>
                                     <span class="text-[10px] text-red-500 font-mono mt-1" id="ping-b">עומס: גבוה!</span>
@@ -769,28 +733,46 @@
 
                             <!-- Destination Column -->
                             <div class="flex flex-col justify-center items-center">
-                                <div id="node-server" class="w-20 h-20 bg-white dark:bg-slate-950 border-2 border-slate-300 dark:border-slate-700 rounded-2xl flex flex-col items-center justify-center text-center shadow-sm">
+                                <div id="node-server" class="w-24 h-24 bg-white dark:bg-slate-950 border-2 border-slate-300 dark:border-slate-700 rounded-2xl flex flex-col items-center justify-center text-center shadow-sm p-2">
                                     <i data-lucide="server" class="w-8 h-8 text-slate-500" id="icon-server"></i>
-                                    <span class="text-[10px] font-bold mt-1 text-slate-500">ספוטיפיי (יעד)</span>
+                                    <span class="text-xs font-bold mt-1 text-slate-500">ספוטיפיי (יעד)</span>
+                                    <span class="text-[9px] text-slate-400 code-font">104.199.65.12</span>
                                 </div>
                             </div>
 
                         </div>
 
-                        <!-- Actions -->
+                        <!-- Actions Controls -->
                         <div class="border-t border-slate-200 dark:border-slate-800 pt-4 mt-6 flex flex-col sm:flex-row justify-between items-center gap-4 relative z-10 bg-white/80 dark:bg-slate-950/80 rounded-xl p-3">
                             <div class="text-xs text-center sm:text-right">
-                                <p class="font-bold">הוראות שליטה מנכ"ל הרשת:</p>
-                                <p class="text-slate-500 dark:text-slate-400">לחץ על אחד הנתבים (A או B) כדי לכוון אליו את זרם החבילות, ואז לחץ על שיגור!</p>
+                                <p class="font-bold">בקרת שיגור:</p>
+                                <p class="text-slate-500 dark:text-slate-400">בחר נתב, לחץ שגר, והשתמש בכפתור ההקפאה כדי לבחון את המעטפה בכל שלב.</p>
                             </div>
-                            <button id="btn-fire-packet" onclick="firePacket()" class="bg-purple-600 hover:bg-purple-700 text-white font-bold px-5 py-2.5 rounded-xl text-sm transition-all flex items-center gap-1.5 disabled:opacity-40" disabled>
-                                <i data-lucide="send" class="w-4 h-4"></i>
-                                <span>שגר חבילה</span>
-                            </button>
+                            <div class="flex items-center gap-2">
+                                <button id="btn-pause-packet" onclick="togglePausePacket()" class="bg-amber-500 hover:bg-amber-600 text-white font-bold px-4 py-2.5 rounded-xl text-sm transition-all flex items-center gap-1.5 hidden">
+                                    <i data-lucide="pause" class="w-4 h-4" id="icon-pause"></i>
+                                    <span id="text-pause">הקפא מסע</span>
+                                </button>
+                                <button id="btn-fire-packet" onclick="firePacket()" class="bg-purple-600 hover:bg-purple-700 text-white font-bold px-5 py-2.5 rounded-xl text-sm transition-all flex items-center gap-1.5 disabled:opacity-40" disabled>
+                                    <i data-lucide="send" class="w-4 h-4"></i>
+                                    <span>שגר מעטפה</span>
+                                </button>
+                            </div>
                         </div>
 
-                        <!-- Inline packet visual effect -->
-                        <div id="packet-visual" class="absolute w-4 h-4 bg-emerald-500 rounded-full blur-[1px] shadow-lg shadow-emerald-500/80 hidden z-20 transition-all duration-1000 ease-in-out"></div>
+                        <!-- Animated Fancy Envelope Packet -->
+                        <div id="packet-envelope" class="absolute hidden z-30 transition-all duration-3000 ease-linear pointer-events-none">
+                            <div class="relative bg-amber-100 dark:bg-amber-950 border-2 border-amber-600 dark:border-amber-400 rounded-xl p-2.5 shadow-2xl flex flex-col items-center justify-center min-w-[160px] text-center transform -translate-x-1/2 -translate-y-1/2 backdrop-blur-sm">
+                                <div class="flex items-center gap-1.5 mb-1 text-amber-800 dark:text-amber-200 font-extrabold text-xs">
+                                    <span class="text-base">✉️</span>
+                                    <span id="envelope-title">חבילת IP</span>
+                                </div>
+                                <div id="envelope-status" class="bg-amber-200/60 dark:bg-amber-900/60 text-amber-900 dark:text-amber-100 text-[10px] font-bold px-2 py-1 rounded-md border border-amber-400/40 w-full">
+                                    יוצר חיבור...
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
 
                     <div id="sim-feedback" class="mt-4 hidden p-4 rounded-2xl text-sm font-bold flex items-center gap-3"></div>
@@ -819,7 +801,6 @@
                         <span class="panel-tag mono">STATUS: LIVE_ASSISTANT</span>
                     </div>
 
-                    <!-- Chat Interface -->
                     <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mt-4">
                         <div class="bg-slate-100 dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-4 text-center">
                             <div class="w-16 h-16 bg-red-500/20 rounded-full border border-red-500 flex items-center justify-center mx-auto overflow-hidden">
@@ -956,7 +937,7 @@
         <span id="toast-message" class="text-sm"></span>
     </div>
 
-    <!-- WIDGET BOT (AHWANIM BOT) -->
+    <!-- WIDGET BOT -->
     <div class="bot-widget collapsed" id="botWidget" onclick="expandBot(event)">
         <div class="bot-header" onclick="toggleBot(event)">
             <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
@@ -966,25 +947,29 @@
 
         <div class="bot-body">
             <img class="bot-avatar" src="https://lh3.googleusercontent.com/d/1fzqv93VKIW_VT8-e1HdJxBmbU2sFnwlb" alt="דן GPT עוזר הפרויקט">
-
             <p class="font-bold text-[10px] text-center mb-1">שלום תלמידים 👋</p>
             <p class="text-[9px] text-center text-slate-500 dark:text-slate-400 mb-2">אני דן GPT, עוזר השיעור והפרויקט שלכם. אפשר להיעזר בי 24/7 בלחיצה כאן!</p>
-
             <a class="bot-btn" href="https://gemini.google.com/gem/13FFjtbW5S3yg0EE1qBEQiP8GEMwoepKu?usp=sharing" target="_blank" rel="noopener">
                 $ connect --gem dan-gpt
             </a>
         </div>
     </div>
 
-    <!-- MAIN JAVASCRIPT LOGIC -->
+    <!-- JAVASCRIPT LOGIC -->
     <script>
-        // State variables
+        // Global variables
         let xp = 0;
         let activeStep = 1;
         let selectedRouterNode = null;
         let hasPassedSim = false;
         let hasPassedAi = false;
         let currentLevel = "טירון רשתות";
+
+        // Simulator Engine Variables
+        let simAnimationTimer = null;
+        let isSimPaused = false;
+        let currentSimStep = 0;
+        let simWaypoints = [];
 
         // DOM elements
         const xpCounter = document.getElementById('xp-counter');
@@ -994,7 +979,6 @@
         const toastEl = document.getElementById('toast');
         const toastMsg = document.getElementById('toast-message');
 
-        // Quiz Question Data (5 Questions Per Tier)
         const quizData = {
             basic: {
                 title: "🟢 מבחן בסיס - מבוא לרשתות",
@@ -1041,12 +1025,9 @@
             addLog("יוזם האזנה לאירועים בכותרת ובמערכת...");
         };
 
-        // Live Clock & Crazy Date Widget
         function startLiveClock() {
             function update() {
                 const now = new Date();
-                
-                // Hebrew Date Format
                 const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
                 const dateStr = now.toLocaleDateString('he-IL', options);
                 
@@ -1061,14 +1042,12 @@
             setInterval(update, 1000);
         }
 
-        // Dark Mode Toggle
         function toggleDark() {
             document.body.classList.toggle("dark");
             const btn = document.getElementById("darkToggleBtn");
             btn.textContent = document.body.classList.contains("dark") ? "☀️" : "🌙";
         }
 
-        // Floating Bot Expand/Collapse
         function toggleBot(evt){
             evt.stopPropagation();
             document.getElementById("botWidget").classList.toggle("collapsed");
@@ -1081,7 +1060,6 @@
             }
         }
 
-        // HEADER & MODAL CONTROLS
         function closeModal() {
             document.getElementById('header-modal').classList.add('hidden');
         }
@@ -1123,7 +1101,6 @@
             }
         }
 
-        // TIER QUIZZES (3 LEVELS, 5 QUESTIONS EACH)
         function startTierQuiz(tierKey) {
             const data = quizData[tierKey];
             currentQuizAnswers = {};
@@ -1210,7 +1187,6 @@
             showToast(`סינון נושאים הוחל: ${category}`);
             addLog(`סינון כותרת שונה ל: ${category}`);
             
-            // Highlight steps according to active filter category
             if (category === 'תשתית') switchStep(2);
             else if (category === 'נתבים') switchStep(3);
             else if (category === 'פרוטוקולים') switchStep(4);
@@ -1235,7 +1211,6 @@
             }
         }
 
-        // LocalStorage logic
         function loadSavedProgress() {
             const savedXp = localStorage.getItem('net_academy_xp');
             const savedStep = localStorage.getItem('net_academy_step');
@@ -1377,7 +1352,6 @@
             document.getElementById('share-code').innerText = `NET-ACAD-CLASS1-XP${xp}-${currentLevel.replace(/ /g, '_')}`;
         }
 
-        // STEP 1 Quiz
         function answerIntro(choice) {
             const feedback = document.getElementById('intro-feedback');
             feedback.classList.remove('hidden', 'bg-red-500/20', 'text-red-600', 'dark:text-red-400', 'bg-emerald-500/20', 'text-emerald-600', 'dark:text-emerald-400');
@@ -1398,7 +1372,7 @@
             }
         }
 
-        // STEP 3 Simulator
+        // SIMULATOR ENGINE WITH ENVELOPE, SLOW MOTION & PAUSE
         function selectRouter(routerId) {
             const nodeA = document.getElementById('node-router-a');
             const nodeB = document.getElementById('node-router-b');
@@ -1420,38 +1394,106 @@
         }
 
         function firePacket() {
-            const packet = document.getElementById('packet-visual');
-            const startNode = document.getElementById('node-laptop');
-            let targetNode = selectedRouterNode === 'A' ? document.getElementById('node-router-a') : document.getElementById('node-router-b');
-            const destNode = document.getElementById('node-server');
-
-            const startRect = startNode.getBoundingClientRect();
-            const parentRect = startNode.parentElement.parentElement.getBoundingClientRect();
+            clearTimeout(simAnimationTimer);
+            isSimPaused = false;
+            currentSimStep = 0;
             
-            packet.style.top = `${startRect.top - parentRect.top + 30}px`;
-            packet.style.left = `${startRect.left - parentRect.left + 30}px`;
-            packet.classList.remove('hidden');
+            const pauseBtn = document.getElementById('btn-pause-packet');
+            pauseBtn.classList.remove('hidden');
+            document.getElementById('text-pause').innerText = "הקפא מסע";
+            document.getElementById('icon-pause').setAttribute('data-lucide', 'pause');
+            document.getElementById('btn-fire-packet').disabled = true;
+            lucide.createIcons();
 
-            addLog("התחלת שיגור חבילת מידע...");
+            const laptop = document.getElementById('node-laptop');
+            const router = selectedRouterNode === 'A' ? document.getElementById('node-router-a') : document.getElementById('node-router-b');
+            const server = document.getElementById('node-server');
+            
+            const parentRect = laptop.parentElement.parentElement.getBoundingClientRect();
+            
+            const getCoords = (elem) => {
+                const r = elem.getBoundingClientRect();
+                return {
+                    x: r.left - parentRect.left + r.width / 2,
+                    y: r.top - parentRect.top + r.height / 2
+                };
+            };
 
-            setTimeout(() => {
-                const targetRect = targetNode.getBoundingClientRect();
-                packet.style.top = `${targetRect.top - parentRect.top + 20}px`;
-                packet.style.left = `${targetRect.left - parentRect.left + 40}px`;
+            const posLaptop = getCoords(laptop);
+            const posRouter = getCoords(router);
+            const posServer = getCoords(server);
 
-                setTimeout(() => {
-                    const destRect = destNode.getBoundingClientRect();
-                    packet.style.top = `${destRect.top - parentRect.top + 30}px`;
-                    packet.style.left = `${destRect.left - parentRect.left + 30}px`;
+            const isHighLoad = selectedRouterNode === 'B';
+            const routerDelay = isHighLoad ? 4500 : 2500;
 
-                    setTimeout(() => {
-                        packet.classList.add('hidden');
-                        evaluateSimResults();
-                    }, 1000);
+            simWaypoints = [
+                { x: posLaptop.x, y: posLaptop.y, title: "✉️ מעטפת בקשה", status: "יוצר חבילה בלפטופ (SYN)", duration: 500 },
+                { x: posRouter.x, y: posRouter.y, title: "✈️ בדרך לנתב", status: "עובר בתווך התקשורת...", duration: 3000 },
+                { x: posRouter.x, y: posRouter.y, title: "⚙️ מעבד בנתב", status: isHighLoad ? "עומס כבד! תור מעבד ארוך..." : "בודק טבלת ניתוב ומעביר...", duration: routerDelay },
+                { x: posServer.x, y: posServer.y, title: "🛰️ בדרך לשרת", status: "טס בסיב אופטי ליעד...", duration: 3000 },
+                { x: posServer.x, y: posServer.y, title: "🎧 מעבד בשרת", status: "ספוטיפיי מעבד את הבקשה!", duration: 2500 },
+                { x: posRouter.x, y: posRouter.y, title: "↩️ תשובה בדרך חזרה", status: "שולח חבילת תשובה (ACK)...", duration: 3000 },
+                { x: posLaptop.x, y: posLaptop.y, title: "✅ הגעה ליעד", status: "המידע הגיע בהצלחה למחשב!", duration: 2500 }
+            ];
 
-                }, 1000);
+            const envelope = document.getElementById('packet-envelope');
+            envelope.classList.remove('hidden');
 
-            }, 200);
+            addLog("החלה סימולציית מסע מעטפת ה-IP הלוך וחזור...");
+            executeNextSimStep();
+        }
+
+        function executeNextSimStep() {
+            if (currentSimStep >= simWaypoints.length) {
+                document.getElementById('btn-pause-packet').classList.add('hidden');
+                document.getElementById('btn-fire-packet').disabled = false;
+                evaluateSimResults();
+                return;
+            }
+
+            const step = simWaypoints[currentSimStep];
+            const envelope = document.getElementById('packet-envelope');
+            const titleEl = document.getElementById('envelope-title');
+            const statusEl = document.getElementById('envelope-status');
+
+            titleEl.innerText = step.title;
+            statusEl.innerText = step.status;
+
+            envelope.style.transition = `top ${step.duration}ms linear, left ${step.duration}ms linear`;
+            envelope.style.left = `${step.x}px`;
+            envelope.style.top = `${step.y}px`;
+
+            addLog(`שלב ${currentSimStep + 1}: ${step.status}`);
+
+            simAnimationTimer = setTimeout(() => {
+                currentSimStep++;
+                executeNextSimStep();
+            }, step.duration);
+        }
+
+        function togglePausePacket() {
+            const envelope = document.getElementById('packet-envelope');
+            const textEl = document.getElementById('text-pause');
+
+            if (!isSimPaused) {
+                clearTimeout(simAnimationTimer);
+                const computedStyle = window.getComputedStyle(envelope);
+                const currentX = computedStyle.getPropertyValue('left');
+                const currentY = computedStyle.getPropertyValue('top');
+
+                envelope.style.transition = 'none';
+                envelope.style.left = currentX;
+                envelope.style.top = currentY;
+
+                isSimPaused = true;
+                textEl.innerText = "המשך מסע";
+                addLog("הסימולציה הוקפאה לבדיקת התלמיד.");
+            } else {
+                isSimPaused = false;
+                textEl.innerText = "הקפא מסע";
+                addLog("הסימולציה הומשכה.");
+                executeNextSimStep();
+            }
         }
 
         function evaluateSimResults() {
@@ -1464,7 +1506,7 @@
                     <div class="flex items-center gap-2">
                         <span>🚀</span>
                         <div>
-                            <p class="font-bold">הצלחה מוחלטת! החבילה הגיעה לשרת בתוך 12 מילי-שניות.</p>
+                            <p class="font-bold">הצלחה מוחלטת! מעטפת המידע השלימה מסע הלוך וחזור מלא בצורה מבריקה.</p>
                             <p class="text-xs opacity-90">בחרת בנתב הצפוני הפנוי. ניתוב יעיל משתמש בדרכים פחות עמוסות כדי למנוע דיליי (Lag).</p>
                         </div>
                     </div>
@@ -1481,7 +1523,7 @@
                     <div class="flex items-center gap-2">
                         <span>⚠️</span>
                         <div>
-                            <p class="font-bold">תקלה! החבילה הגיעה בדיליי גבוה (120 מילי-שניות) ואיבדה חלק מהפריימים.</p>
+                            <p class="font-bold">תקלה! המעטפה חוותה עיכוב קשה בנתב הדרומי (עומס יתר).</p>
                             <p class="text-xs opacity-90">בחרת בנתב הדרומי שהיה עמוס מאוד. נסה לשנות את הנתיב לנתב הצפוני היציב יותר!</p>
                         </div>
                     </div>
@@ -1491,7 +1533,6 @@
             }
         }
 
-        // STEP 4: Chat logic
         function handleChatKey(event) {
             if (event.key === 'Enter') sendChatMessage();
         }
@@ -1522,7 +1563,8 @@
             messagesArea.scrollTop = messagesArea.scrollHeight;
 
             setTimeout(() => {
-                document.getElementById(typingId).remove();
+                const typingElem = document.getElementById(typingId);
+                if (typingElem) typingElem.remove();
                 
                 let botResponse = "";
                 let isPassed = false;
