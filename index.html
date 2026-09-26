@@ -356,6 +356,22 @@
             text-shadow: 0 1px 3px rgba(0, 0, 0, 0.55), 0 0 1px rgba(0,0,0,0.4);
         }
 
+        /* עיצוב מושגים ממוסגרים באנגלית */
+        .english-term-box {
+            display: inline-block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85em;
+            font-weight: 700;
+            direction: ltr;
+            padding: 2px 8px;
+            margin: 0 2px;
+            border-radius: 6px;
+            border: 1px solid var(--cyan);
+            background: var(--cyan-soft);
+            color: var(--cyan);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: var(--bg); }
         ::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 3px; }
@@ -514,44 +530,44 @@
         <aside class="lg:col-span-3 flex flex-col gap-4">
             <div class="panel p-5">
                 <div class="panel-head mb-4 pb-2">
-                    <h2 class="text-sm font-extrabold tracking-wider uppercase">מפת השיעור</h2>
+                    <h2 class="text-base font-extrabold tracking-wider uppercase">מפת השיעור</h2>
                     <span class="panel-tag mono">LESSON_MAP</span>
                 </div>
-                <nav class="flex flex-col gap-2">
-                    <button id="btn-step-1" onclick="switchStep(1)" class="w-full text-right flex items-center justify-between p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-red-600 dark:text-red-400 transition-all font-bold">
+                <nav class="flex flex-col gap-2.5">
+                    <button id="btn-step-1" onclick="switchStep(1)" class="w-full text-right flex items-center justify-between p-3.5 rounded-xl bg-red-500/10 border border-red-500/30 text-red-600 dark:text-red-400 transition-all font-bold text-base">
                         <div class="flex items-center gap-3">
-                            <span class="code-font text-xs opacity-60">01.</span>
+                            <span class="code-font text-sm opacity-70">01.</span>
                             <span>התעלומה והקופסה</span>
                         </div>
-                        <i data-lucide="help-circle" class="w-4 h-4"></i>
+                        <i data-lucide="help-circle" class="w-5 h-5"></i>
                     </button>
-                    <button id="btn-step-2" onclick="switchStep(2)" class="w-full text-right flex items-center justify-between p-3 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-cyan-600 transition-all">
+                    <button id="btn-step-2" onclick="switchStep(2)" class="w-full text-right flex items-center justify-between p-3.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-cyan-600 transition-all text-base font-semibold">
                         <div class="flex items-center gap-3">
-                            <span class="code-font text-xs opacity-60">02.</span>
+                            <span class="code-font text-sm opacity-70">02.</span>
                             <span>מה זו באמת רשת?</span>
                         </div>
-                        <i data-lucide="info" class="w-4 h-4 opacity-50"></i>
+                        <i data-lucide="info" class="w-5 h-5 opacity-50"></i>
                     </button>
-                    <button id="btn-step-3" onclick="switchStep(3)" class="w-full text-right flex items-center justify-between p-3 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-cyan-600 transition-all">
+                    <button id="btn-step-3" onclick="switchStep(3)" class="w-full text-right flex items-center justify-between p-3.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-cyan-600 transition-all text-base font-semibold">
                         <div class="flex items-center gap-3">
-                            <span class="code-font text-xs opacity-60">03.</span>
+                            <span class="code-font text-sm opacity-70">03.</span>
                             <span>סימולציית ניתוב</span>
                         </div>
-                        <i data-lucide="play" class="w-4 h-4 opacity-50"></i>
+                        <i data-lucide="play" class="w-5 h-5 opacity-50"></i>
                     </button>
-                    <button id="btn-step-4" onclick="switchStep(4)" class="w-full text-right flex items-center justify-between p-3 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-cyan-600 transition-all">
+                    <button id="btn-step-4" onclick="switchStep(4)" class="w-full text-right flex items-center justify-between p-3.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-cyan-600 transition-all text-base font-semibold">
                         <div class="flex items-center gap-3">
-                            <span class="code-font text-xs opacity-60">04.</span>
+                            <span class="code-font text-sm opacity-70">04.</span>
                             <span>שיחת ה-AI הראשונה שלי</span>
                         </div>
-                        <i data-lucide="message-square" class="w-4 h-4 opacity-50"></i>
+                        <i data-lucide="message-square" class="w-5 h-5 opacity-50"></i>
                     </button>
-                    <button id="btn-step-5" onclick="switchStep(5)" class="w-full text-right flex items-center justify-between p-3 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-cyan-600 transition-all">
+                    <button id="btn-step-5" onclick="switchStep(5)" class="w-full text-right flex items-center justify-between p-3.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-cyan-600 transition-all text-base font-semibold">
                         <div class="flex items-center gap-3">
-                            <span class="code-font text-xs opacity-60">05.</span>
+                            <span class="code-font text-sm opacity-70">05.</span>
                             <span>השוואת עמיתים וסיום</span>
                         </div>
-                        <i data-lucide="award" class="w-4 h-4 opacity-50"></i>
+                        <i data-lucide="award" class="w-5 h-5 opacity-50"></i>
                     </button>
                 </nav>
             </div>
@@ -646,7 +662,7 @@
                         <div class="bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-xl hover:border-cyan-500/50 transition-all">
                             <div class="flex items-center gap-3 mb-3">
                                 <div class="bg-cyan-500/20 p-2 rounded-lg text-cyan-600 dark:text-cyan-400"><i data-lucide="laptop" class="w-6 h-6"></i></div>
-                                <h3 class="font-black">מכשירי קצה (Host/End Device)</h3>
+                                <h3 class="font-black">מכשירי קצה <span class="english-term-box">Host / End Device</span></h3>
                             </div>
                             <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-400">
                                 המחשב שלך, הטלפון שלך, הטלוויזיה החכמה, ואפילו המקרר שמזמין חלב לבד. הם המקור של המידע או היעד שלו.
@@ -656,7 +672,7 @@
                         <div class="bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-xl hover:border-emerald-500/50 transition-all">
                             <div class="flex items-center gap-3 mb-3">
                                 <div class="bg-emerald-500/20 p-2 rounded-lg text-emerald-600 dark:text-emerald-400"><i data-lucide="cable" class="w-6 h-6"></i></div>
-                                <h3 class="font-black">תווך תקשורת (Media)</h3>
+                                <h3 class="font-black">תווך תקשורת <span class="english-term-box">Media</span></h3>
                             </div>
                             <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-400">
                                 החיבור הפיזי או האלחוטי. כבל נחושת (Ethernet), סיב אופטי שמעביר אור במהירות עצומה, או גלי רדיו באוויר (Wi-Fi).
@@ -666,7 +682,7 @@
                         <div class="bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-xl hover:border-purple-500/50 transition-all">
                             <div class="flex items-center gap-3 mb-3">
                                 <div class="bg-purple-500/20 p-2 rounded-lg text-purple-600 dark:text-purple-400"><i data-lucide="shuffle" class="w-6 h-6"></i></div>
-                                <h3 class="font-black">מכשירי ביניים (Intermediary Devices)</h3>
+                                <h3 class="font-black">מכשירי ביניים <span class="english-term-box">Intermediary Devices</span></h3>
                             </div>
                             <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-400">
                                 הנתב (Router) או המתג (Switch). הם המדריכים של הצומת. מקבלים חבילת מידע ומחליטים לאיזה כיוון לשלוח אותה.
@@ -676,7 +692,7 @@
                         <div class="bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-xl hover:border-amber-500/50 transition-all">
                             <div class="flex items-center gap-3 mb-3">
                                 <div class="bg-amber-500/20 p-2 rounded-lg text-amber-600 dark:text-amber-400"><i data-lucide="handshake" class="w-6 h-6"></i></div>
-                                <h3 class="font-black">פרוטוקול (Protocol)</h3>
+                                <h3 class="font-black">פרוטוקול <span class="english-term-box">Protocol</span></h3>
                             </div>
                             <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-400">
                                 ספר החוקים. ללא הסכמה מראש, שום מכשיר לא יבין את השני. פרוטוקול מגדיר מתי מדברים, באיזו שפה, ומה עושים כשיש שגיאה.
@@ -1298,14 +1314,14 @@
                 document.getElementById(`step-${i}`).classList.add('hidden');
                 const btn = document.getElementById(`btn-step-${i}`);
                 if (btn) {
-                    btn.className = "w-full text-right flex items-center justify-between p-3 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-cyan-600 transition-all";
+                    btn.className = "w-full text-right flex items-center justify-between p-3.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-cyan-600 transition-all text-base font-semibold";
                 }
             }
 
             document.getElementById(`step-${stepNum}`).classList.remove('hidden');
             const activeBtn = document.getElementById(`btn-step-${stepNum}`);
             if (activeBtn) {
-                activeBtn.className = "w-full text-right flex items-center justify-between p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-red-600 dark:text-red-400 transition-all font-bold";
+                activeBtn.className = "w-full text-right flex items-center justify-between p-3.5 rounded-xl bg-red-500/10 border border-red-500/30 text-red-600 dark:text-red-400 transition-all font-bold text-base";
             }
 
             activeStep = stepNum;
