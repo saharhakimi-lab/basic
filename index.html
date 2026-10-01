@@ -497,6 +497,22 @@
         </div>
     </div>
 
+    <!-- FULLSCREEN IMAGE LIGHTBOX MODAL -->
+    <div id="lightbox-modal" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 flex flex-col items-center justify-center p-4 hidden">
+        <button onclick="closeLightbox()" class="absolute top-6 left-6 text-white hover:text-red-400 text-2xl font-bold bg-white/10 hover:bg-white/20 w-10 h-10 rounded-full flex items-center justify-center transition-all">✕</button>
+        <div class="text-white mb-2 text-xs font-mono">תצוגת תמונה מלאה - גלול חופשי לכל הכיוונים והשתמש בכפתורים להגדלה/הקטנה</div>
+        <div class="w-full h-[85vh] overflow-auto flex p-8 relative">
+            <div id="lightbox-wrapper" class="transition-transform duration-200 m-auto flex items-center justify-center min-w-full min-h-full">
+                <img id="lightbox-img" src="https://lh3.googleusercontent.com/d/1-wVGTef0-jb-USPCqnaub6W4Xne8RmCy=s0" alt="רשת מקומית מוגדלת" class="max-w-none object-contain rounded-lg shadow-2xl block m-auto">
+            </div>
+        </div>
+        <div class="flex items-center gap-3 mt-3 bg-white/10 backdrop-blur-md px-4 py-2 rounded-2xl border border-white/20">
+            <button onclick="zoomLightbox(0.25)" class="bg-white/20 hover:bg-white/30 text-white px-3 py-1.5 rounded-xl text-xs font-bold transition-all">🔍 התגדל</button>
+            <button onclick="zoomLightbox(-0.25)" class="bg-white/20 hover:bg-white/30 text-white px-3 py-1.5 rounded-xl text-xs font-bold transition-all">🔍 הקטן</button>
+            <button onclick="resetLightboxZoom()" class="bg-red-500/30 hover:bg-red-500/50 text-white px-3 py-1.5 rounded-xl text-xs font-bold transition-all">איפוס</button>
+        </div>
+    </div>
+
     <!-- HEADER -->
     <header class="header-card max-w-7xl mx-auto w-full mb-6">
         <div class="header-inner">
@@ -577,7 +593,7 @@
                     <span>🧠 העצמה: תרגול בסיסי הוא המפתח להבנת רשתות תקשורת חזקות ושורדניות!</span>
                     <span>🛰️ טיפ רשת: חפשו את הטרמינל במחשב והקישו ipconfig לבדוק את ה-LAN שלכם!</span>
                     <span>⚡ זכרו: מכשיר קצה ליצירת מידע, נתב (Router) לניתוב בין רשתות, ומתג (Switch) לחיבור מקומי!</span>
-                    <span>🚀 השלימו את שלושת הבחנים כדי לצבור 150XP ולהפוך למנהלי רשתות מומחים!</span>
+                    <span>🚀 השלימו את הבחנים כדי לצבור XP ולהפוך למנהלי רשתות מומחים!</span>
                 </div>
             </div>
         </div>
@@ -611,23 +627,9 @@
                     <button id="btn-step-3" onclick="switchStep(3)" class="w-full text-right flex items-center justify-between p-3.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-cyan-600 transition-all text-base font-semibold">
                         <div class="flex items-center gap-3">
                             <span class="code-font text-sm opacity-70">03.</span>
-                            <span>סימולציית ניתוב</span>
+                            <span>רשת מקומית</span>
                         </div>
-                        <i data-lucide="play" class="w-5 h-5 opacity-50"></i>
-                    </button>
-                    <button id="btn-step-4" onclick="switchStep(4)" class="w-full text-right flex items-center justify-between p-3.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-cyan-600 transition-all text-base font-semibold">
-                        <div class="flex items-center gap-3">
-                            <span class="code-font text-sm opacity-70">04.</span>
-                            <span>שיחת ה-AI הראשונה שלי</span>
-                        </div>
-                        <i data-lucide="message-square" class="w-5 h-5 opacity-50"></i>
-                    </button>
-                    <button id="btn-step-5" onclick="switchStep(5)" class="w-full text-right flex items-center justify-between p-3.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-cyan-600 transition-all text-base font-semibold">
-                        <div class="flex items-center gap-3">
-                            <span class="code-font text-sm opacity-70">05.</span>
-                            <span>השוואת עמיתים וסיום</span>
-                        </div>
-                        <i data-lucide="award" class="w-5 h-5 opacity-50"></i>
+                        <i data-lucide="image" class="w-5 h-5 opacity-50"></i>
                     </button>
                 </nav>
             </div>
@@ -766,98 +768,52 @@
                         <span>חזרה לפתיחה</span>
                     </button>
                     <button onclick="switchStep(3)" class="bg-gradient-to-r from-red-600 to-red-700 text-white font-bold px-6 py-3 rounded-xl flex items-center gap-2 shadow-lg transition-all">
-                        <span>לסימולטור המעשי!</span>
+                        <span>לרשת המקומית!</span>
                         <i data-lucide="arrow-left" class="w-5 h-5"></i>
                     </button>
                 </div>
             </div>
 
-            <!-- STEP 3: INTERACTIVE ROUTING SIMULATOR -->
+            <!-- STEP 3: LOCAL NETWORK (IMAGE VIEWER FULLSCREEN / FULLSIZE) -->
             <div id="step-3" class="step-container space-y-6 hidden">
                 <div class="panel p-6 md:p-8">
                     <div class="panel-head">
                         <div>
-                            <h2>סימולטור ניתוב: מסע מעטפת המידע</h2>
-                            <p class="text-slate-500 dark:text-slate-400 text-xs mt-1">בחר נתב, שגר את המעטפה ועקוב אחר המסע הלוך וחזור!</p>
+                            <h2>רשת מקומית</h2>
+                            <p class="text-slate-500 dark:text-slate-400 text-xs mt-1">תרשים מפורט של רשת מקומית והתקנים מחוברים. לחץ על התמונה לצפייה במסך מלא וגלילה חופשית!</p>
                         </div>
-                        <span class="panel-tag mono">GOAL: FULL RTT SIMULATION</span>
+                        <span class="panel-tag mono">LOCAL_NETWORK_DIAGRAM</span>
                     </div>
 
-                    <!-- Simulator Playground -->
-                    <div class="mt-6 bg-slate-100 dark:bg-slate-900 rounded-2xl p-4 md:p-6 border border-slate-200 dark:border-slate-800 relative min-h-[420px] flex flex-col justify-between overflow-hidden">
+                    <!-- Image Container with Zoom Controls & Scrollable Viewport -->
+                    <div class="mt-6 bg-slate-100 dark:bg-slate-900 rounded-2xl p-4 border border-slate-200 dark:border-slate-800 flex flex-col items-center">
                         
-                        <div class="grid grid-cols-3 gap-6 md:gap-12 relative z-10 my-auto">
-                            
-                            <!-- Source Column -->
-                            <div class="flex flex-col justify-center items-center gap-4">
-                                <div id="node-laptop" class="w-24 h-24 bg-white dark:bg-slate-950 border-2 border-cyan-500 rounded-2xl flex flex-col items-center justify-center text-center shadow-lg p-2">
-                                    <i data-lucide="laptop" class="w-8 h-8 text-cyan-600 dark:text-cyan-400"></i>
-                                    <span class="text-xs font-bold mt-1">לפטופ (מקור)</span>
-                                    <span class="text-[9px] text-slate-400 code-font">192.168.1.10</span>
-                                </div>
-                            </div>
-
-                            <!-- Intermediary Column (Routers) -->
-                            <div class="flex flex-col justify-around gap-6">
-                                <!-- Router A -->
-                                <div id="node-router-a" onclick="selectRouter('A')" class="w-32 p-3 bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 hover:border-purple-500 rounded-2xl flex flex-col items-center justify-center text-center cursor-pointer transition-all shadow-sm">
-                                    <i data-lucide="router" class="w-7 h-7 text-slate-500" id="icon-router-a"></i>
-                                    <span class="text-xs font-bold mt-1">נתב צפוני (A)</span>
-                                    <span class="text-[10px] text-emerald-600 dark:text-emerald-400 font-mono mt-1" id="ping-a">עומס: נמוך</span>
-                                </div>
-                                <!-- Router B -->
-                                <div id="node-router-b" onclick="selectRouter('B')" class="w-32 p-3 bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 hover:border-purple-500 rounded-2xl flex flex-col items-center justify-center text-center cursor-pointer transition-all shadow-sm">
-                                    <i data-lucide="router" class="w-7 h-7 text-slate-500" id="icon-router-b"></i>
-                                    <span class="text-xs font-bold mt-1">נתב דרומי (B)</span>
-                                    <span class="text-[10px] text-red-500 font-mono mt-1" id="ping-b">עומס: גבוה!</span>
-                                </div>
-                            </div>
-
-                            <!-- Destination Column -->
-                            <div class="flex flex-col justify-center items-center">
-                                <div id="node-server" class="w-24 h-24 bg-white dark:bg-slate-950 border-2 border-slate-300 dark:border-slate-700 rounded-2xl flex flex-col items-center justify-center text-center shadow-sm p-2">
-                                    <i data-lucide="server" class="w-8 h-8 text-slate-500" id="icon-server"></i>
-                                    <span class="text-xs font-bold mt-1 text-slate-500">ספוטיפיי (יעד)</span>
-                                    <span class="text-[9px] text-slate-400 code-font">104.199.65.12</span>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <!-- Actions Controls -->
-                        <div class="border-t border-slate-200 dark:border-slate-800 pt-4 mt-6 flex flex-col sm:flex-row justify-between items-center gap-4 relative z-10 bg-white/80 dark:bg-slate-950/80 rounded-xl p-3">
-                            <div class="text-xs text-center sm:text-right">
-                                <p class="font-bold">בקרת שיגור:</p>
-                                <p class="text-slate-500 dark:text-slate-400">בחר נתב, לחץ שגר, והשתמש בכפתור ההקפאה כדי לבחון את המעטפה בכל שלב.</p>
-                            </div>
+                        <!-- Toolbar for Zoom -->
+                        <div class="w-full flex items-center justify-between mb-4 bg-white dark:bg-slate-950 p-2.5 rounded-xl border border-slate-200 dark:border-slate-800">
+                            <span class="text-xs font-bold text-slate-600 dark:text-slate-300">בקרת תצוגה:</span>
                             <div class="flex items-center gap-2">
-                                <button id="btn-pause-packet" onclick="togglePausePacket()" class="bg-amber-500 hover:bg-amber-600 text-white font-bold px-4 py-2.5 rounded-xl text-sm transition-all flex items-center gap-1.5 hidden">
-                                    <i data-lucide="pause" class="w-4 h-4" id="icon-pause"></i>
-                                    <span id="text-pause">הקפא מסע</span>
+                                <button onclick="zoomImage(0.2)" class="bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1">
+                                    <i data-lucide="zoom-in" class="w-3.5 h-3.5"></i> התגדל
                                 </button>
-                                <button id="btn-fire-packet" onclick="firePacket()" class="bg-purple-600 hover:bg-purple-700 text-white font-bold px-5 py-2.5 rounded-xl text-sm transition-all flex items-center gap-1.5 disabled:opacity-40" disabled>
-                                    <i data-lucide="send" class="w-4 h-4"></i>
-                                    <span>שגר מעטפה</span>
+                                <button onclick="zoomImage(-0.2)" class="bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1">
+                                    <i data-lucide="zoom-out" class="w-3.5 h-3.5"></i> הקטן
+                                </button>
+                                <button onclick="resetZoom()" class="bg-red-500/10 text-red-600 dark:text-red-400 hover:bg-red-500/20 px-3 py-1.5 rounded-lg text-xs font-bold transition-all">
+                                    איפוס גודל
+                                </button>
+                                <button onclick="openLightbox()" class="bg-cyan-600 hover:bg-cyan-700 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1">
+                                    <i data-lucide="maximize-2" class="w-3.5 h-3.5"></i> מסך מלא
                                 </button>
                             </div>
                         </div>
 
-                        <!-- Animated Fancy Envelope Packet -->
-                        <div id="packet-envelope" class="absolute hidden z-30 transition-all duration-3000 ease-linear pointer-events-none">
-                            <div class="relative bg-amber-100 dark:bg-amber-950 border-2 border-amber-600 dark:border-amber-400 rounded-xl p-2.5 shadow-2xl flex flex-col items-center justify-center min-w-[160px] text-center transform -translate-x-1/2 -translate-y-1/2 backdrop-blur-sm">
-                                <div class="flex items-center gap-1.5 mb-1 text-amber-800 dark:text-amber-200 font-extrabold text-xs">
-                                    <span class="text-base">✉️</span>
-                                    <span id="envelope-title">חבילת IP</span>
-                                </div>
-                                <div id="envelope-status" class="bg-amber-200/60 dark:bg-amber-900/60 text-amber-900 dark:text-amber-100 text-[10px] font-bold px-2 py-1 rounded-md border border-amber-400/40 w-full">
-                                    יוצר חיבור...
-                                </div>
+                        <!-- Scrollable Wrapper with padding for full scrolling range -->
+                        <div class="w-full h-[550px] overflow-auto bg-white dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 flex p-8 relative shadow-inner">
+                            <div id="image-wrapper" class="transition-transform duration-200 m-auto flex items-center justify-center min-w-full min-h-full">
+                                <img id="local-network-img" src="https://lh3.googleusercontent.com/d/1-wVGTef0-jb-USPCqnaub6W4Xne8RmCy=s0" alt="רשת מקומית" onclick="openLightbox()" class="max-w-full max-h-full object-contain rounded-lg shadow-md cursor-pointer hover:opacity-95 transition-opacity block m-auto" title="לחץ להגדלה למסך מלא">
                             </div>
                         </div>
-
                     </div>
-
-                    <div id="sim-feedback" class="mt-4 hidden p-4 rounded-2xl text-sm font-bold flex items-center gap-3"></div>
                 </div>
 
                 <div class="flex justify-between">
@@ -865,136 +821,7 @@
                         <i data-lucide="arrow-right" class="w-5 h-5"></i>
                         <span>חזרה להסבר</span>
                     </button>
-                    <button id="btn-to-step-4" onclick="switchStep(4)" class="bg-gradient-to-r from-red-600 to-red-700 text-white font-bold px-6 py-3 rounded-xl flex items-center gap-2 shadow-lg transition-all disabled:opacity-40" disabled>
-                        <span>המשך לרגע ה-AI</span>
-                        <i data-lucide="arrow-left" class="w-5 h-5"></i>
-                    </button>
-                </div>
-            </div>
-
-            <!-- STEP 4: AI CONNECT-BOT -->
-            <div id="step-4" class="step-container space-y-6 hidden">
-                <div class="panel p-6 md:p-8">
-                    <div class="panel-head">
-                        <div>
-                            <h2 class="heading-yellow">בוט המעבדה: Connect-Bot</h2>
-                            <p class="text-slate-500 dark:text-slate-400 text-xs mt-1">בוט ה-AI שלנו בודק אם הבנת את השיעור דרך שיחה פתוחה!</p>
-                        </div>
-                        <span class="panel-tag mono">STATUS: LIVE_ASSISTANT</span>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mt-4">
-                        <div class="bg-slate-100 dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-4 text-center">
-                            <div class="w-16 h-16 bg-red-500/20 rounded-full border border-red-500 flex items-center justify-center mx-auto overflow-hidden">
-                                <img src="https://lh3.googleusercontent.com/d/1fzqv93VKIW_VT8-e1HdJxBmbU2sFnwlb" alt="Avatar" class="w-full h-full object-cover">
-                            </div>
-                            <div>
-                                <h3 class="font-bold text-sm">הנחיות בוט-הרשת</h3>
-                                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">בוחן את הבנת המושגים שלך.</p>
-                            </div>
-                            <div class="bg-white dark:bg-slate-950 p-3 rounded-xl border border-slate-200 dark:border-slate-800 text-right">
-                                <span class="text-[10px] text-slate-400 block font-bold">משימה פתוחה:</span>
-                                <span class="text-xs text-amber-600 dark:text-amber-400 font-semibold">תגיד לבוט במילים שלך מה ההבדל בין מחשב קצה לבין ראוטר.</span>
-                            </div>
-                        </div>
-
-                        <div class="md:col-span-3 flex flex-col h-[350px] bg-slate-100 dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden">
-                            <div id="chat-messages" class="flex-grow overflow-y-auto p-4 space-y-3 flex flex-col">
-                                <div class="bg-white dark:bg-slate-950 p-3.5 rounded-2xl border border-slate-200 dark:border-slate-800 max-w-[85%] self-start text-xs">
-                                    <span class="text-[10px] font-bold text-cyan-600 dark:text-cyan-400 block mb-1">CONNECT_BOT // </span>
-                                    שלום לך! אני הבוט שיעזור לך לוודא שאתה לא יוצא מכאן בלי מושג. 🚀 
-                                    <br><br>
-                                    אז תגיד לי בשפה חופשית שלך: <b>מה ההבדל בין מחשב קצה (לפטופ, טלפון) לנתב/ראוטר בתוך רשת תקשורת?</b>
-                                </div>
-                            </div>
-                            
-                            <div class="p-3 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 flex gap-2">
-                                <input type="text" id="chat-input" onkeypress="handleChatKey(event)" placeholder="הקלד תשובה או שאלה לבוט..." class="flex-grow bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-xl px-4 py-2 text-sm focus:outline-none focus:border-red-500">
-                                <button onclick="sendChatMessage()" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-xl text-sm font-bold flex items-center gap-1.5 transition-all shadow-md">
-                                    <i data-lucide="send" class="w-4 h-4"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="ai-bonus-alert" class="mt-4 hidden bg-amber-500/10 border border-amber-500/30 text-amber-700 dark:text-amber-300 p-4 rounded-2xl flex items-center justify-between">
-                        <div class="flex items-center gap-3">
-                            <span class="text-xl">🏆</span>
-                            <div>
-                                <p class="font-bold">הישג נפתח! קפיצת ההבנה</p>
-                                <p class="text-xs opacity-80">דיברת עם בוט ה-AI והוכחת הבנה איכותית במבנה הרשת.</p>
-                            </div>
-                        </div>
-                        <span class="font-mono text-xs font-bold bg-amber-500/20 px-3 py-1 rounded-full">+50 XP</span>
-                    </div>
-                </div>
-
-                <div class="flex justify-between">
-                    <button onclick="switchStep(3)" class="bg-slate-200 dark:bg-slate-800 font-bold px-5 py-3 rounded-xl flex items-center gap-2 transition-all">
-                        <i data-lucide="arrow-right" class="w-5 h-5"></i>
-                        <span>חזרה למעבדה</span>
-                    </button>
-                    <button id="btn-to-step-5" onclick="switchStep(5)" class="bg-gradient-to-r from-red-600 to-red-700 text-white font-bold px-6 py-3 rounded-xl flex items-center gap-2 shadow-lg transition-all disabled:opacity-40" disabled>
-                        <span>לסיום וסגירת השיעור</span>
-                        <i data-lucide="arrow-left" class="w-5 h-5"></i>
-                    </button>
-                </div>
-            </div>
-
-            <!-- STEP 5: REFLECTION -->
-            <div id="step-5" class="step-container space-y-6 hidden">
-                <div class="panel p-6 md:p-8">
-                    <div class="panel-head">
-                        <h2>תעודת ההאקר שלך מוכנה!</h2>
-                        <span class="panel-tag mono">FINAL_REPORT</span>
-                    </div>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="bg-slate-100 dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-4">
-                            <h3 class="font-bold text-base">דוח רפלקציה עצמית למורה</h3>
-                            <p class="text-xs text-slate-500 dark:text-slate-400">השלם את המחשבות שלך על השיעור והמידע הזה יישלח למורה שלך בקליק.</p>
-                            
-                            <div class="space-y-3">
-                                <div>
-                                    <label class="block text-xs text-slate-600 dark:text-slate-400 mb-1 font-semibold">1. מהו הדבר החדש שהכי הפתיע אותך בשיעור היום?</label>
-                                    <textarea id="reflection-q1" class="w-full bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-xl p-2.5 text-sm focus:outline-none focus:border-red-500" rows="2" placeholder="למשל: לא ידעתי שהמידע שלי נחתך לחלקים קטנים..."></textarea>
-                                </div>
-                                <div>
-                                    <label class="block text-xs text-slate-600 dark:text-slate-400 mb-1 font-semibold">2. כמה בטוח אתה מרגיש לעבור לשיעור הבא (1-5)?</label>
-                                    <select id="reflection-q2" class="w-full bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-xl p-2.5 text-sm focus:outline-none focus:border-red-500">
-                                        <option value="5">5 - מבין מעולה, מוכן לטרוף את האינטרנט</option>
-                                        <option value="4">4 - מבין טוב, קצת תרגול נוסף יעזור</option>
-                                        <option value="3">3 - מבין חצי חצי, עדיין מבולבל מחלק מהמונחים</option>
-                                        <option value="2">2 - לא ממש הבנתי, צריך הסבר נוסף</option>
-                                        <option value="1">1 - אבד לי האות, הצילו!</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="bg-slate-100 dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 flex flex-col justify-between">
-                            <div>
-                                <h3 class="font-bold text-base mb-2">שתף הצלחה עם החברים</h3>
-                                <p class="text-xs text-slate-500 dark:text-slate-400 mb-4">העתק את קוד ההישג שלך ושלח לחבר או בקבוצת הכיתה כדי להשוות תוצאות!</p>
-                                
-                                <div class="bg-white dark:bg-slate-950 p-3 rounded-xl border border-slate-300 dark:border-slate-800 code-font text-xs flex justify-between items-center text-emerald-600 dark:text-emerald-400">
-                                    <span id="share-code">NET-ACAD-CLASS1-XP120</span>
-                                    <button onclick="copyShareCode()" class="text-cyan-600 dark:text-cyan-400 font-bold hover:underline flex items-center gap-1">
-                                        <i data-lucide="copy" class="w-3.5 h-3.5"></i>
-                                        <span>העתק</span>
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div class="mt-6 pt-6 border-t border-slate-200 dark:border-slate-800 space-y-3">
-                                <button onclick="exportTeacherReport()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl text-sm transition-all flex items-center justify-center gap-2 shadow-lg">
-                                    <i data-lucide="download" class="w-4 h-4"></i>
-                                    <span>ייצא דוח מסכם למורה</span>
-                                </button>
-                                <p class="text-[10px] text-slate-500 text-center">בלחיצה כאן יורד קובץ טקסט פשוט שמכיל את התשובות שלך, שאותו תוכל לשלוח למורה.</p>
-                            </div>
-                        </div>
-                    </div>
+                    <div></div>
                 </div>
             </div>
 
@@ -1006,7 +833,7 @@
         <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 text-xs font-mono text-slate-500">
             <p>© 2026 אקדמיית האחוואנים // NET_ACADEMY - הדרך שלך לרשתות ותקשורת</p>
             <div class="flex gap-4">
-                <span>שיעור 1 מתוך 10</span>
+                <span>שיעור 1 מתוך 3</span>
                 <span>•</span>
                 <span class="text-cyan-600 dark:text-cyan-400">RTL FULL SUPPORT</span>
             </div>
@@ -1042,21 +869,11 @@
         // Global variables
         let xp = 0;
         let activeStep = 1;
-        let selectedRouterNode = null;
-        let hasPassedSim = false;
-        let hasPassedAi = false;
         let currentLevel = "טירון רשתות";
-
-        // Simulator Engine Variables
-        let simAnimationTimer = null;
-        let isSimPaused = false;
-        let currentSimStep = 0;
-        let simWaypoints = [];
+        let currentScale = 1;
+        let lightboxScale = 1;
 
         // DOM elements
-        const xpCounter = document.getElementById('xp-counter');
-        const userLevel = document.getElementById('user-level');
-        const levelBar = document.getElementById('level-bar');
         const systemLog = document.getElementById('system-log');
         const toastEl = document.getElementById('toast');
         const toastMsg = document.getElementById('toast-message');
@@ -1146,6 +963,29 @@
             document.getElementById('header-modal').classList.add('hidden');
         }
 
+        function openLightbox() {
+            lightboxScale = 1;
+            document.getElementById('lightbox-wrapper').style.transform = `scale(1)`;
+            document.getElementById('lightbox-modal').classList.remove('hidden');
+            addLog("פתיחת תמונת הרשת המקומית במסך מלא.");
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox-modal').classList.add('hidden');
+        }
+
+        function zoomLightbox(amount) {
+            lightboxScale += amount;
+            if (lightboxScale < 0.5) lightboxScale = 0.5;
+            if (lightboxScale > 4.0) lightboxScale = 4.0;
+            document.getElementById('lightbox-wrapper').style.transform = `scale(${lightboxScale})`;
+        }
+
+        function resetLightboxZoom() {
+            lightboxScale = 1;
+            document.getElementById('lightbox-wrapper').style.transform = `scale(1)`;
+        }
+
         function startTierQuiz(tierKey) {
             const data = quizData[tierKey];
             currentQuizAnswers = {};
@@ -1228,19 +1068,14 @@
             const savedXp = localStorage.getItem('net_academy_xp');
             const savedStep = localStorage.getItem('net_academy_step');
             const savedLevel = localStorage.getItem('net_academy_level');
-            const savedAnswers = localStorage.getItem('net_academy_q1');
 
             if (savedXp) {
                 xp = parseInt(savedXp);
             }
             if (savedLevel) {
                 currentLevel = savedLevel;
-                updateLevelUI();
             }
-            if (savedAnswers) {
-                document.getElementById('reflection-q1').value = savedAnswers;
-            }
-            if (savedStep) {
+            if (savedStep && parseInt(savedStep) <= 3) {
                 switchStep(parseInt(savedStep));
             } else {
                 switchStep(1);
@@ -1252,7 +1087,6 @@
             localStorage.setItem('net_academy_xp', xp);
             localStorage.setItem('net_academy_step', activeStep);
             localStorage.setItem('net_academy_level', currentLevel);
-            localStorage.setItem('net_academy_q1', document.getElementById('reflection-q1').value);
         }
 
         function resetProgress() {
@@ -1260,33 +1094,7 @@
                 localStorage.clear();
                 xp = 0;
                 activeStep = 1;
-                selectedRouterNode = null;
-                hasPassedSim = false;
-                hasPassedAi = false;
                 currentLevel = "טירון רשתות";
-                
-                document.getElementById('reflection-q1').value = "";
-                document.getElementById('reflection-q2').selectedIndex = 0;
-                
-                document.getElementById('btn-to-step-4').disabled = true;
-                document.getElementById('btn-to-step-5').disabled = true;
-                document.getElementById('sim-feedback').classList.add('hidden');
-                document.getElementById('ai-bonus-alert').classList.add('hidden');
-                
-                const simA = document.getElementById('node-router-a');
-                const simB = document.getElementById('node-router-b');
-                simA.classList.remove('border-purple-500', 'bg-purple-500/10');
-                simB.classList.remove('border-purple-500', 'bg-purple-500/10');
-                document.getElementById('btn-fire-packet').disabled = true;
-
-                document.getElementById('chat-messages').innerHTML = `
-                    <div class="bg-white dark:bg-slate-950 p-3.5 rounded-2xl border border-slate-200 dark:border-slate-800 max-w-[85%] self-start text-xs">
-                        <span class="text-[10px] font-bold text-cyan-600 dark:text-cyan-400 block mb-1">CONNECT_BOT // </span>
-                        שלום לך! אני הבוט שיעזור לך לוודא שאתה לא יוצא מכאן בלי מושג. 🚀 
-                        <br><br>
-                        אז תגיד לי בשפה חופשית שלך: <b>מה ההבדל בין מחשב קצה (לפטופ, טלפון) לנתב/ראוטר בתוך רשת תקשורת?</b>
-                    </div>
-                `;
 
                 switchStep(1);
                 showToast("ההתקדמות אופסה בהצלחה!");
@@ -1295,15 +1103,17 @@
         }
 
         function switchStep(stepNum) {
-            for (let i = 1; i <= 5; i++) {
-                document.getElementById(`step-${i}`).classList.add('hidden');
+            for (let i = 1; i <= 3; i++) {
+                const stepEl = document.getElementById(`step-${i}`);
+                if (stepEl) stepEl.classList.add('hidden');
                 const btn = document.getElementById(`btn-step-${i}`);
                 if (btn) {
                     btn.className = "w-full text-right flex items-center justify-between p-3.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-cyan-600 transition-all text-base font-semibold";
                 }
             }
 
-            document.getElementById(`step-${stepNum}`).classList.remove('hidden');
+            const targetStep = document.getElementById(`step-${stepNum}`);
+            if (targetStep) targetStep.classList.remove('hidden');
             const activeBtn = document.getElementById(`btn-step-${stepNum}`);
             if (activeBtn) {
                 activeBtn.className = "w-full text-right flex items-center justify-between p-3.5 rounded-xl bg-red-500/10 border border-red-500/30 text-red-600 dark:text-red-400 transition-all font-bold text-base";
@@ -1312,6 +1122,23 @@
             activeStep = stepNum;
             saveProgress();
             addLog(`מעבר לשלב ${stepNum}: המערכת מוכנה.`);
+        }
+
+        function zoomImage(amount) {
+            currentScale += amount;
+            if (currentScale < 0.6) currentScale = 0.6;
+            if (currentScale > 3.0) currentScale = 3.0;
+            
+            const wrapper = document.getElementById('image-wrapper');
+            wrapper.style.transform = `scale(${currentScale})`;
+            addLog(`שינוי גודל תמונה ל-${Math.round(currentScale * 100)}%`);
+        }
+
+        function resetZoom() {
+            currentScale = 1;
+            const wrapper = document.getElementById('image-wrapper');
+            wrapper.style.transform = `scale(1)`;
+            addLog("איפוס גודל התמונה למקור.");
         }
 
         function addLog(text) {
@@ -1344,13 +1171,8 @@
                 currentLevel = "טירון רשתות";
             }
             
-            updateLevelUI();
             saveProgress();
             showToast(`נוספו +${amount} נקודות XP לדירוג שלך!`);
-        }
-
-        function updateLevelUI() {
-            document.getElementById('share-code').innerText = `NET-ACAD-CLASS1-XP${xp}-${currentLevel.replace(/ /g, '_')}`;
         }
 
         function answerIntro(choice) {
@@ -1371,295 +1193,6 @@
                 feedback.innerHTML = `❌ <b>לא מדויק.</b> המחשב של החבר לא מוותר כל כך מהר! יש לו מנגנונים לבקש שידור חוזר של המידע החסר.`;
                 addXP(5);
             }
-        }
-
-        // SIMULATOR ENGINE WITH ENVELOPE, SLOW MOTION & PAUSE
-        function selectRouter(routerId) {
-            const nodeA = document.getElementById('node-router-a');
-            const nodeB = document.getElementById('node-router-b');
-            
-            nodeA.classList.remove('border-purple-500', 'bg-purple-500/10');
-            nodeB.classList.remove('border-purple-500', 'bg-purple-500/10');
-
-            if (routerId === 'A') {
-                selectedRouterNode = 'A';
-                nodeA.classList.add('border-purple-500', 'bg-purple-500/10');
-                addLog("נבחר נתיב דרך נתב צפוני (עומס נמוך).");
-            } else {
-                selectedRouterNode = 'B';
-                nodeB.classList.add('border-purple-500', 'bg-purple-500/10');
-                addLog("נבחר נתיב דרך נתב דרומי (עומס גבוה).");
-            }
-
-            document.getElementById('btn-fire-packet').disabled = false;
-        }
-
-        function firePacket() {
-            clearTimeout(simAnimationTimer);
-            isSimPaused = false;
-            currentSimStep = 0;
-            
-            const pauseBtn = document.getElementById('btn-pause-packet');
-            pauseBtn.classList.remove('hidden');
-            document.getElementById('text-pause').innerText = "הקפא מסע";
-            document.getElementById('icon-pause').setAttribute('data-lucide', 'pause');
-            document.getElementById('btn-fire-packet').disabled = true;
-            lucide.createIcons();
-
-            const laptop = document.getElementById('node-laptop');
-            const router = selectedRouterNode === 'A' ? document.getElementById('node-router-a') : document.getElementById('node-router-b');
-            const server = document.getElementById('node-server');
-            
-            const parentRect = laptop.parentElement.parentElement.getBoundingClientRect();
-            
-            const getCoords = (elem) => {
-                const r = elem.getBoundingClientRect();
-                return {
-                    x: r.left - parentRect.left + r.width / 2,
-                    y: r.top - parentRect.top + r.height / 2
-                };
-            };
-
-            const posLaptop = getCoords(laptop);
-            const posRouter = getCoords(router);
-            const posServer = getCoords(server);
-
-            const isHighLoad = selectedRouterNode === 'B';
-            const routerDelay = isHighLoad ? 4500 : 2500;
-
-            simWaypoints = [
-                { x: posLaptop.x, y: posLaptop.y, title: "✉️ מעטפת בקשה", status: "יוצר חבילה בלפטופ (SYN)", duration: 500 },
-                { x: posRouter.x, y: posRouter.y, title: "✈️️ בדרך לנתב", status: "עובר בתווך התקשורת...", duration: 3000 },
-                { x: posRouter.x, y: posRouter.y, title: "⚙️️ מעבד בנתב", status: isHighLoad ? "עומס כבד! תור מעבד ארוך..." : "בודק טבלת ניתוב ומעביר...", duration: routerDelay },
-                { x: posServer.x, y: posServer.y, title: "🛰️ בדרך לשרת", status: "טס בסיב אופטי ליעד...", duration: 3000 },
-                { x: posServer.x, y: posServer.y, title: "🎧 מעבד בשרת", status: "ספוטיפיי מעבד את הבקשה!", duration: 2500 },
-                { x: posRouter.x, y: posRouter.y, title: "↩️ תשובה בדרך חזרה", status: "שולח חבילת תשובה (ACK)...", duration: 3000 },
-                { x: posLaptop.x, y: posLaptop.y, title: "✅ הגעה ליעד", status: "המידע הגיע בהצלחה למחשב!", duration: 2500 }
-            ];
-
-            const envelope = document.getElementById('packet-envelope');
-            envelope.classList.remove('hidden');
-
-            addLog("החלה סימולציית מסע מעטפת ה-IP הלוך וחזור...");
-            executeNextSimStep();
-        }
-
-        function executeNextSimStep() {
-            if (currentSimStep >= simWaypoints.length) {
-                document.getElementById('btn-pause-packet').classList.add('hidden');
-                document.getElementById('btn-fire-packet').disabled = false;
-                evaluateSimResults();
-                return;
-            }
-
-            const step = simWaypoints[currentSimStep];
-            const envelope = document.getElementById('packet-envelope');
-            const titleEl = document.getElementById('envelope-title');
-            const statusEl = document.getElementById('envelope-status');
-
-            titleEl.innerText = step.title;
-            statusEl.innerText = step.status;
-
-            envelope.style.transition = `top ${step.duration}ms linear, left ${step.duration}ms linear`;
-            envelope.style.left = `${step.x}px`;
-            envelope.style.top = `${step.y}px`;
-
-            addLog(`שלב ${currentSimStep + 1}: ${step.status}`);
-
-            simAnimationTimer = setTimeout(() => {
-                currentSimStep++;
-                executeNextSimStep();
-            }, step.duration);
-        }
-
-        function togglePausePacket() {
-            const envelope = document.getElementById('packet-envelope');
-            const textEl = document.getElementById('text-pause');
-
-            if (!isSimPaused) {
-                clearTimeout(simAnimationTimer);
-                const computedStyle = window.getComputedStyle(envelope);
-                const currentX = computedStyle.getPropertyValue('left');
-                const currentY = computedStyle.getPropertyValue('top');
-
-                envelope.style.transition = 'none';
-                envelope.style.left = currentX;
-                envelope.style.top = currentY;
-
-                isSimPaused = true;
-                textEl.innerText = "המשך מסע";
-                addLog("הסימולציה הוקפאה לבדיקת התלמיד.");
-            } else {
-                isSimPaused = false;
-                textEl.innerText = "הקפא מסע";
-                addLog("הסימולציה הומשכה.");
-                executeNextSimStep();
-            }
-        }
-
-        function evaluateSimResults() {
-            const feedback = document.getElementById('sim-feedback');
-            feedback.classList.remove('hidden', 'bg-red-500/20', 'text-red-600', 'dark:text-red-400', 'bg-emerald-500/20', 'text-emerald-600', 'dark:text-emerald-400');
-
-            if (selectedRouterNode === 'A') {
-                feedback.className += ' bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30';
-                feedback.innerHTML = `
-                    <div class="flex items-center gap-2">
-                        <span>🚀</span>
-                        <div>
-                            <p class="font-bold">הצלחה מוחלטת! מעטפת המידע השלימה מסע הלוך וחזור מלא בצורה מבריקה.</p>
-                            <p class="text-xs opacity-90">בחרת בנתב הצפוני הפנוי. ניתוב יעיל משתמש בדרכים פחות עמוסות כדי למנוע דיליי (Lag).</p>
-                        </div>
-                    </div>
-                `;
-                if (!hasPassedSim) {
-                    addXP(40);
-                    hasPassedSim = true;
-                }
-                document.getElementById('btn-to-step-4').disabled = false;
-                addLog("סימולציית ניתוב הושלמה בהצלחה.");
-            } else {
-                feedback.className += ' bg-[#991b1b]/20 text-red-600 dark:text-red-400 border border-emerald-500/30';
-                feedback.innerHTML = `
-                    <div class="flex items-center gap-2">
-                        <span>⚠️</span>
-                        <div>
-                            <p class="font-bold">תקלה! המעטפה חוותה עיכוב קשה בנתב הדרומי (עומס יתר).</p>
-                            <p class="text-xs opacity-90">בחרת בנתב הדרומי שהיה עמוס מאוד. נסה לשנות את הנתיב לנתב הצפוני היציב יותר!</p>
-                        </div>
-                    </div>
-                `;
-                addXP(5);
-                addLog("חבילת מידע נכשלה או התעכבה בגלל עומס יתר.");
-            }
-        }
-
-        function handleChatKey(event) {
-            if (event.key === 'Enter') sendChatMessage();
-        }
-
-        function sendChatMessage() {
-            const input = document.getElementById('chat-input');
-            const messageText = input.value.trim();
-            if (!messageText) return;
-
-            const messagesArea = document.getElementById('chat-messages');
-            messagesArea.innerHTML += `
-                <div class="bg-red-600 text-white p-3 rounded-2xl max-w-[85%] self-end text-xs shadow-md">
-                    <span class="text-[10px] font-bold opacity-80 block mb-1">אתה // </span>
-                    ${messageText}
-                </div>
-            `;
-
-            input.value = '';
-            messagesArea.scrollTop = messagesArea.scrollHeight;
-            addLog("נשלחה תשובת תלמיד לבוט ה-AI.");
-
-            const typingId = "typing-" + Date.now();
-            messagesArea.innerHTML += `
-                <div id="${typingId}" class="bg-white dark:bg-slate-950 p-3 rounded-2xl border border-slate-200 dark:border-slate-800 max-w-[85%] self-start text-xs text-slate-400 italic">
-                    מנתח את התשובה שלך...
-                </div>
-            `;
-            messagesArea.scrollTop = messagesArea.scrollHeight;
-
-            setTimeout(() => {
-                const typingElem = document.getElementById(typingId);
-                if (typingElem) typingElem.remove();
-                
-                let botResponse = "";
-                let isPassed = false;
-
-                const textLower = messageText.toLowerCase();
-                const keywordsHost = ["קצה", "לפטופ", "טלפון", "מחשב", "אייפון", "לקוח", "מדבר", "יוצר", "שולח", "מכשיר קצה"];
-                const keywordsRouter = ["נתב", "ראוטר", "צומת", "מכוון", "מעביר", "מנתב", "מחבר", "דרך", "כיוון", "מנהל"];
-
-                const containsHost = keywordsHost.some(k => textLower.includes(k));
-                const containsRouter = keywordsRouter.some(k => textLower.includes(k));
-
-                if (containsHost && containsRouter) {
-                    botResponse = `🎯 <b>וואו, תיאור פצצה!</b> הבנת בדיוק את ההבדל: מכשירי קצה הם המקור והיעד (הצרכנים של הרשת), ואילו הנתב הוא כמו "השוטר בצומת" שמכוון את התנועה בין הרשתות השונות. אתה לגמרי בכיוון הנכון!`;
-                    isPassed = true;
-                } else if (containsHost) {
-                    botResponse = `👍 דיברת יפה על מכשירי הקצה, אבל מה עם ה<b>נתב (ראוטר)</b>? מה התפקיד שלו בתנועה של המידע?`;
-                } else if (containsRouter) {
-                    botResponse = `👍 תיארת מעולה את תפקידו של הנתב, אבל מהן אותן "מכונות קצה" (Hosts) שמהן המידע בכלל מגיע?`;
-                } else {
-                    botResponse = `🤔 הממ... תשובה מעניינת, אבל תנסה להשתמש במילים כמו 'מחשב', 'טלפון', 'נתב' או 'לנתב'. מה עושה מכשיר קצה לעומת מה שעושה ראוטר?`;
-                }
-
-                messagesArea.innerHTML += `
-                    <div class="bg-white dark:bg-slate-950 p-3.5 rounded-2xl border border-slate-200 dark:border-slate-800 max-w-[85%] self-start text-xs">
-                        <span class="text-[10px] font-bold text-cyan-600 dark:text-cyan-400 block mb-1">CONNECT_BOT // </span>
-                        ${botResponse}
-                    </div>
-                `;
-                messagesArea.scrollTop = messagesArea.scrollHeight;
-
-                if (isPassed && !hasPassedAi) {
-                    hasPassedAi = true;
-                    addXP(50);
-                    document.getElementById('ai-bonus-alert').classList.remove('hidden');
-                    document.getElementById('btn-to-step-5').disabled = false;
-                    addLog("בוט ה-AI אישר הבנת תלמיד איכותית.");
-                }
-
-            }, 1200);
-        }
-
-        function copyShareCode() {
-            const code = document.getElementById('share-code').innerText;
-            const tempInput = document.createElement("input");
-            tempInput.value = code;
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            document.execCommand("copy");
-            document.body.removeChild(tempInput);
-
-            showToast("קוד ההישג הועתק ללוח! שלח לחברים שלך.");
-            addLog("קוד שיתוף הועתק ללוח.");
-        }
-
-        function exportTeacherReport() {
-            const q1 = document.getElementById('reflection-q1').value;
-            const q2 = document.getElementById('reflection-q2').value;
-            
-            if (!q1) {
-                alert("אנא מלא את שאלה 1 בדוח לפני הייצוא כדי שלמורה שלך יהיה מה לקרוא!");
-                return;
-            }
-
-            const reportText = `
-=============================================
-דוח מסכם - מבוא לרשתות תקשורת: שיעור בסיס
-=============================================
-דירוג XP סופי: ${xp} XP
-דרגה נוכחית: ${currentLevel}
-
-תשובות לרפלקציה:
----------------------------------------------
-1. מהו הדבר החדש שהכי הפתיע אותך בשיעור היום?
-תשובה: ${q1}
-
-2. כמה בטוח אתה מרגיש לעבור לשיעור הבא (1-5)?
-תשובה: ${q2}
-
----------------------------------------------
-נוצר באופן אוטומטי על ידי מערכת NET_ACADEMY
-=============================================
-            `;
-
-            const blob = new Blob([reportText], { type: 'text/plain;charset=utf-8' });
-            const url = URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = `NET_ACADEMY_Lesson1_Report.txt`;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            
-            showToast("הדוח הורד בהצלחה! העבר אותו למורה.");
-            addLog("דוח פעילות מסכם הורד למחשב המשתמש.");
         }
     </script>
 </body>
