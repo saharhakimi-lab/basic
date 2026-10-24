@@ -822,7 +822,6 @@
 
     <!-- נקודות ורמה -->
     <div class="stats-bar">
-        <div class="stat">הרמה שלך: <b id="level-val">טירון רשתות</b></div>
         <div class="stat">נקודות ניסיון: <b id="xp-val">0</b></div>
     </div>
 
@@ -830,10 +829,10 @@
     <div class="tabs-wrap">
         <div class="tabs" role="tablist" aria-label="שלבי השיעור">
             <button class="tab" role="tab" id="tab-1" aria-controls="step-1" aria-selected="true" onclick="switchStep(1)">
-                <span class="num">1</span><span>מסע של הודעה</span>
+                <span class="num">1</span><span>איך הודעה עוברת ברשת</span>
             </button>
             <button class="tab" role="tab" id="tab-2" aria-controls="step-2" aria-selected="false" onclick="switchStep(2)">
-                <span class="num">2</span><span>רכיבי הרשת</span>
+                <span class="num">2</span><span>ארבעת רכיבי הרשת</span>
             </button>
             <button class="tab" role="tab" id="tab-3" aria-controls="step-3" aria-selected="false" onclick="switchStep(3)">
                 <span class="num">3</span><span>תרשים רשת מקומית</span>
@@ -847,73 +846,75 @@
     <main>
         <!-- שלב 1 -->
         <section id="step-1" class="lesson" role="tabpanel" aria-labelledby="tab-1">
-            <h2>איך ההודעה הזו הגיעה אליך למסך?</h2>
-            <p class="lead">ההודעה הזו לא הגיעה אליך כמקשה אחת. בדרך היא נחתכה לחתיכות קטנות, כל חתיכה נסעה במסלול משלה, ובסוף הכול הורכב מחדש אצלך על המסך.</p>
+            <h2>איך הודעה עוברת ברשת?</h2>
+            <p class="lead">כששולחים הודעה או תמונה, היא לא נשלחת בבת אחת. היא מחולקת לחלקים קטנים, החלקים עוברים ברשת, ובסוף מחברים אותם מחדש.</p>
 
-            <h3>שלושה שלבים במסע</h3>
+            <h3>שלושה שלבים</h3>
             <ol class="journey">
-                <li><strong>חיתוך.</strong> המחשב ששולח חותך את ההודעה לחתיכות קטנות. כל חתיכה נקראת Packet, בעברית חבילת מידע.</li>
-                <li><strong>ניתוב.</strong> כל חבילה מגיעה אל נתב Router. הנתב קורא את כתובת היעד ומחליט לאיזה כיוון לשלוח את החבילה. חבילות מאותה הודעה יכולות לנסוע בדרכים שונות.</li>
-                <li><strong>הרכבה.</strong> המחשב שמקבל אוסף את כל החבילות, מסדר אותן לפי הסדר ומחבר אותן חזרה להודעה אחת.</li>
+                <li><strong>חלוקה.</strong> המחשב השולח מחלק את ההודעה לחלקים קטנים. כל חלק נקרא Packet, בעברית חבילת מידע.</li>
+                <li><strong>העברה.</strong> כל חבילה עוברת דרך נתב Router אחד או יותר. הנתב קורא את כתובת היעד שכתובה על החבילה ושולח אותה הלאה, לכיוון הנכון.</li>
+                <li><strong>הרכבה.</strong> המחשב המקבל מסדר את החבילות לפי הסדר ומחבר אותן בחזרה להודעה אחת.</li>
             </ol>
 
-            <h3>דוגמה: תמונה של הכלב שאכל את שיעורי הבית</h3>
-            <p>דמיינו שאתם שולחים לחבר את התמונה הזו. היא נחתכת לשלושה חלקים, וכל חלק יוצא לדרך אחרת.</p>
+            <h3>למה מחלקים?</h3>
+            <p>חבילה קטנה קל יותר להעביר. ואם חבילה אחת הולכת לאיבוד בדרך, שולחים מחדש רק אותה ולא את כל ההודעה.</p>
+
+            <h3>דוגמה: שליחת תמונה לחבר</h3>
+            <p>התמונה מחולקת לשלוש חבילות, וכל חבילה יוצאת לדרך.</p>
             <div class="parts">
-                <div class="part"><span class="emoji">🌍</span><b>חלק 1</b><span class="where">עובר דרך אירופה</span></div>
-                <div class="part"><span class="emoji">🛰️</span><b>חלק 2</b><span class="where">עובר דרך לוויין בחלל</span></div>
-                <div class="part"><span class="emoji">🌊</span><b>חלק 3</b><span class="where">הולך לאיבוד בכבל תת ימי</span></div>
+                <div class="part"><b>חבילה 1</b><span class="where">מגיעה ליעד</span></div>
+                <div class="part"><b>חבילה 2</b><span class="where">מגיעה ליעד</span></div>
+                <div class="part"><b>חבילה 3</b><span class="where">הולכת לאיבוד בדרך</span></div>
             </div>
 
             <div class="quick">
-                <p class="q">שאלה מהירה: מה קורה אצל החבר אם חלק 3 לא הגיע?</p>
+                <p class="q">שאלה מהירה: מה קורה אם חבילה 3 לא הגיעה לחבר?</p>
                 <div class="choices">
-                    <button class="choice" id="intro-1" onclick="answerIntro(1)">החבר יראה חור שחור במקום חלק מהתמונה</button>
-                    <button class="choice" id="intro-2" onclick="answerIntro(2)">המחשב של החבר יבקש מהמחשב שלך לשלוח שוב רק את חלק 3</button>
-                    <button class="choice" id="intro-3" onclick="answerIntro(3)">שום דבר לא יעבוד והחבר לא יקבל כלום</button>
+                    <button class="choice" id="intro-1" onclick="answerIntro(1)">החבר יקבל תמונה עם חלק חסר</button>
+                    <button class="choice" id="intro-2" onclick="answerIntro(2)">המחשב של החבר מבקש לשלוח שוב רק את חבילה 3</button>
+                    <button class="choice" id="intro-3" onclick="answerIntro(3)">כל התמונה נמחקת וצריך לשלוח אותה מההתחלה</button>
                 </div>
                 <div id="intro-feedback" class="feedback hidden" role="status"></div>
             </div>
 
             <div class="step-nav">
                 <span></span>
-                <button class="btn primary" onclick="switchStep(2)">לשלב הבא: רכיבי הרשת</button>
+                <button class="btn primary" onclick="switchStep(2)">לשלב הבא: ארבעת רכיבי הרשת</button>
             </div>
         </section>
 
         <!-- שלב 2 -->
         <section id="step-2" class="lesson hidden" role="tabpanel" aria-labelledby="tab-2">
-            <h2>רשת תקשורת: המילון הלא רשמי</h2>
-            <p class="lead">רשת היא מערכת שמחברת בין שני קצוות ומאפשרת להם להחליף מידע. כדי שזה יעבוד צריך ארבעה רכיבים. הנה הם, אחד אחד.</p>
+            <h2>ממה בנויה רשת?</h2>
+            <p class="lead">רשת היא מערכת שמחברת בין מכשירים כדי שיוכלו להחליף מידע. כל רשת בנויה מארבעה רכיבים.</p>
 
             <div class="cards">
                 <article class="card host">
-                    <span class="big-emoji">💻</span>
-                    <h3>מכשירי קצה Host או End Device</h3>
-                    <p>המחשב, הטלפון, הטלוויזיה החכמה ואפילו מקרר שמזמין חלב לבד. מכשיר קצה הוא המקום שבו מידע מתחיל או נגמר: הוא שולח אותו או מקבל אותו.</p>
+                    <h3>מכשירי קצה Host</h3>
+                    <p>המכשירים שאנחנו משתמשים בהם: מחשב, טלפון, טלוויזיה חכמה. הם שולחים מידע או מקבלים אותו.</p>
                 </article>
 
                 <article class="card media">
-                    <span class="big-emoji">🔌</span>
                     <h3>תווך תקשורת Media</h3>
-                    <p>הדרך הפיזית שבה המידע עובר: כבל נחושת מסוג Ethernet, סיב אופטי שמעביר אור במהירות עצומה, או גלי רדיו באוויר בחיבור Wi-Fi.</p>
+                    <p>הדרך שבה המידע עובר: כבל נחושת, סיב אופטי או גלי רדיו באוויר, כמו ב-Wi-Fi.</p>
                 </article>
 
                 <article class="card mid">
-                    <span class="big-emoji">🔀</span>
                     <h3>מכשירי ביניים Intermediary Devices</h3>
-                    <p>נתב Router ומתג Switch. הם עומדים בצמתים של הרשת, מקבלים חבילת מידע ומחליטים לאן לשלוח אותה הלאה. מתג מחבר מכשירים באותה רשת, ונתב מחבר בין רשתות שונות.</p>
+                    <p>מתג Switch מחבר מכשירים באותה רשת. נתב Router מחבר בין רשתות שונות ומחליט לאן לשלוח כל חבילה.</p>
                 </article>
 
                 <article class="card proto">
-                    <span class="big-emoji">📜</span>
                     <h3>פרוטוקול Protocol</h3>
-                    <p>ספר החוקים של הרשת. בלי הסכמה מראש, שום מכשיר לא יבין את המכשיר השני. הפרוטוקול קובע מתי מדברים, באיזו שפה, ומה עושים כשיש שגיאה.</p>
+                    <p>אוסף החוקים של הרשת. מכשירים מבינים זה את זה רק כשהם פועלים לפי אותם חוקים.</p>
                 </article>
             </div>
 
+            <h3>איך הכול עובד ביחד?</h3>
+            <p>שולחים תמונה מהטלפון: הטלפון הוא מכשיר קצה, ה-Wi-Fi הוא התווך, הנתב הוא מכשיר ביניים שמעביר את החבילות הלאה, והפרוטוקול הוא החוקים שכולם מקבלים ומבינים.</p>
+
             <div class="step-nav">
-                <button class="btn" onclick="switchStep(1)">חזרה למסע של הודעה</button>
+                <button class="btn" onclick="switchStep(1)">חזרה: איך הודעה עוברת ברשת</button>
                 <button class="btn primary" onclick="switchStep(3)">לשלב הבא: תרשים הרשת</button>
             </div>
         </section>
@@ -1031,16 +1032,8 @@
         }
 
         // ===== נקודות ורמות =====
-        function levelFor(points) {
-            if (points >= 150) return 'מנהל רשתות מומחה';
-            if (points >= 100) return 'טכנאי רשתות מתקדם';
-            if (points >= 50) return 'שוליית נתבים';
-            return 'טירון רשתות';
-        }
-
         function renderStats() {
             document.getElementById('xp-val').textContent = xp;
-            document.getElementById('level-val').textContent = levelFor(xp);
         }
 
         function addXP(amount) {
@@ -1099,7 +1092,7 @@
             if (choice === 2) {
                 document.getElementById('intro-2').classList.add('right');
                 fb.classList.add('ok');
-                fb.innerHTML = fe('🌟 נכון מאוד. המחשב של החבר מזהה שחסרה חבילה ומבקש לשלוח שוב רק אותה. כך עובד פרוטוקול אמין, ואין צורך להתחיל מההתחלה.');
+                fb.innerHTML = fe('נכון מאוד. המחשב של החבר מזהה שחסרה חבילה ומבקש לשלוח שוב רק אותה. אין צורך להתחיל מההתחלה.');
                 if (!store.get(KEYS.intro)) {
                     store.set(KEYS.intro, '1');
                     addXP(20);
@@ -1108,8 +1101,8 @@
                 document.getElementById('intro-' + choice).classList.add('wrong');
                 fb.classList.add('bad');
                 fb.innerHTML = choice === 1
-                    ? fe('כמעט. בשידור חי, כמו שיחת וידאו שנתקעת, אפשר באמת לראות פגם. אבל בהודעות ובדפי אינטרנט יש מנגנון שמבקש את החלק החסר מחדש. נסו תשובה אחרת.')
-                    : fe('לא מדויק. המחשב של החבר לא מוותר כל כך מהר. יש לו דרך לבקש שידור חוזר של המידע החסר. נסו תשובה אחרת.');
+                    ? fe('לא בדיוק. בדרך כלל לא נשאר חלק חסר, כי המחשב של החבר מבקש את החבילה החסרה מחדש. נסו תשובה אחרת.')
+                    : fe('לא נכון. לא מתחילים מההתחלה. שולחים מחדש רק את החבילה שחסרה. נסו תשובה אחרת.');
             }
         }
 
