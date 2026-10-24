@@ -177,27 +177,6 @@
 
         .icon-btn:hover { border-color: var(--red); }
 
-        /* ===== פס התקדמות ===== */
-        .stats-bar {
-            max-width: 1100px;
-            margin: 18px auto 0;
-            padding: 0 20px;
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .stat {
-            background: var(--paper);
-            border: 2px solid var(--line);
-            border-radius: 12px;
-            padding: 4px 16px;
-            font-size: 0.9rem;
-            line-height: 1.6;
-        }
-
-        .stat b { font-weight: 800; color: var(--red-text); }
-
         /* ===== כפתורי הטאבים ===== */
         .tabs-wrap {
             max-width: 1100px;
@@ -820,11 +799,6 @@
         </div>
     </header>
 
-    <!-- נקודות ורמה -->
-    <div class="stats-bar">
-        <div class="stat">נקודות ניסיון: <b id="xp-val">0</b></div>
-    </div>
-
     <!-- כפתורי הטאבים -->
     <div class="tabs-wrap">
         <div class="tabs" role="tablist" aria-label="שלבי השיעור">
@@ -1031,15 +1005,9 @@
             });
         }
 
-        // ===== נקודות ורמות =====
-        function renderStats() {
-            document.getElementById('xp-val').textContent = xp;
-        }
-
         function addXP(amount) {
             xp += amount;
             store.set(KEYS.xp, xp);
-            renderStats();
             showToast('קיבלת ' + amount + ' נקודות ניסיון');
         }
 
@@ -1275,7 +1243,6 @@
             if (confirm('לאפס את ההתקדמות בשיעור? כל הנקודות שנשמרו יימחקו.')) {
                 [KEYS.xp, KEYS.step, KEYS.quiz, KEYS.intro].forEach(function (k) { store.del(k); });
                 xp = 0;
-                renderStats();
                 document.getElementById('intro-feedback').classList.add('hidden');
                 for (let i = 1; i <= 3; i++) document.getElementById('intro-' + i).classList.remove('right', 'wrong');
                 switchStep(1);
@@ -1296,7 +1263,6 @@
             frameStaticText(document.body);
             const savedXp = parseInt(store.get(KEYS.xp), 10);
             if (!isNaN(savedXp)) xp = savedXp;
-            renderStats();
             applyDark(store.get(KEYS.dark) === '1');
             const savedStep = parseInt(store.get(KEYS.step), 10);
             switchStepSilently(savedStep >= 1 && savedStep <= 3 ? savedStep : 1);
