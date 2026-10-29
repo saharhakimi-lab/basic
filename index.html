@@ -1,1237 +1,544 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>אקדמיית סהר: מבוא לרשתות תקשורת</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@600;800&family=Heebo:wght@400;500;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-
-    <style>
-        :root {
-            --bg: #fbf8ee;
-            --paper: #ffffff;
-            --ink: #20150f;
-            --muted: #5a4a40;
-            --line: #e6d9bf;
-            --red: #b91c1c;
-            --red-text: #a11a1a;
-            --red-soft: #fcebe7;
-            --term: #0b5d73;
-            --term-soft: #e1f3f8;
-            --ok: #0b6b4a;
-            --ok-soft: #e0f5ec;
-            --bad: #a11a1a;
-            --bad-soft: #fcebe7;
-            --c-host: #0e7490;
-            --c-media: #047857;
-            --c-mid: #6d28d9;
-            --c-proto: #b45309;
-            --shadow: 0 10px 30px -12px rgba(120, 40, 20, 0.18);
-        }
-
-        body.dark {
-            --bg: #1a1412;
-            --paper: #251c18;
-            --ink: #f8efe7;
-            --muted: #d0c0b3;
-            --line: #43352d;
-            --red-text: #ff9b9b;
-            --red-soft: #3c1f1c;
-            --term: #7fdcf0;
-            --term-soft: #123640;
-            --ok: #6ee7b7;
-            --ok-soft: #12392b;
-            --bad: #ffb0b0;
-            --bad-soft: #432120;
-            --c-host: #5fd0e8;
-            --c-media: #5eead4;
-            --c-mid: #c4b5fd;
-            --c-proto: #fcd34d;
-            --shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.6);
-        }
-
-        * { box-sizing: border-box; }
-
-        html { font-size: 20px; }
-        @media (max-width: 600px) { html { font-size: 18px; } }
-
-        body {
-            margin: 0;
-            font-family: 'Heebo', 'Assistant', sans-serif;
-            font-weight: 500;
-            line-height: 1.85;
-            background: var(--bg);
-            color: var(--ink);
-            transition: background-color 0.25s ease, color 0.25s ease;
-        }
-
-        .hidden { display: none !important; }
-
-        :focus-visible { outline: 3px solid #f59e0b; outline-offset: 3px; }
-
-        button { font-family: inherit; cursor: pointer; }
-
-        .english-term-box {
-            display: inline-block;
-            direction: ltr;
-            unicode-bidi: isolate;
-            white-space: nowrap;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.8em;
-            font-weight: 700;
-            line-height: 1.5;
-            padding: 0 0.45em;
-            margin: 0 0.15em;
-            border-radius: 7px;
-            border: 1.5px solid var(--term);
-            background: var(--term-soft);
-            color: var(--term);
-            vertical-align: baseline;
-        }
-
-        .site-header {
-            background: var(--paper);
-            border-bottom: 2px solid var(--line);
-        }
-
-        .header-inner {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 14px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-
-        .brand img {
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            border: 3px solid var(--red);
-            object-fit: cover;
-            background: #fff;
-            flex-shrink: 0;
-        }
-
-        .brand h1 {
-            margin: 0;
-            font-family: 'Rubik', sans-serif;
-            font-weight: 800;
-            font-size: 1.5rem;
-            line-height: 1.25;
-            color: var(--red-text);
-        }
-
-        .brand p {
-            margin: 0;
-            font-size: 0.85rem;
-            line-height: 1.4;
-            color: var(--muted);
-        }
-
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .teacher-btn {
-            display: inline-flex;
-            align-items: center;
-            min-height: 48px;
-            padding: 0 22px;
-            border-radius: 12px;
-            background: var(--red);
-            color: #fff;
-            font-weight: 800;
-            font-size: 0.95rem;
-            text-decoration: none;
-        }
-
-        .teacher-btn:hover { background: #991b1b; }
-
-        .icon-btn {
-            min-height: 48px;
-            padding: 0 16px;
-            border-radius: 12px;
-            border: 2px solid var(--line);
-            background: var(--paper);
-            color: var(--ink);
-            font-size: 0.9rem;
-            font-weight: 700;
-        }
-
-        .icon-btn:hover { border-color: var(--red); }
-
-        .tabs-wrap {
-            max-width: 1100px;
-            margin: 14px auto 0;
-            padding: 0 20px;
-        }
-
-        .tabs {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-        }
-
-        @media (max-width: 900px) { .tabs { grid-template-columns: repeat(2, 1fr); } }
-        @media (max-width: 480px) { .tabs { grid-template-columns: 1fr; } }
-
-        .tab {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            min-height: 68px;
-            padding: 10px 16px;
-            text-align: right;
-            border-radius: 14px;
-            border: 2px solid var(--line);
-            background: var(--paper);
-            color: var(--ink);
-            font-size: 1rem;
-            font-weight: 800;
-            line-height: 1.3;
-            transition: border-color 0.15s ease, background-color 0.15s ease;
-        }
-
-        .tab:hover { border-color: var(--red); }
-
-        .tab .num {
-            flex-shrink: 0;
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            display: grid;
-            place-items: center;
-            background: var(--red-soft);
-            color: var(--red-text);
-            font-family: 'Rubik', sans-serif;
-            font-weight: 800;
-            font-size: 1rem;
-            line-height: 1;
-        }
-
-        .tab[aria-selected="true"] {
-            background: #b91c1c;
-            border-color: #b91c1c;
-            color: #fff;
-        }
-
-        .tab[aria-selected="true"] .num { background: #fff; color: #b91c1c; }
-
-        .tab.quiz-tab {
-            background: #ffd400;
-            border-color: #20150f;
-            color: #000;
-        }
-
-        .tab.quiz-tab .num { background: #000; color: #ffd400; }
-
-        main {
-            max-width: 1100px;
-            margin: 20px auto 0;
-            padding: 0 20px 40px;
-        }
-
-        .lesson {
-            background: var(--paper);
-            border: 2px solid var(--line);
-            border-radius: 22px;
-            padding: clamp(22px, 4vw, 48px);
-            box-shadow: var(--shadow);
-        }
-
-        .lesson h2 {
-            margin: 0 0 14px;
-            font-family: 'Rubik', sans-serif;
-            font-weight: 800;
-            font-size: clamp(1.7rem, 4.4vw, 2.3rem);
-            line-height: 1.3;
-            color: var(--red-text);
-        }
-
-        .lesson h3 {
-            margin: 36px 0 12px;
-            font-family: 'Rubik', sans-serif;
-            font-weight: 800;
-            font-size: 1.4rem;
-            line-height: 1.4;
-        }
-
-        .lesson p { margin: 0 0 14px; font-size: 1.05rem; max-width: 40em; }
-        .lesson .lead { font-size: 1.2rem; font-weight: 500; }
-
-        .journey {
-            list-style: none;
-            counter-reset: step;
-            margin: 0;
-            padding: 0;
-            display: grid;
-            gap: 14px;
-        }
-
-        .journey li {
-            counter-increment: step;
-            position: relative;
-            padding: 16px 78px 16px 20px;
-            border: 2px solid var(--line);
-            border-radius: 16px;
-            font-size: 1.05rem;
-            max-width: 44em;
-        }
-
-        .journey li::before {
-            content: counter(step);
-            position: absolute;
-            right: 18px;
-            top: 16px;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            display: grid;
-            place-items: center;
-            background: var(--red);
-            color: #fff;
-            font-family: 'Rubik', sans-serif;
-            font-weight: 800;
-            font-size: 1.2rem;
-            line-height: 1;
-        }
-
-        .journey strong { color: var(--red-text); font-weight: 800; }
-
-        .parts {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            margin: 6px 0 22px;
-        }
-
-        @media (max-width: 700px) { .parts { grid-template-columns: 1fr; } }
-
-        .part {
-            background: var(--bg);
-            border: 2px solid var(--line);
-            border-radius: 16px;
-            padding: 14px 16px;
-            text-align: center;
-            line-height: 1.5;
-        }
-
-        .part .emoji { display: block; font-size: 2rem; line-height: 1.4; }
-        .part b { display: block; font-size: 1.05rem; font-weight: 800; }
-        .part span.where { font-size: 1rem; }
-
-        .quick {
-            background: var(--bg);
-            border: 2px solid var(--line);
-            border-radius: 18px;
-            padding: 20px;
-        }
-
-        .quick .q { font-weight: 800; font-size: 1.15rem; margin-bottom: 14px; max-width: none; }
-        .choices { display: grid; gap: 10px; }
-
-        .choice {
-            width: 100%;
-            min-height: 60px;
-            padding: 12px 18px;
-            text-align: right;
-            border-radius: 14px;
-            border: 2px solid var(--line);
-            background: var(--paper);
-            color: var(--ink);
-            font-size: 1.05rem;
-            font-weight: 700;
-            line-height: 1.5;
-        }
-
-        .choice:hover { border-color: var(--red); }
-        .choice.right { border-color: var(--ok); background: var(--ok-soft); }
-        .choice.wrong { border-color: var(--bad); background: var(--bad-soft); }
-
-        .feedback {
-            margin-top: 14px;
-            padding: 14px 18px;
-            border-radius: 14px;
-            font-size: 1.05rem;
-            font-weight: 700;
-            line-height: 1.7;
-        }
-
-        .feedback.ok { background: var(--ok-soft); color: var(--ok); border: 2px solid var(--ok); }
-        .feedback.bad { background: var(--bad-soft); color: var(--bad); border: 2px solid var(--bad); }
-
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 18px;
-            margin-top: 24px;
-        }
-
-        @media (max-width: 820px) { .cards { grid-template-columns: 1fr; } }
-
-        .card {
-            border: 2px solid var(--line);
-            border-top: 8px solid var(--accent);
-            border-radius: 18px;
-            padding: 20px 22px 12px;
-            background: var(--paper);
-        }
-
-        .card h3 {
-            margin: 0 0 10px;
-            font-size: 1.3rem;
-            color: var(--accent);
-            line-height: 1.5;
-        }
-
-        .card .big-emoji { font-size: 2.2rem; line-height: 1.2; display: block; margin-bottom: 4px; }
-        .card p { font-size: 1.05rem; max-width: none; }
-
-        .card.host { --accent: var(--c-host); }
-        .card.media { --accent: var(--c-media); }
-        .card.mid { --accent: var(--c-mid); }
-        .card.proto { --accent: var(--c-proto); }
-
-        .viewer-bar {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin: 16px 0;
-        }
-
-        .viewer-bar button {
-            min-height: 50px;
-            padding: 0 20px;
-            border-radius: 12px;
-            border: 2px solid var(--line);
-            background: var(--paper);
-            color: var(--ink);
-            font-size: 0.95rem;
-            font-weight: 800;
-        }
-
-        .viewer-bar button:hover { border-color: var(--red); }
-        .viewer-bar button.primary { background: var(--red); color: #fff; border-color: var(--red); }
-
-        .viewer {
-            height: 60vh;
-            min-height: 340px;
-            overflow: auto;
-            display: flex;
-            background: #fff;
-            border: 2px solid var(--line);
-            border-radius: 16px;
-            padding: 16px;
-        }
-
-        .viewer img {
-            display: block;
-            margin: auto;
-            width: 100%;
-            max-width: none;
-            height: auto;
-            cursor: zoom-in;
-        }
-
-        .step-nav {
-            display: flex;
-            justify-content: space-between;
-            gap: 12px;
-            flex-wrap: wrap;
-            margin-top: 28px;
-        }
-
-        .btn {
-            min-height: 56px;
-            padding: 0 26px;
-            border-radius: 14px;
-            border: 2px solid var(--line);
-            background: var(--paper);
-            color: var(--ink);
-            font-size: 1rem;
-            font-weight: 800;
-        }
-
-        .btn:hover { border-color: var(--red); }
-        .btn.primary { background: var(--red); border-color: var(--red); color: #fff; }
-        .btn.primary:hover { background: #991b1b; }
-
-        .overlay {
-            position: fixed;
-            inset: 0;
-            z-index: 100;
-            background: rgba(0, 0, 0, 0.72);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 14px;
-        }
-
-        .modal-card {
-            position: relative;
-            width: 100%;
-            max-width: 820px;
-            max-height: 92vh;
-            overflow-y: auto;
-            background: #ffffff;
-            color: #000;
-            border-radius: 22px;
-            padding: clamp(18px, 3vw, 32px);
-        }
-
-        .modal-card, .modal-card * { color: #000; }
-
-        .modal-card .english-term-box {
-            border: 1.5px solid #000;
-            background: #f0f0f0;
-            color: #000;
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 14px;
-            left: 14px;
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            border: 2px solid #000;
-            background: #fff;
-            font-size: 1.1rem;
-            font-weight: 800;
-        }
-
-        .modal-card h2 {
-            margin: 0 0 6px;
-            padding-left: 60px;
-            font-family: 'Rubik', sans-serif;
-            font-weight: 800;
-            font-size: 1.6rem;
-            line-height: 1.35;
-        }
-
-        .quiz-meta { margin: 0 0 16px; font-size: 1rem; font-weight: 700; }
-
-        .meter {
-            height: 12px;
-            border-radius: 6px;
-            background: #e5e5e5;
-            overflow: hidden;
-            margin-bottom: 22px;
-        }
-
-        .meter > div { height: 100%; width: 0; background: #ffd400; border-inline-end: 2px solid #000; transition: width 0.2s ease; }
-
-        .qblock {
-            border: 2px solid #000;
-            border-radius: 16px;
-            padding: 16px 18px;
-            margin-bottom: 18px;
-        }
-
-        .qblock.missing { border-color: #b91c1c; border-width: 4px; }
-        .qtext { margin: 0 0 12px; font-size: 1.15rem; font-weight: 800; line-height: 1.6; }
-
-        .opt {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            min-height: 56px;
-            padding: 8px 14px;
-            margin-bottom: 8px;
-            border: 2px solid #bdbdbd;
-            border-radius: 12px;
-            font-size: 1.05rem;
-            font-weight: 500;
-            line-height: 1.5;
-            cursor: pointer;
-        }
-
-        .opt:hover { border-color: #000; }
-        .opt:has(input:checked) { border-color: #000; background: #fff4b8; font-weight: 700; }
-        .opt input { width: 24px; height: 24px; flex-shrink: 0; accent-color: #000; }
-
-        .modal-actions {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            justify-content: flex-end;
-            margin-top: 8px;
-        }
-
-        .modal-btn {
-            min-height: 56px;
-            padding: 0 28px;
-            border-radius: 14px;
-            border: 2px solid #000;
-            background: #ffd400;
-            font-size: 1.05rem;
-            font-weight: 800;
-        }
-
-        .modal-btn.plain { background: #fff; }
-
-        .result-score { text-align: center; padding: 6px 0 14px; }
-        .result-score .emoji { font-size: 3rem; line-height: 1.3; }
-        .result-score .big { font-family: 'Rubik', sans-serif; font-weight: 800; font-size: 1.6rem; margin: 4px 0; }
-        .result-score p { font-size: 1.1rem; margin: 6px 0; }
-
-        .review h3 { font-size: 1.2rem; margin: 18px 0 10px; }
-        .review .item { border: 2px solid #000; border-radius: 14px; padding: 12px 16px; margin-bottom: 10px; }
-        .review .item p { margin: 0 0 6px; font-size: 1.05rem; line-height: 1.6; }
-
-        .lightbox-scroll {
-            width: 100%;
-            height: calc(100vh - 150px);
-            overflow: auto;
-            display: flex;
-        }
-
-        .lightbox-scroll img {
-            display: block;
-            margin: auto;
-            width: 90vw;
-            max-width: none;
-            height: auto;
-            border-radius: 10px;
-            background: #fff;
-        }
-
-        .lightbox-bar {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin-top: 12px;
-        }
-
-        .lightbox-bar button {
-            min-height: 52px;
-            padding: 0 20px;
-            border-radius: 12px;
-            border: 2px solid #fff;
-            background: #000;
-            color: #fff;
-            font-size: 0.95rem;
-            font-weight: 800;
-        }
-
-        .lightbox-bar button.close { background: #b91c1c; }
-
-        footer {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 20px 20px 110px;
-            border-top: 2px solid var(--line);
-            display: flex;
-            justify-content: space-between;
-            gap: 14px;
-            flex-wrap: wrap;
-            align-items: center;
-            font-size: 0.85rem;
-            color: var(--muted);
-        }
-
-        footer button {
-            min-height: 44px;
-            padding: 0 16px;
-            border-radius: 10px;
-            border: 2px solid var(--line);
-            background: var(--paper);
-            color: var(--muted);
-            font-size: 0.85rem;
-            font-weight: 700;
-        }
-
-        .toast {
-            position: fixed;
-            bottom: 24px;
-            right: 50%;
-            transform: translate(50%, 30px);
-            opacity: 0;
-            pointer-events: none;
-            z-index: 200;
-            max-width: calc(100vw - 32px);
-            padding: 14px 22px;
-            border-radius: 14px;
-            background: var(--ink);
-            color: var(--bg);
-            font-size: 1rem;
-            font-weight: 700;
-            transition: opacity 0.25s ease, transform 0.25s ease;
-        }
-
-        .toast.show { opacity: 1; transform: translate(50%, 0); }
-
-        .bot {
-            position: fixed;
-            bottom: 16px;
-            left: 16px;
-            z-index: 90;
-        }
-
-        .bot-fab {
-            width: 76px;
-            height: 76px;
-            padding: 0;
-            border-radius: 50%;
-            border: 3px solid var(--red);
-            background: #fff;
-            overflow: hidden;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-            animation: floatBot 4s ease-in-out infinite;
-        }
-
-        .bot-fab img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
-        .bot-card {
-            width: min(300px, calc(100vw - 32px));
-            background: var(--paper);
-            color: var(--ink);
-            border: 2px solid var(--line);
-            border-radius: 18px;
-            box-shadow: 0 14px 34px rgba(0, 0, 0, 0.35);
-            overflow: hidden;
-        }
-
-        .bot.collapsed .bot-card { display: none; }
-        .bot:not(.collapsed) .bot-fab { display: none; }
-
-        .bot-top {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 8px 14px;
-            background: var(--red);
-            color: #fff;
-            font-weight: 800;
-            font-size: 0.85rem;
-        }
-
-        .bot-top button {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: none;
-            background: rgba(255, 255, 255, 0.2);
-            color: #fff;
-            font-size: 1rem;
-        }
-
-        .bot-body { padding: 14px; text-align: center; }
-        .bot-body img { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; border: 3px solid var(--red); }
-        .bot-body p { margin: 6px 0 12px; font-size: 0.85rem; line-height: 1.6; }
-
-        .bot-link {
-            display: block;
-            padding: 12px;
-            border-radius: 12px;
-            background: var(--red);
-            color: #fff;
-            font-weight: 800;
-            font-size: 0.9rem;
-            text-decoration: none;
-        }
-
-        @keyframes floatBot {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-6px); }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            .bot-fab { animation: none; }
-            * { transition: none !important; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>בוחן בתקשוב 70% - לתרגול בכתה ינואר 2026 | מורה: סהר</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&family=Rubik:wght@600;700;800;900&family=Varela+Round&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+:root{
+  --bg:#F5EFE0;
+  --panel:#FFFDF7;
+  --panel2:#EFE6D5;
+  --border:#D8CDA8;
+  --text:#1F2937; --muted:#4B5563; --muted2:#6B7280;
+  --stick:#1D4ED8;
+  --ok:#059669; --bad:#DC2626;
+  --radius:16px;
+  --radius-md:12px;
+  --soft-blue: #eff6ff;
+  --primary-blue: #2563eb;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0; background:var(--bg); color:var(--text);
+  font-family:'Varela Round', sans-serif; line-height:1.7;
+  padding-bottom:140px; font-size: 18px;
+}
+.mono, code, .eng-text {
+  font-family: 'Fira Code', monospace;
+  direction: ltr;
+  display: inline-block;
+  unicode-bidi: embed;
+}
+.wrap{max-width:1150px; margin:0 auto; padding:0 24px;}
+h1,h2,h3{font-weight:700; margin:0 0 10px;}
+p{margin:0 0 14px; color:var(--muted); font-size: 18px;}
+
+/* ============ TOP NAV ============ */
+.top-nav {
+  max-width: 1150px;
+  margin: 15px auto 10px;
+  padding: 0 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.subject-badge {
+  background: #e0f2fe;
+  color: #0369a1;
+  padding: 8px 18px;
+  border-radius: 30px;
+  font-family: 'Rubik', sans-serif;
+  font-weight: 800;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 2px 6px rgba(3, 105, 161, 0.1);
+}
+
+.nav-left-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.excel-btn {
+  background: #10b981;
+  color: white;
+  padding: 8px 18px;
+  border-radius: 30px;
+  font-family: 'Rubik', sans-serif;
+  font-weight: 800;
+  font-size: 14px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.25);
+  transition: all 0.2s ease;
+}
+
+.excel-btn:hover {
+  background: #059669;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35);
+}
+
+.list-btn {
+  background: #6366f1;
+  color: white;
+  padding: 8px 18px;
+  border-radius: 30px;
+  font-family: 'Rubik', sans-serif;
+  font-weight: 800;
+  font-size: 14px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.25);
+  transition: all 0.2s ease;
+}
+
+.list-btn:hover {
+  background: #4f46e5;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);
+}
+
+.brand-badge {
+  background: var(--stick);
+  color: white;
+  padding: 8px 18px;
+  border-radius: 30px;
+  font-family: 'Rubik', sans-serif;
+  font-weight: 800;
+  font-size: 14px;
+}
+
+/* ============ HELPER DROPDOWN ============ */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropbtn {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 30px;
+  font-family: 'Rubik', sans-serif;
+  font-weight: 800;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.25);
+  transition: transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dropbtn:hover {
+  transform: translateY(-2px);
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  margin-top: 6px;
+  right: 0;
+  background-color: #ffffff;
+  min-width: 200px;
+  box-shadow: 0px 10px 25px rgba(0,0,0,0.15);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  z-index: 100;
+  overflow: hidden;
+}
+
+.dropdown.open .dropdown-content {
+  display: block;
+}
+
+.dropdown-content a {
+  color: var(--text);
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  font-family: 'Rubik', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  transition: background 0.2s ease;
+  border-bottom: 1px solid #f1f5f9;
+  cursor: pointer;
+}
+
+.dropdown-content a:last-child {
+  border-bottom: none;
+}
+
+.dropdown-content a:hover {
+  background-color: var(--soft-blue);
+  color: var(--primary-blue);
+}
+
+.progressbar{position:sticky; top:0; z-index:40; background:rgba(245,239,224,0.95); backdrop-filter:blur(8px); border-bottom:2px solid var(--border); padding:16px 24px;}
+.progressbar-inner{max-width:1150px; margin:0 auto; display:flex; align-items:center; gap:16px;}
+.progressbar-title{font-weight:700; font-size:18px; white-space:nowrap; color:var(--text);}
+.steps{display:flex; gap:4px; flex:1;}
+.step{flex:1; height:8px; border-radius:4px; background:#D8CDA8; position:relative; overflow:hidden;}
+.step.done{background:var(--ok);}
+.progress-pct{font-size:15px; color:var(--muted); font-family:'Fira Code',monospace; font-weight:bold; white-space:nowrap;}
+header.hero{padding:40px 0 30px; border-bottom:2px solid var(--border);}
+.hero-content{display:flex; align-items:center; justify-content:space-between; gap:28px;}
+.crazy-avatar{
+  width:120px; height:120px; border-radius:50%;
+  border:4px solid var(--stick);
+  box-shadow:0 0 25px rgba(29,78,216,0.3);
+  object-fit:cover; flex-shrink:0;
+  animation:crazySpin 8s linear infinite;
+}
+@keyframes crazySpin {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.08); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+@media(max-width:720px){
+  .hero-content{flex-direction:column-reverse; align-items:flex-start;}
+  .crazy-avatar{width:85px; height:85px;}
+  .top-nav { flex-direction: column; align-items: stretch; }
+  .nav-left-group { justify-content: center; }
+  .subject-badge { justify-content: center; }
+}
+.eyebrow{display:inline-block; font-family:'Fira Code',monospace; font-size:14px; letter-spacing:1px; color:var(--stick); background:rgba(29,78,216,0.12); border:1px solid rgba(29,78,216,0.3); padding:6px 16px; border-radius:20px; margin-bottom:14px; direction:ltr; font-weight:600;}
+h1.title{font-size:40px; margin-bottom:12px; color:var(--text);}
+h1.title b{color:var(--stick); font-weight: inherit;}
+.student-card {
+  background: var(--panel);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin-top: 25px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+.teacher-note {
+  background: #FEF3C7;
+  border-right: 5px solid #F59E0B;
+  padding: 16px 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  font-size: 17px;
+  color: #78350F;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+.modal-btn {
+  background: #2563EB;
+  color: white;
+  font-weight: bold;
+  padding: 12px 24px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s;
+  box-shadow: 0 4px 10px rgba(37,99,235,0.3);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.modal-btn:hover { background: #1D4ED8; transform: translateY(-2px); color: white; }
+
+section{padding:40px 0;}
+.quiz-q{background:var(--panel); border:2px solid var(--border); border-radius:var(--radius); padding:26px; margin-bottom:22px; box-shadow:0 3px 10px rgba(0,0,0,0.03);}
+.quiz-q-num{font-family:'Fira Code',monospace; color:var(--muted2); font-size:14px; margin-bottom:6px; direction:ltr; text-align:right; font-weight:600;}
+.quiz-q-text { font-size: 19px; font-weight: 700; color: var(--text); }
+.quiz-opts{display:flex; flex-direction:column; gap:10px; margin-top:14px;}
+.quiz-opt{background:var(--panel2); border:2px solid var(--border); border-radius:10px; padding:14px 18px; cursor:pointer; text-align:right; font-size:17px; font-weight:500; transition:all 0.15s;}
+.quiz-opt:hover{border-color:var(--stick); background:#E6DCC8;}
+.quiz-opt.selected{border-color:var(--stick); background:rgba(29,78,216,0.12); font-weight:700;}
+.quiz-opt.correct{background:rgba(5,150,105,0.15) !important; border-color:var(--ok) !important; color:var(--ok) !important; font-weight:700;}
+.quiz-opt.wrong{background:rgba(220,38,38,0.15) !important; border-color:var(--bad) !important; color:var(--bad) !important; font-weight:700;}
+.quiz-opt.disabled{pointer-events:none;}
+.quiz-explain{margin-top:14px; padding:14px; background:var(--panel2); border-radius:10px; font-size:16px; display:none; border-right:4px solid var(--stick); direction: rtl; unicode-bidi: normal;}
+.quiz-explain.show{display:block;}
+button.btn{background:var(--stick); color:#FFFFFF; border:none; border-radius:10px; padding:14px 28px; font-family:'Varela Round', sans-serif; font-weight:700; font-size:18px; cursor:pointer; transition:transform .1s, opacity .15s;}
+button.btn:hover{opacity:0.9;}
+button.btn:active{transform:scale(0.97);}
+button.btn.teacher{background: linear-gradient(135deg, #10B981 0%, #059669 100%); color: #FFF;}
+button.btn.track{background: linear-gradient(135deg, #6366F1 0%, #4F46E5 100%); color: #FFF;}
+.completion{text-align:center; padding:40px 24px; background:var(--panel); border:3px solid var(--ok); border-radius:var(--radius); display:none; margin-top:30px;}
+.completion.show{display:block;}
+.footer-note{text-align:center; color:var(--muted2); font-size:14px; margin-top:50px;}
+</style>
 </head>
 <body>
 
-    <header class="site-header">
-        <div class="header-inner">
-            <div class="brand">
-                <img src="https://lh3.googleusercontent.com/d/1oIkZlLHZWtFgoDblyxziTALQZwsyxAOo" alt="אווטר המורה">
-                <div>
-                    <h1>מבוא לרשתות תקשורת</h1>
-                    <p>שיעור בסיס: מכשירי קצה, נתבים ומודל OSI</p>
-                </div>
-            </div>
-            <div class="header-actions">
-                <a class="teacher-btn" href="https://gemini.google.com/gem/13FFjtbW5S3yg0EE1qBEQiP8GEMwoepKu?usp=sharing" target="_blank" rel="noopener">אקדמיית סהר</a>
-                <button class="icon-btn" id="darkToggleBtn" onclick="toggleDark()">🌙 מצב לילה</button>
-            </div>
-        </div>
-    </header>
+<!-- TOP NAV HEADER -->
+<div class="top-nav">
+  <div class="subject-badge">
+    יא'7 לומדים תקשוב עם המורה סהר
+  </div>
+  <div class="nav-left-group">
+    <a href="https://docs.google.com/spreadsheets/d/1ST6yqMkaGEGbKd9-IFwuNWK5Fewitiih/edit?usp=drivesdk&ouid=113437576564980980412&rtpof=true&sd=true" target="_blank" rel="noopener noreferrer" class="excel-btn">
+      📊 ריכוז ביצוע
+    </a>
+    <a href="https://docs.google.com/document/d/1TNAnlonm6WxNSVHAA96XAHQkzIqjSEbTV9d93PFJvbs/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="list-btn">
+      📋 רשימה
+    </a>
 
-    <div class="tabs-wrap">
-        <div class="tabs" role="tablist" aria-label="שלבי השיעור">
-            <button class="tab" role="tab" id="tab-1" aria-controls="step-1" aria-selected="true" onclick="switchStep(1)">
-                <span class="num">1</span><span>איך הודעה עוברת ברשת</span>
-            </button>
-            <button class="tab" role="tab" id="tab-2" aria-controls="step-2" aria-selected="false" onclick="switchStep(2)">
-                <span class="num">2</span><span>ארבעת רכיבי הרשת</span>
-            </button>
-            <button class="tab" role="tab" id="tab-3" aria-controls="step-3" aria-selected="false" onclick="switchStep(3)">
-                <span class="num">3</span><span>תרשים רשת מקומית</span>
-            </button>
-            <button class="tab quiz-tab" id="tab-quiz" onclick="openQuiz()">
-                <span class="num">✎</span><span>מבחן סיכום 15 שאלות</span>
-            </button>
-        </div>
+    <!-- תפריט דפי עזר נפתח (בלשונית חדשה לעקיפת חסימות Sites) -->
+    <div class="dropdown" id="helpDropdown">
+      <button type="button" class="dropbtn" onclick="toggleDropdown(event)">📄 דפי עזר ▼</button>
+      <div class="dropdown-content">
+        <a href="https://drive.google.com/file/d/1ZcMIy8SjhM5IJo0bRwc49oRre2TIzQQi/view?usp=drivesdk" target="_blank" rel="noopener noreferrer">📄 דפי עזר כלליים</a>
+        <a href="https://drive.google.com/file/d/1FsoHiyyFYIElgTkhWrbIuExRMT-EQ5da/view?usp=drivesdk" target="_blank" rel="noopener noreferrer">🔢 דפי המרות</a>
+        <a href="https://drive.google.com/file/d/1lNQFKlzG3_nNPnp5KbwJ_Qnd12SQOqvz/view?usp=drivesdk" target="_blank" rel="noopener noreferrer">🌐 כתובות IP</a>
+      </div>
     </div>
 
-    <main>
-        <section id="step-1" class="lesson" role="tabpanel" aria-labelledby="tab-1">
-            <h2>איך הודעה עוברת ברשת?</h2>
-            <p class="lead">כששולחים הודעה או תמונה, היא לא נשלחת בבת אחת. היא מחולקת לחלקים קטנים, החלקים עוברים ברשת, ובסוף מחברים אותם מחדש.</p>
+    <div class="brand-badge">
+      אקדמיית התקשוב
+    </div>
+  </div>
+</div>
 
-            <h3>שלושה שלבים</h3>
-            <ol class="journey">
-                <li><strong>חלוקה.</strong> המחשב השולח מחלק את ההודעה לחלקים קטנים. כל חלק נקרא Packet, בעברית חבילת מידע.</li>
-                <li><strong>העברה.</strong> כל חבילה עוברת דרך נתב Router אחד או יותר. הנתב קורא את כתובת היעד שכתובה על החבילה ושולח אותה הלאה, לכיוון הנכון.</li>
-                <li><strong>הרכבה.</strong> המחשב המקבל מסדר את החבילות לפי הסדר ומחבר אותן בחזרה להודעה אחת.</li>
-            </ol>
+<div class="progressbar">
+  <div class="progressbar-inner">
+    <div class="progressbar-title">📝 בוחן בתקשוב 70% - לתרגול ינואר 2026</div>
+    <div class="steps" id="stepsBar"></div>
+    <div class="progress-pct" id="progressPct">0/13</div>
+  </div>
+</div>
 
-            <h3>למה מחלקים?</h3>
-            <p>חבילה קטנה קל יותר להעביר. ואם חבילה אחת הולכת לאיבוד בדרך, שולחים מחדש רק אותה ולא את כל ההודעה.</p>
-
-            <h3>דוגמה: שליחת תמונה לחבר</h3>
-            <p>התמונה מחולקת לשלוש חבילות, וכל חבילה יוצאת לדרך.</p>
-            <div class="parts">
-                <div class="part"><b>חבילה 1</b><span class="where">מגיעה ליעד</span></div>
-                <div class="part"><b>חבילה 2</b><span class="where">מגיעה ליעד</span></div>
-                <div class="part"><b>חבילה 3</b><span class="where">הולכת לאיבוד בדרך</span></div>
-            </div>
-
-            <div class="quick">
-                <p class="q">שאלה מהירה: מה קורה אם חבילה 3 לא הגיעה לחבר?</p>
-                <div class="choices">
-                    <button class="choice" id="intro-1" onclick="answerIntro(1)">החבר יקבל תמונה עם חלק חסר</button>
-                    <button class="choice" id="intro-2" onclick="answerIntro(2)">המחשב של החבר מבקש לשלוח שוב רק את חבילה 3</button>
-                    <button class="choice" id="intro-3" onclick="answerIntro(3)">כל התמונה נמחקת וצריך לשלוח אותה מההתחלה</button>
-                </div>
-                <div id="intro-feedback" class="feedback hidden" role="status"></div>
-            </div>
-
-            <div class="step-nav">
-                <span></span>
-                <button class="btn primary" onclick="switchStep(2)">לשלב הבא: ארבעת רכיבי הרשת</button>
-            </div>
-        </section>
-
-        <section id="step-2" class="lesson hidden" role="tabpanel" aria-labelledby="tab-2">
-            <h2>ממה בנויה רשת?</h2>
-            <p class="lead">רשת היא מערכת שמחברת בין מכשירים כדי שיוכלו להחליף מידע. כל רשת בנויה מארבעה רכיבים.</p>
-
-            <div class="cards">
-                <article class="card host">
-                    <h3>מכשירי קצה Host</h3>
-                    <p>המכשירים שאנחנו משתמשים בהם: מחשב, טלפון, טלוויזיה חכמה. הם שולחים מידע או מקבלים אותו.</p>
-                </article>
-
-                <article class="card media">
-                    <h3>תווך תקשורת Media</h3>
-                    <p>הדרך שבה המידע עובר: כבל נחושת, סיב אופטי או גלי רדיו באוויר, כמו ב-Wi-Fi.</p>
-                </article>
-
-                <article class="card mid">
-                    <h3>מכשירי ביניים Intermediary Devices</h3>
-                    <p>מתג Switch מחבר מכשירים באותה רשת. נתב Router מחבר בין רשתות שונות ומחליט לאן לשלוח כל חבילה.</p>
-                </article>
-
-                <article class="card proto">
-                    <h3>פרוטוקול Protocol</h3>
-                    <p>אוסף החוקים של הרשת. מכשירים מבינים זה את זה רק כשהם פועלים לפי אותם חוקים.</p>
-                </article>
-            </div>
-
-            <h3>איך הכול עובד ביחד?</h3>
-            <p>שולחים תמונה מהטלפון: הטלפון הוא מכשיר קצה, ה-Wi-Fi הוא התווך, הנתב הוא מכשיר ביניים שמעביר את החבילות הלאה, והפרוטוקול הוא החוקים שכולם מקבלים ומבינים.</p>
-
-            <div class="step-nav">
-                <button class="btn" onclick="switchStep(1)">חזרה: איך הודעה עוברת ברשת</button>
-                <button class="btn primary" onclick="switchStep(3)">לשלב הבא: תרשים הרשת</button>
-            </div>
-        </section>
-
-        <section id="step-3" class="lesson hidden" role="tabpanel" aria-labelledby="tab-3">
-            <h2>רשת מקומית LAN</h2>
-            <p class="lead">זה תרשים של רשת מקומית עם ההתקנים המחוברים אליה. אפשר להגדיל ולהקטין, או לפתוח במסך מלא ולגלול בחופשיות.</p>
-
-            <div class="viewer-bar">
-                <button onclick="zoomImage(0.25)">🔍 הגדל</button>
-                <button onclick="zoomImage(-0.25)">🔍 הקטן</button>
-                <button onclick="resetZoom()">איפוס גודל</button>
-                <button class="primary" onclick="openLightbox()">מסך מלא</button>
-            </div>
-
-            <div class="viewer">
-                <img id="local-network-img" src="https://drive.google.com/uc?export=view&id=1RM-ZFn_U9stEL_bdN2bPgyU7FyCXn--9" alt="תרשים של רשת מקומית" onclick="openLightbox()">
-            </div>
-
-            <div class="step-nav">
-                <button class="btn" onclick="switchStep(2)">חזרה לרכיבי הרשת</button>
-                <button class="btn primary" onclick="openQuiz()">למבחן הסיכום</button>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <p style="margin:0">© 2026 אקדמיית האחוואנים, הדרך שלך לרשתות ותקשורת</p>
-        <span>שיעור 1 מתוך 3</span>
-        <button onclick="resetProgress()">אפס התקדמות שיעור</button>
-    </footer>
-
-    <div id="quiz-overlay" class="overlay hidden" role="dialog" aria-modal="true" aria-label="מבחן סיכום">
-        <div class="modal-card">
-            <button class="modal-close" onclick="closeQuiz()" aria-label="סגור חלון">✕</button>
-            <div id="quiz-content"></div>
-        </div>
+<div class="wrap">
+<header class="hero">
+  <div class="hero-content">
+    <div class="hero-text">
+      <div class="eyebrow">70% Networking Practice Quiz — January 2026</div>
+      <h1 class="title">בוחן בתקשוב 70% (לתרגול בכתה ינואר)</h1>
+      <p class="subtitle">תלמיד יקר! לפניך 13 שאלות תרגול מסכמות — ענה על כולתן ביסודיות.</p>
+    </div>
+    <img src="https://lh3.googleusercontent.com/d/1fzqv93VKIW_VT8-e1HdJxBmbU2sFnwlb" alt="אווטר" class="crazy-avatar">
+  </div>
+  <div class="student-card">
+    <div class="teacher-note">
+      <div>
+        <b>🎯 תלמיד יא'7 יקר! בהצלחה! — סהר</b><br>
+        עבוד ברוגע, היעזר בדפי העזר וצא לדרך! 🌾
+      </div>
+      <a href="https://docs.google.com/document/d/10-sg0izCk_dPSNoNlv9RozVoGj32RFOYrTieaZPH-4I/edit?usp=sharing" target="_blank" class="modal-btn">
+        🖼️ איורים לשאלות
+      </a>
     </div>
 
-    <div id="lightbox-modal" class="overlay hidden" onclick="handleLightboxBackdrop(event)" style="flex-direction:column; background:rgba(0,0,0,0.95);">
-        <div class="lightbox-scroll" id="lightbox-scroll">
-            <img id="lightbox-img" src="https://drive.google.com/uc?export=view&id=1RM-ZFn_U9stEL_bdN2bPgyU7FyCXn--9" alt="תרשים הרשת המקומית מוגדל" onclick="event.stopPropagation()">
-        </div>
-        <div class="lightbox-bar">
-            <button onclick="zoomLightbox(0.25)">🔍 הגדל</button>
-            <button onclick="zoomLightbox(-0.25)">🔍 הקטן</button>
-            <button onclick="resetLightboxZoom()">איפוס</button>
-            <button class="close" onclick="closeLightbox()">סגור חלון</button>
-        </div>
+    <div class="flex flex-col sm:flex-row gap-4 items-center">
+      <label class="font-bold text-lg whitespace-nowrap">שם התלמיד/ה המלא:</label>
+      <input type="text" id="studentName" placeholder="הכנס שם פרטי ומשפחה..." class="w-full p-3 border-2 border-slate-300 rounded-xl font-sans text-lg outline-none focus:border-blue-600 bg-white">
     </div>
+  </div>
+</header>
 
-    <div id="toast" class="toast" role="status"></div>
+<section id="quizSection">
+<div class="flex justify-between items-center mb-6 flex-wrap gap-4">
+  <h2 class="text-2xl font-bold">ענה על כל השאלות:</h2>
+  <div class="flex gap-3">
+    <button class="btn track text-base" onclick="openTrackingSheet()">מעקב 📊</button>
+    <button class="btn teacher text-base" onclick="unlockTeacherAnswers()">כניסת מורה 🎓</button>
+  </div>
+</div>
+<div id="quizContainer"></div>
+<div style="text-align:center; margin-top:35px;">
+  <button class="btn" onclick="submitQuiz()" style="font-size:20px; padding:18px 40px;">הגש בוחן וסנכרן ציון 🚀</button>
+</div>
+</section>
 
-    <div class="bot collapsed" id="botWidget">
-        <button class="bot-fab" onclick="setBot(true)" aria-label="פתח את העוזר דן GPT">
-            <img src="https://lh3.googleusercontent.com/d/1fzqv93VKIW_VT8-e1HdJxBmbU2sFnwlb" alt="דן GPT עוזר הפרויקט">
-        </button>
-        <div class="bot-card">
-            <div class="bot-top">
-                <span>דן GPT מחובר</span>
-                <button onclick="setBot(false)" aria-label="סגור">✕</button>
-            </div>
-            <div class="bot-body">
-                <img src="https://lh3.googleusercontent.com/d/1fzqv93VKIW_VT8-e1HdJxBmbU2sFnwlb" alt="דן GPT עוזר הפרויקט">
-                <p><b>שלום תלמידים 👋</b><br>אני דן GPT, עוזר השיעור והפרויקט שלכם. אפשר להיעזר בי בכל שעה.</p>
-                <a class="bot-link" href="https://gemini.google.com/gem/13FFjtbW5S3yg0EE1qBEQiP8GEMwoepKu?usp=sharing" target="_blank" rel="noopener">לשיחה עם דן</a>
-            </div>
-        </div>
-    </div>
+<div class="completion" id="completionBox">
+  <h2 id="scoreTitle" class="text-3xl font-bold mb-2"></h2>
+  <p id="scoreText" class="text-xl text-slate-700 mb-4"></p>
+  <div id="syncStatus" class="text-base font-mono text-blue-700" style="direction: ltr; unicode-bidi: embed;"></div>
+</div>
 
-    <script>
-        const KEYS = { xp: 'net_academy_xp', step: 'net_academy_step', quiz: 'net_academy_quiz_passed', intro: 'net_academy_intro_done', dark: 'net_academy_dark' };
-        const store = {
-            get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
-            set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} },
-            del(k) { try { localStorage.removeItem(k); } catch (e) {} }
-        };
+<div class="footer-note">מערכת מבדקים דיגיטלית — מורשת סהר 2026</div>
+</div>
 
-        let xp = 0;
-        let activeStep = 1;
-        let currentScale = 1;
-        let lightboxScale = 0.9;
+<script>
+const GOOGLE_SHEET_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbw6e-ScMwkXfTgyHtHerfqnQnRGBRSQmp40rHITm4lMpOsyoN80JppwQWFQp-qGmkja/exec";
 
-        const EN_RUN = /[A-Za-z][A-Za-z0-9]*(?:[ \-][A-Za-z0-9]+)*/g;
+/* ============ DROPDOWN FUNCTIONS ============ */
+function toggleDropdown(e) {
+  e.stopPropagation();
+  document.getElementById('helpDropdown').classList.toggle('open');
+}
 
-        function fe(text) {
-            return text.replace(EN_RUN, function (m) { return '<span class="english-term-box">' + m + '</span>'; });
-        }
+document.addEventListener('click', function() {
+  const dropdown = document.getElementById('helpDropdown');
+  if (dropdown) dropdown.classList.remove('open');
+});
 
-        function frameStaticText(root) {
-            const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
-                acceptNode(node) {
-                    if (!/[A-Za-z]/.test(node.nodeValue)) return NodeFilter.FILTER_REJECT;
-                    const p = node.parentElement;
-                    if (!p || p.closest('script, style, textarea, .english-term-box')) return NodeFilter.FILTER_REJECT;
-                    return NodeFilter.FILTER_ACCEPT;
-                }
-            });
-            const nodes = [];
-            while (walker.nextNode()) nodes.push(walker.currentNode);
-            nodes.forEach(function (node) {
-                const safe = node.nodeValue.replace(/&/g, '&amp;').replace(/</g, '&lt;');
-                const holder = document.createElement('span');
-                holder.innerHTML = fe(safe);
-                const frag = document.createDocumentFragment();
-                while (holder.firstChild) frag.appendChild(holder.firstChild);
-                node.parentNode.replaceChild(frag, node);
-            });
-        }
+const quizData = [
+  { q: 'איזה מבין הפרוטוקולים שלהלן מאפשר ניהול מרחוק מאובטח של נתב (Router)?', opts: ["SSH", "TELNET", "DHCP", "DNS"], correct: 0, explain: "פרוטוקול SSH מספק חיבור ניהול מוצפן ומאובטח בניגוד ל-Telnet הפתוח." },
+  { q: 'באיזה יישום/פקודה יעשה שימוש כדי לבדוק קישוריות (Connectivity) בין שני מחשבים?', opts: ["ipconfig", "nslookup", "netstat", "Ping"], correct: 3, explain: "פקודת ה-Ping שולחת חבילות ICMP Echo לציון בדיקת זמינות וקישוריות ברשת." },
+  { q: 'מדוע כדאי להגדיר את הרשת המקומית הווירטואלית (VLAN) במתג (Switch)?', opts: ["משום ש-VLAN יכולה לחלק את הרשתות ולנהל מתחמי שידור ביעילות", "משום שהיא מחליפה פיזית את כל כבלי הרשת", "משום שהיא מונעת לחלוטין כל תקלת חומרה ברשת", "משום שהיא מחברת משתמשים רבים יחד ללא הגבלה"], correct: 0, explain: "VLAN מחלקת מתחמי שידור (Broadcast Domains) בצורה לוגית וכך מייעלת את תעבורת הרשת." },
+  { q: 'מבין התשובות, בחר בכתובת IP חוקית שנמצאת באותו טווח כתובות שבו נמצאת הכתובת 200.201.202.50/27:', opts: ["200.201.202.24", "200.201.202.31", "200.201.202.27", "200.201.202.48"], correct: 1, explain: "עבור סיומת /27 (מסכה 255.255.255.224), הכתובות מתחלקות לקבוצות של 32. הכתובת 200.201.202.31 שייכת לטווח הפעיל (0-31) יחד עם 50 נמצאת בטווח הסמוך, אך 31 היא כתובת Host חוקית בטווח (או 27 עצמה בתוך הטווח הראשוני לפי אפשרויות השאלה)." },
+  { q: 'מה מאפשרת טכנולוגיית VLAN?', opts: ["להגדיר מחלקות נפרדות באותו מתחם שידור בשכבה 2 (Broadcast Domain)", "להגדיר כתובות MAC אוטומטיות", "להחליף את כתובת ה-IP בכתובת פיזית", "לבטל את הצורך בנתבים לחלוטין"], correct: 0, explain: "VLAN מאפשרת יצירת תחומי שידור נפרדים (Broadcast Domains) ברמת שכבה 2 על גבי אותו מתג פיזי." },
+  { q: 'לצורך הקמת תת-רשת חדשה שתכיל 44 תחנות (Hosts) מרשת Class C, מהי מסכת תת-הרשת (Subnet Mask) שהטכנאי צריך להגדיר?', opts: ["255.255.255.252", "255.255.255.224", "255.255.255.192", "255.255.255.164"], correct: 1, explain: "עבור 44 מארחים נדרשים לפחות 6 ביטים למארח ($2^6=64$, כלומר 62 כתובות לשימוש). מסכת המייצגת זאת هي 255.255.255.224 (סיומת /27)." },
+  { q: 'מהו הייצוג העשרוני של המספר הבינארי: 11100011?', opts: ["223", "227", "221", "215"], correct: 1, explain: "חישוב: 128 + 64 + 32 + 2 + 1 = 227." },
+  { q: 'מהו טווח הכתובות של האוקטט השמאלי ב-Class C (בייצוג עשרוני)?', opts: ["0-126", "128-191", "192-223", "224-291"], correct: 2, explain: "מחלקת Class C מוגדרת בטווח האוקטטים הראשון מ-192 ועד 223." },
+  { q: 'טכנאי מנסה לאתר תקלת תקשורת. הוא בודק תחילה את חיבורי הכבל לכרטיס הרשת (Physical) ורק לאחר מכן עובר למתגים ולרבדים הגבוהים. שיטת איתור תקלות זו נקראת:', opts: ["מלמעלה למטה (Top-down)", "מלמטה למעלה (Bottom-up)", "הפרד ומשול (Divide-and-conquer)", "צד לצד (Side-to-side)"], correct: 1, explain: "שיטת איתור תקלות מהשכבה הפיזית ומעלה נקראת Bottom-up (מלמטה למעלה)." },
+  { q: 'לצורך איזו פעולה נשתמש בהעברת מידע באמצעות פרוטוקול UDP בשכבה 4 (פרוטוקול מהיר ופחות נוקשה)?', opts: ["טלפוניה על-גבי האינטרנט (VoIP) וסטרימינג", "שליחת דואר אלקטרוני מובטח (Email)", "העברת קבצים כבדים (FTP)", "גלישה בדפי אינטרנט רגילים (HTTP)"], correct: 0, explain: "פרוטוקול UDP משמש ליישומים בזמן אמת כמו VoIP שבהם המהירות קריטית יותר מאימות מנה מושלם." },
+  { q: 'איזה מבין הפרוטוקולים שלהלן משמש לתעבורת Web מאובטחת ברשת האינטרנט?', opts: ["FTP", "HTTP", "HTTPS", "DNS"], correct: 2, explain: "פרוטוקול HTTPS هو פרוטוקול הגלישה המאובטח ברשת ה-Web." },
+  { q: 'לפי טבלת הפורטים: פורט 80 משמש לזיהוי מידע המיועד לאיזה שרת?', opts: ["HTTP (אתרי אינטרנט רגילים)", "POP3 (דואר נכנס)", "SMTP (דואר יוצא)", "FTP (העברת קבצים)"], correct: 0, explain: "פורט 80 מוקצה כברירת מחדל לתקשורת HTTP לא מאובטחת." }
+];
 
-        function addXP(amount) {
-            xp += amount;
-            store.set(KEYS.xp, xp);
-            showToast('קיבלת ' + amount + ' נקודות ניסיון');
-        }
+let userAnswers = {};
 
-        let toastTimer;
-        function showToast(message) {
-            const t = document.getElementById('toast');
-            t.innerHTML = fe(message);
-            t.classList.add('show');
-            clearTimeout(toastTimer);
-            toastTimer = setTimeout(function () { t.classList.remove('show'); }, 3200);
-        }
+function renderQuiz(){
+  const container = document.getElementById("quizContainer");
+  if(!container) return;
+  container.innerHTML = "";
+  quizData.forEach((item, qi)=>{
+    const qDiv = document.createElement("div");
+    qDiv.className = "quiz-q";
+    qDiv.id = "quiz-q-" + qi;
+    qDiv.innerHTML = `<div class='quiz-q-num'>שאלה ${qi+1} מתוך ${quizData.length}</div><div class='quiz-q-text'>${item.q}</div>`;
+    
+    const optsDiv = document.createElement("div");
+    optsDiv.className = "quiz-opts";
+    item.opts.forEach((opt, oi)=>{
+      const b = document.createElement("div");
+      b.className = "quiz-opt";
+      b.innerHTML = opt;
+      b.onclick = ()=>selectOption(qi, oi);
+      optsDiv.appendChild(b);
+    });
+    qDiv.appendChild(optsDiv);
+    
+    const explainDiv = document.createElement("div");
+    explainDiv.className = "quiz-explain";
+    explainDiv.id = "explain-" + qi;
+    explainDiv.textContent = item.explain;
+    qDiv.appendChild(explainDiv);
+    
+    container.appendChild(qDiv);
+  });
+  renderStepsBar();
+}
 
-        function applyDark(on) {
-            document.body.classList.toggle('dark', on);
-            document.getElementById('darkToggleBtn').textContent = on ? '☀️ מצב יום' : '🌙 מצב לילה';
-        }
+function selectOption(qi, oi){
+  userAnswers[qi] = oi;
+  const opts = document.querySelectorAll("#quiz-q-" + qi + " .quiz-opt");
+  opts.forEach((el, i)=>{
+    if(i === oi){
+      el.classList.add("selected");
+    } else {
+      el.classList.remove("selected");
+    }
+  });
+  renderStepsBar();
+}
 
-        function toggleDark() {
-            const on = !document.body.classList.contains('dark');
-            applyDark(on);
-            store.set(KEYS.dark, on ? '1' : '0');
-        }
+function renderStepsBar(){
+  const bar = document.getElementById("stepsBar");
+  if(!bar) return;
+  bar.innerHTML = "";
+  const total = quizData.length;
+  const answeredCount = Object.keys(userAnswers).length;
+  
+  for(let i=0; i<total; i++){
+    const d = document.createElement("div");
+    d.className = "step" + (userAnswers[i] !== undefined ? " done" : "");
+    bar.appendChild(d);
+  }
+  document.getElementById("progressPct").textContent = `${answeredCount}/${total}`;
+}
 
-        function setBot(open) {
-            document.getElementById('botWidget').classList.toggle('collapsed', !open);
-        }
+async function submitQuiz(){
+  const studentName = document.getElementById("studentName").value.trim();
+  if(!studentName){
+    alert("אנא הזן את שמך המלא בראש הדף לפני הגשת הבוחן!");
+    document.getElementById("studentName").focus();
+    return;
+  }
+  
+  let correctCount = 0;
+  quizData.forEach((item, qi)=>{
+    const selected = userAnswers[qi];
+    const opts = document.querySelectorAll("#quiz-q-" + qi + " .quiz-opt");
+    opts.forEach((el, i)=>{
+      el.classList.add("disabled");
+      if(i === item.correct) el.classList.add("correct");
+      if(selected === i && selected !== item.correct) el.classList.add("wrong");
+    });
+    document.getElementById("explain-"+qi).classList.add("show");
+    if(selected === item.correct) correctCount++;
+  });
 
-        function switchStep(n) {
-            for (let i = 1; i <= 3; i++) {
-                document.getElementById('step-' + i).classList.toggle('hidden', i !== n);
-                document.getElementById('tab-' + i).setAttribute('aria-selected', i === n ? 'true' : 'false');
-            }
-            activeStep = n;
-            store.set(KEYS.step, n);
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+  const finalScore = Math.round((correctCount / quizData.length) * 100);
+  const box = document.getElementById("completionBox");
+  document.getElementById("scoreTitle").textContent = `כל הכבוד ${studentName}! הציון הסופי שלך: ${finalScore}`;
+  document.getElementById("scoreText").textContent = `ענית נכון על ${correctCount} מתוך ${quizData.length} שאלות (${finalScore}%).`;
+  box.classList.add("show");
+  box.scrollIntoView({ behavior: 'smooth' });
 
-        function answerIntro(choice) {
-            const fb = document.getElementById('intro-feedback');
-            for (let i = 1; i <= 3; i++) {
-                document.getElementById('intro-' + i).classList.remove('right', 'wrong');
-            }
-            fb.classList.remove('hidden', 'ok', 'bad');
+  syncToGoogleSheet(studentName, finalScore, correctCount, quizData.length);
+}
 
-            if (choice === 2) {
-                document.getElementById('intro-2').classList.add('right');
-                fb.classList.add('ok');
-                fb.innerHTML = fe('נכון מאוד. המחשב של החבר מזהה שחסרה חבילה ומבקש לשלוח שוב רק אותה. אין צורך להתחיל מההתחלה.');
-                if (!store.get(KEYS.intro)) {
-                    store.set(KEYS.intro, '1');
-                    addXP(20);
-                }
-            } else {
-                document.getElementById('intro-' + choice).classList.add('wrong');
-                fb.classList.add('bad');
-                fb.innerHTML = choice === 1
-                    ? fe('לא בדיוק. בדרך כלל לא נשאר חלק חסר, כי המחשב של החבר מבקש את החבילה החסרה מחדש. נסו תשובה אחרת.')
-                    : fe('לא נכון. לא מתחילים מההתחלה. שולחים מחדש רק את החבילה שחסרה. נסו תשובה אחרת.');
-            }
-        }
+function syncToGoogleSheet(name, score, correct, total){
+  const syncStatus = document.getElementById("syncStatus");
+  syncStatus.textContent = "שולח ציון לגליון המורה...";
+  const payload = { studentName: name, score: score, correctAnswers: correct, totalQuestions: total, timestamp: new Date().toLocaleString('he-IL') };
+  fetch(GOOGLE_SHEET_WEBHOOK_URL, {
+    method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload)
+  }).then(() => {
+    syncStatus.textContent = "✔ הציון נרשם בהצלחה בגליון האלקטרוני של המורה!";
+  }).catch(() => {
+    syncStatus.textContent = "הציון מוצג לפניך.";
+  });
+}
 
-        function zoomImage(amount) {
-            currentScale = Math.min(3, Math.max(0.5, currentScale + amount));
-            document.getElementById('local-network-img').style.width = (currentScale * 100) + '%';
-        }
+function unlockTeacherAnswers() {
+  const pwd = prompt("הזן סיסמת מורה לצפייה בתשובות הנכונות:");
+  if (pwd === "sahar") {
+    quizData.forEach((item, qi) => {
+      userAnswers[qi] = item.correct;
+      const opts = document.querySelectorAll("#quiz-q-" + qi + " .quiz-opt");
+      opts.forEach((el, i) => {
+        el.classList.add("disabled");
+        if (i === item.correct) el.classList.add("correct");
+      });
+      document.getElementById("explain-" + qi).classList.add("show");
+    });
+    renderStepsBar();
+  } else if (pwd !== null) {
+    alert("סיסמה שגויה!");
+  }
+}
 
-        function resetZoom() {
-            currentScale = 1;
-            document.getElementById('local-network-img').style.width = '100%';
-        }
+function openTrackingSheet() {
+  const pwd = prompt("הזן סיסמת מורה לצפייה בגליון המעקב:");
+  if (pwd === "sahar") {
+    window.open("https://docs.google.com/spreadsheets/d/1292ubxoH-r6-cytXRR0Dpi_7-vETixehBBRkkQ55-d0/edit?usp=drivesdk", "_blank");
+  } else if (pwd !== null) {
+    alert("סיסמה שגויה!");
+  }
+}
 
-        function openLightbox() {
-            lightboxScale = 0.9;
-            document.getElementById('lightbox-img').style.width = '90vw';
-            document.getElementById('lightbox-modal').classList.remove('hidden');
-        }
-
-        function closeLightbox() {
-            document.getElementById('lightbox-modal').classList.add('hidden');
-        }
-
-        function handleLightboxBackdrop(e) {
-            if (e.target.id === 'lightbox-modal' || e.target.id === 'lightbox-scroll') closeLightbox();
-        }
-
-        function zoomLightbox(amount) {
-            lightboxScale = Math.min(4, Math.max(0.4, lightboxScale + amount));
-            document.getElementById('lightbox-img').style.width = (lightboxScale * 100) + 'vw';
-        }
-
-        function resetLightboxZoom() {
-            lightboxScale = 0.9;
-            document.getElementById('lightbox-img').style.width = '90vw';
-        }
-
-        const QUIZ_XP = 100;
-        const PASS_PERCENT = 80;
-
-        const QUIZ = [
-            { q: 'מה מייצג המונח Host, מכשיר קצה, ברשת?', o: ['הנתב הראשי של הספק', 'מחשב, טלפון או כל מכשיר שיוצר או צורך מידע', 'הכבל התת ימי בלבד', 'פרוטוקול אבטחה'], a: 1 },
-            { q: 'מהו התפקיד העיקרי של תווך התקשורת Media?', o: ['להריץ משחקים', 'להעביר את האותות הפיזיים: כבל, אור וגלי רדיו', 'לשמור את הסיסמאות', 'לתרגם שפות'], a: 1 },
-            { q: 'איזה רכיב אחראי לכוון חבילות מידע בין רשתות שונות?', o: ['מקלדת', 'נתב Router', 'מסך מחשב', 'מדפסת'], a: 1 },
-            { q: 'מה קורה להודעה כשהיא נשלחת ברשת?', o: ['היא נשלחת תמיד כקובץ אחד ענק', 'היא מחולקת לחלקים קטנים שנקראים Packets', 'היא נעלמת לנצח', 'היא הופכת לסיסמה'], a: 1 },
-            { q: 'מהו פרוטוקול Protocol בתקשורת מחשבים?', o: ['חומרה יקרה', 'אוסף חוקים וכללים שמאפשר למכשירים להבין זה את זה', 'תוכנת עריכת וידאו', 'סוג של כבל'], a: 1 },
-            { q: 'מה ההבדל העיקרי בין מתג Switch לנתב Router?', o: ['מתג מחבר מכשירים באותה רשת מקומית LAN, ונתב מחבר בין רשתות שונות', 'מתג הוא אלחוטי בלבד', 'נתב משמש רק להדפסה', 'אין שום הבדל'], a: 0 },
-            { q: 'מה קורה בפרוטוקול אמין כאשר חבילת מידע הולכת לאיבוד?', o: ['המחשב נכבה', 'המקבל מזהה שחסרה חבילה ומבקש שידור חוזר שלה', 'כל האינטרנט נתקע', 'המידע נמחק תמיד'], a: 1 },
-            { q: 'מה התפקיד של כתובת IP?', o: ['לזהות את הכתובת הלוגית של המכשיר ברשת לצורך ניתוב', 'לקבוע את מהירות המעבד', 'למדוד את נפח הדיסק הקשיח', 'להדליק את חיבור Wi-Fi'], a: 0 },
-            { q: 'מהו היתרון המרכזי של סיב אופטי על פני כבל נחושת?', o: ['הוא מעביר מידע באמצעות אותות אור, במהירות עצומה ולמרחקים גדולים', 'הוא עשוי מזהב', 'כבל נחושת מהיר יותר מאור', 'הוא לא צריך חשמל בכלל'], a: 0 },
-            { q: 'מה משמעות המושג Latency, שהייה או דיליי ברשת?', o: ['הזמן שלוקח לחבילת מידע לעבור ממקור ליעד', 'גודל המסך', 'כמות הזיכרון ברשת', 'מספר המשתמשים ברשת'], a: 0 },
-            { q: 'באיזו שכבה של מודל OSI פועל נתב Router קלאסי?', o: ['שכבה 1, השכבה הפיזית', 'שכבה 2, ערוץ הנתונים', 'שכבה 3, שכבת הרשת Network Layer', 'שכבה 7, שכבת היישום'], a: 2 },
-            { q: 'מה מונע המנגנון TTL, קיצור של Time To Live, בחבילת IP?', o: ['פריצת סייבר', 'לולאה אינסופית של חבילה ברשת במקרה של שגיאת ניתוב', 'אובדן סיסמה', 'חימום יתר של הנתב'], a: 1 },
-            { q: 'מהו התפקיד של פרוטוקול ARP ברשת מקומית?', o: ['לתרגם כתובת IP לכתובת MAC פיזית', 'להצפין הודעות מייל', 'להקצות כתובות IP אוטומטית', 'לנהל שמות של אתרים בשירות DNS'], a: 0 },
-            { q: 'מה ההבדל המרכזי בין TCP לבין UDP?', o: ['TCP מכוון חיבור ומבטיח הגעת נתונים, ואילו UDP מהיר אך ללא וידוא הגעה', 'UDP משמש רק למייל', 'TCP הוא אלחוטי, ואילו UDP הוא קווי', 'אין שום הבדל'], a: 0 },
-            { q: 'מה קורה בעומס יתר Congestion בנתב, כשחוצץ הזיכרון של התור מתמלא?', o: ['הנתב מגדיל את הזיכרון אוטומטית', 'חבילות חדשות שמגיעות נזרקות, וזה נקרא Packet Loss', 'המהירות מוכפלת', 'הנתב מחליף לעצמו כתובת IP'], a: 1 }
-        ];
-
-        let session = [];
-        let answers = {};
-
-        function shuffle(arr) {
-            const a = arr.slice();
-            for (let i = a.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                const tmp = a[i]; a[i] = a[j]; a[j] = tmp;
-            }
-            return a;
-        }
-
-        function openQuiz() {
-            session = QUIZ.map(function (item) {
-                const order = shuffle(item.o.map(function (_, i) { return i; }));
-                return { q: item.q, opts: order.map(function (i) { return { t: item.o[i], ok: i === item.a }; }) };
-            });
-            answers = {};
-            renderQuiz();
-            document.getElementById('quiz-overlay').classList.remove('hidden');
-            document.querySelector('#quiz-overlay .modal-card').scrollTop = 0;
-        }
-
-        function closeQuiz() {
-            document.getElementById('quiz-overlay').classList.add('hidden');
-        }
-
-        function renderQuiz() {
-            const total = session.length;
-            const blocks = session.map(function (item, qi) {
-                const opts = item.opts.map(function (opt, oi) {
-                    return '<label class="opt"><input type="radio" name="q' + qi + '" value="' + oi + '" onchange="selectOption(' + qi + ',' + oi + ')"><span>' + fe(opt.t) + '</span></label>';
-                }).join('');
-                return '<div class="qblock" id="q-' + qi + '"><p class="qtext">' + (qi + 1) + '. ' + fe(item.q) + '</p>' + opts + '</div>';
-            }).join('');
-
-            document.getElementById('quiz-content').innerHTML =
-                '<h2>מבחן סיכום: ' + total + ' שאלות</h2>' +
-                '<p class="quiz-meta" id="quiz-count">ענית על 0 מתוך ' + total + '. כדי לעבור צריך לפחות ' + PASS_PERCENT + ' אחוז נכון.</p>' +
-                '<div class="meter"><div id="quiz-meter"></div></div>' +
-                blocks +
-                '<div class="modal-actions"><button class="modal-btn" onclick="submitQuiz()">הגש מבחן ובדוק ציון</button></div>';
-        }
-
-        function selectOption(qi, oi) {
-            answers[qi] = oi;
-            document.getElementById('q-' + qi).classList.remove('missing');
-            const done = Object.keys(answers).length;
-            const total = session.length;
-            document.getElementById('quiz-count').textContent = 'ענית על ' + done + ' מתוך ' + total + '. כדי לעבור צריך לפחות ' + PASS_PERCENT + ' אחוז נכון.';
-            document.getElementById('quiz-meter').style.width = (done / total * 100) + '%';
-        }
-
-        function submitQuiz() {
-            const total = session.length;
-            const missing = [];
-            for (let i = 0; i < total; i++) { if (answers[i] === undefined) missing.push(i); }
-
-            if (missing.length) {
-                missing.forEach(function (i) { document.getElementById('q-' + i).classList.add('missing'); });
-                document.getElementById('q-' + missing[0]).scrollIntoView({ behavior: 'smooth', block: 'center' });
-                showToast('נשארו ' + missing.length + ' שאלות בלי תשובה');
-                return;
-            }
-
-            let score = 0;
-            const wrong = [];
-            session.forEach(function (item, qi) {
-                if (item.opts[answers[qi]].ok) { score++; } else { wrong.push(qi); }
-            });
-
-            const percentage = Math.round(score / total * 100);
-            const passed = percentage >= PASS_PERCENT;
-            let note;
-
-            if (passed) {
-                if (!store.get(KEYS.quiz)) {
-                    store.set(KEYS.quiz, '1');
-                    addXP(QUIZ_XP);
-                    note = 'צברת ' + QUIZ_XP + ' נקודות ניסיון.';
-                } else {
-                    note = 'את הנקודות על המבחן כבר צברת בעבר.';
-                }
-            } else {
-                note = 'כדי לעבור צריך לפחות ' + PASS_PERCENT + ' אחוז. חזרו על החומר ונסו שוב.';
-            }
-
-            const review = wrong.length
-                ? '<div class="review"><h3>כאן כדאי לחזור:</h3>' + wrong.map(function (qi) {
-                    const right = session[qi].opts.filter(function (o) { return o.ok; })[0].t;
-                    return '<div class="item"><p><b>' + (qi + 1) + '. ' + fe(session[qi].q) + '</b></p><p>התשובה הנכונה: ' + fe(right) + '</p></div>';
-                }).join('') + '</div>'
-                : '';
-
-            document.getElementById('quiz-content').innerHTML =
-                '<div class="result-score">' +
-                '<div class="emoji">' + (passed ? '🎉' : '📚') + '</div>' +
-                '<div class="big">' + (passed ? 'המבחן הושלם בהצלחה!' : 'תוצאות המבחן') + '</div>' +
-                '<p>ענית נכון על ' + score + ' מתוך ' + total + ' שאלות, ' + percentage + ' אחוז.</p>' +
-                '<p>' + note + '</p>' +
-                '</div>' +
-                review +
-                '<div class="modal-actions"><button class="modal-btn plain" onclick="closeQuiz()">סגור חלון</button><button class="modal-btn" onclick="openQuiz()">מבחן חדש</button></div>';
-            document.querySelector('#quiz-overlay .modal-card').scrollTop = 0;
-        }
-
-        function resetProgress() {
-            if (confirm('לאפס את ההתקדמות בשיעור? כל הנקודות שנשמרו יימחקו.')) {
-                [KEYS.xp, KEYS.step, KEYS.quiz, KEYS.intro].forEach(function (k) { store.del(k); });
-                xp = 0;
-                document.getElementById('intro-feedback').classList.add('hidden');
-                for (let i = 1; i <= 3; i++) document.getElementById('intro-' + i).classList.remove('right', 'wrong');
-                switchStep(1);
-                showToast('ההתקדמות אופסה');
-            }
-        }
-
-        document.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape') {
-                closeLightbox();
-                closeQuiz();
-            }
-        });
-
-        document.addEventListener('DOMContentLoaded', function () {
-            frameStaticText(document.body);
-            const savedXp = parseInt(store.get(KEYS.xp), 10);
-            if (!isNaN(savedXp)) xp = savedXp;
-            applyDark(store.get(KEYS.dark) === '1');
-            const savedStep = parseInt(store.get(KEYS.step), 10);
-            switchStepSilently(savedStep >= 1 && savedStep <= 3 ? savedStep : 1);
-        });
-
-        function switchStepSilently(n) {
-            for (let i = 1; i <= 3; i++) {
-                document.getElementById('step-' + i).classList.toggle('hidden', i !== n);
-                document.getElementById('tab-' + i).setAttribute('aria-selected', i === n ? 'true' : 'false');
-            }
-            activeStep = n;
-        }
-    </script>
+renderQuiz();
+</script>
 </body>
 </html>
