@@ -74,7 +74,6 @@
 
         button { font-family: inherit; cursor: pointer; }
 
-        /* ===== מונחים באנגלית בתוך מסגרת ===== */
         .english-term-box {
             display: inline-block;
             direction: ltr;
@@ -93,7 +92,6 @@
             vertical-align: baseline;
         }
 
-        /* ===== כותרת עליונה ===== */
         .site-header {
             background: var(--paper);
             border-bottom: 2px solid var(--line);
@@ -177,7 +175,6 @@
 
         .icon-btn:hover { border-color: var(--red); }
 
-        /* ===== כפתורי הטאבים ===== */
         .tabs-wrap {
             max-width: 1100px;
             margin: 14px auto 0;
@@ -243,7 +240,6 @@
 
         .tab.quiz-tab .num { background: #000; color: #ffd400; }
 
-        /* ===== אזור התוכן ===== */
         main {
             max-width: 1100px;
             margin: 20px auto 0;
@@ -276,13 +272,8 @@
         }
 
         .lesson p { margin: 0 0 14px; font-size: 1.05rem; max-width: 40em; }
+        .lesson .lead { font-size: 1.2rem; font-weight: 500; }
 
-        .lesson .lead {
-            font-size: 1.2rem;
-            font-weight: 500;
-        }
-
-        /* מסע ההודעה: רצף של שלושה שלבים */
         .journey {
             list-style: none;
             counter-reset: step;
@@ -322,7 +313,6 @@
 
         .journey strong { color: var(--red-text); font-weight: 800; }
 
-        /* שלושת חלקי התמונה */
         .parts {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -345,7 +335,6 @@
         .part b { display: block; font-size: 1.05rem; font-weight: 800; }
         .part span.where { font-size: 1rem; }
 
-        /* שאלה מהירה */
         .quick {
             background: var(--bg);
             border: 2px solid var(--line);
@@ -354,7 +343,6 @@
         }
 
         .quick .q { font-weight: 800; font-size: 1.15rem; margin-bottom: 14px; max-width: none; }
-
         .choices { display: grid; gap: 10px; }
 
         .choice {
@@ -387,7 +375,6 @@
         .feedback.ok { background: var(--ok-soft); color: var(--ok); border: 2px solid var(--ok); }
         .feedback.bad { background: var(--bad-soft); color: var(--bad); border: 2px solid var(--bad); }
 
-        /* כרטיסי הרכיבים */
         .cards {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -413,7 +400,6 @@
         }
 
         .card .big-emoji { font-size: 2.2rem; line-height: 1.2; display: block; margin-bottom: 4px; }
-
         .card p { font-size: 1.05rem; max-width: none; }
 
         .card.host { --accent: var(--c-host); }
@@ -421,7 +407,6 @@
         .card.mid { --accent: var(--c-mid); }
         .card.proto { --accent: var(--c-proto); }
 
-        /* מציג התרשים */
         .viewer-bar {
             display: flex;
             gap: 10px;
@@ -463,7 +448,6 @@
             cursor: zoom-in;
         }
 
-        /* כפתורי מעבר בין שלבים */
         .step-nav {
             display: flex;
             justify-content: space-between;
@@ -487,7 +471,6 @@
         .btn.primary { background: var(--red); border-color: var(--red); color: #fff; }
         .btn.primary:hover { background: #991b1b; }
 
-        /* ===== חלון המבחן: פונט שחור על רקע בהיר ===== */
         .overlay {
             position: fixed;
             inset: 0;
@@ -561,7 +544,6 @@
         }
 
         .qblock.missing { border-color: #b91c1c; border-width: 4px; }
-
         .qtext { margin: 0 0 12px; font-size: 1.15rem; font-weight: 800; line-height: 1.6; }
 
         .opt {
@@ -612,7 +594,6 @@
         .review .item { border: 2px solid #000; border-radius: 14px; padding: 12px 16px; margin-bottom: 10px; }
         .review .item p { margin: 0 0 6px; font-size: 1.05rem; line-height: 1.6; }
 
-        /* ===== תיבת תמונה במסך מלא ===== */
         .lightbox-scroll {
             width: 100%;
             height: calc(100vh - 150px);
@@ -651,7 +632,6 @@
 
         .lightbox-bar button.close { background: #b91c1c; }
 
-        /* ===== פוטר ===== */
         footer {
             max-width: 1100px;
             margin: 0 auto;
@@ -677,7 +657,6 @@
             font-weight: 700;
         }
 
-        /* ===== הודעה צפה ===== */
         .toast {
             position: fixed;
             bottom: 24px;
@@ -698,7 +677,6 @@
 
         .toast.show { opacity: 1; transform: translate(50%, 0); }
 
-        /* ===== עוזר דן GPT ===== */
         .bot {
             position: fixed;
             bottom: 16px;
@@ -782,7 +760,6 @@
 </head>
 <body>
 
-    <!-- כותרת עליונה -->
     <header class="site-header">
         <div class="header-inner">
             <div class="brand">
@@ -799,7 +776,6 @@
         </div>
     </header>
 
-    <!-- כפתורי הטאבים -->
     <div class="tabs-wrap">
         <div class="tabs" role="tablist" aria-label="שלבי השיעור">
             <button class="tab" role="tab" id="tab-1" aria-controls="step-1" aria-selected="true" onclick="switchStep(1)">
@@ -818,7 +794,6 @@
     </div>
 
     <main>
-        <!-- שלב 1 -->
         <section id="step-1" class="lesson" role="tabpanel" aria-labelledby="tab-1">
             <h2>איך הודעה עוברת ברשת?</h2>
             <p class="lead">כששולחים הודעה או תמונה, היא לא נשלחת בבת אחת. היא מחולקת לחלקים קטנים, החלקים עוברים ברשת, ובסוף מחברים אותם מחדש.</p>
@@ -857,7 +832,6 @@
             </div>
         </section>
 
-        <!-- שלב 2 -->
         <section id="step-2" class="lesson hidden" role="tabpanel" aria-labelledby="tab-2">
             <h2>ממה בנויה רשת?</h2>
             <p class="lead">רשת היא מערכת שמחברת בין מכשירים כדי שיוכלו להחליף מידע. כל רשת בנויה מארבעה רכיבים.</p>
@@ -893,7 +867,6 @@
             </div>
         </section>
 
-        <!-- שלב 3 -->
         <section id="step-3" class="lesson hidden" role="tabpanel" aria-labelledby="tab-3">
             <h2>רשת מקומית LAN</h2>
             <p class="lead">זה תרשים של רשת מקומית עם ההתקנים המחוברים אליה. אפשר להגדיל ולהקטין, או לפתוח במסך מלא ולגלול בחופשיות.</p>
@@ -906,7 +879,7 @@
             </div>
 
             <div class="viewer">
-                <img id="local-network-img" src="https://lh3.googleusercontent.com/d/1-wVGTef0-jb-USPCqnaub6W4Xne8RmCy=s0" alt="תרשים של רשת מקומית" onclick="openLightbox()">
+                <img id="local-network-img" src="https://drive.google.com/uc?export=view&id=1RM-ZFn_U9stEL_bdN2bPgyU7FyCXn--9" alt="תרשים של רשת מקומית" onclick="openLightbox()">
             </div>
 
             <div class="step-nav">
@@ -922,7 +895,6 @@
         <button onclick="resetProgress()">אפס התקדמות שיעור</button>
     </footer>
 
-    <!-- חלון המבחן -->
     <div id="quiz-overlay" class="overlay hidden" role="dialog" aria-modal="true" aria-label="מבחן סיכום">
         <div class="modal-card">
             <button class="modal-close" onclick="closeQuiz()" aria-label="סגור חלון">✕</button>
@@ -930,10 +902,9 @@
         </div>
     </div>
 
-    <!-- תמונה במסך מלא -->
     <div id="lightbox-modal" class="overlay hidden" onclick="handleLightboxBackdrop(event)" style="flex-direction:column; background:rgba(0,0,0,0.95);">
         <div class="lightbox-scroll" id="lightbox-scroll">
-            <img id="lightbox-img" src="https://lh3.googleusercontent.com/d/1-wVGTef0-jb-USPCqnaub6W4Xne8RmCy=s0" alt="תרשים הרשת המקומית מוגדל" onclick="event.stopPropagation()">
+            <img id="lightbox-img" src="https://drive.google.com/uc?export=view&id=1RM-ZFn_U9stEL_bdN2bPgyU7FyCXn--9" alt="תרשים הרשת המקומית מוגדל" onclick="event.stopPropagation()">
         </div>
         <div class="lightbox-bar">
             <button onclick="zoomLightbox(0.25)">🔍 הגדל</button>
@@ -945,7 +916,6 @@
 
     <div id="toast" class="toast" role="status"></div>
 
-    <!-- עוזר דן GPT -->
     <div class="bot collapsed" id="botWidget">
         <button class="bot-fab" onclick="setBot(true)" aria-label="פתח את העוזר דן GPT">
             <img src="https://lh3.googleusercontent.com/d/1fzqv93VKIW_VT8-e1HdJxBmbU2sFnwlb" alt="דן GPT עוזר הפרויקט">
@@ -964,7 +934,6 @@
     </div>
 
     <script>
-        // ===== אחסון מקומי בטוח =====
         const KEYS = { xp: 'net_academy_xp', step: 'net_academy_step', quiz: 'net_academy_quiz_passed', intro: 'net_academy_intro_done', dark: 'net_academy_dark' };
         const store = {
             get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
@@ -977,7 +946,6 @@
         let currentScale = 1;
         let lightboxScale = 0.9;
 
-        // ===== מסגור מונחים באנגלית =====
         const EN_RUN = /[A-Za-z][A-Za-z0-9]*(?:[ \-][A-Za-z0-9]+)*/g;
 
         function fe(text) {
@@ -1011,7 +979,6 @@
             showToast('קיבלת ' + amount + ' נקודות ניסיון');
         }
 
-        // ===== הודעה צפה =====
         let toastTimer;
         function showToast(message) {
             const t = document.getElementById('toast');
@@ -1021,7 +988,6 @@
             toastTimer = setTimeout(function () { t.classList.remove('show'); }, 3200);
         }
 
-        // ===== מצב לילה =====
         function applyDark(on) {
             document.body.classList.toggle('dark', on);
             document.getElementById('darkToggleBtn').textContent = on ? '☀️ מצב יום' : '🌙 מצב לילה';
@@ -1033,12 +999,10 @@
             store.set(KEYS.dark, on ? '1' : '0');
         }
 
-        // ===== עוזר דן GPT =====
         function setBot(open) {
             document.getElementById('botWidget').classList.toggle('collapsed', !open);
         }
 
-        // ===== מעבר בין שלבים =====
         function switchStep(n) {
             for (let i = 1; i <= 3; i++) {
                 document.getElementById('step-' + i).classList.toggle('hidden', i !== n);
@@ -1049,7 +1013,6 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // ===== שאלה מהירה בשלב 1 =====
         function answerIntro(choice) {
             const fb = document.getElementById('intro-feedback');
             for (let i = 1; i <= 3; i++) {
@@ -1074,7 +1037,6 @@
             }
         }
 
-        // ===== תרשים הרשת =====
         function zoomImage(amount) {
             currentScale = Math.min(3, Math.max(0.5, currentScale + amount));
             document.getElementById('local-network-img').style.width = (currentScale * 100) + '%';
@@ -1109,11 +1071,9 @@
             document.getElementById('lightbox-img').style.width = '90vw';
         }
 
-        // ===== מבחן סיכום: 15 שאלות =====
         const QUIZ_XP = 100;
         const PASS_PERCENT = 80;
 
-        // a הוא המיקום של התשובה הנכונה, והסדר מעורבב בכל פתיחה של המבחן
         const QUIZ = [
             { q: 'מה מייצג המונח Host, מכשיר קצה, ברשת?', o: ['הנתב הראשי של הספק', 'מחשב, טלפון או כל מכשיר שיוצר או צורך מידע', 'הכבל התת ימי בלבד', 'פרוטוקול אבטחה'], a: 1 },
             { q: 'מהו התפקיד העיקרי של תווך התקשורת Media?', o: ['להריץ משחקים', 'להעביר את האותות הפיזיים: כבל, אור וגלי רדיו', 'לשמור את הסיסמאות', 'לתרגם שפות'], a: 1 },
@@ -1238,7 +1198,6 @@
             document.querySelector('#quiz-overlay .modal-card').scrollTop = 0;
         }
 
-        // ===== איפוס =====
         function resetProgress() {
             if (confirm('לאפס את ההתקדמות בשיעור? כל הנקודות שנשמרו יימחקו.')) {
                 [KEYS.xp, KEYS.step, KEYS.quiz, KEYS.intro].forEach(function (k) { store.del(k); });
@@ -1250,7 +1209,6 @@
             }
         }
 
-        // ===== מקלדת =====
         document.addEventListener('keydown', function (e) {
             if (e.key === 'Escape') {
                 closeLightbox();
@@ -1258,7 +1216,6 @@
             }
         });
 
-        // ===== הפעלה =====
         document.addEventListener('DOMContentLoaded', function () {
             frameStaticText(document.body);
             const savedXp = parseInt(store.get(KEYS.xp), 10);
