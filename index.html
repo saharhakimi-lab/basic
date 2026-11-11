@@ -448,6 +448,31 @@
             cursor: zoom-in;
         }
 
+        .diagram-container {
+            margin: 36px 0 20px;
+            background: var(--bg);
+            border: 2px solid var(--line);
+            border-radius: 18px;
+            padding: 20px;
+        }
+
+        .diagram-img-wrap {
+            position: relative;
+            background: #fff;
+            border: 2px solid var(--line);
+            border-radius: 14px;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .diagram-img-wrap img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            cursor: pointer;
+        }
+
         .step-nav {
             display: flex;
             justify-content: space-between;
@@ -858,6 +883,17 @@
                 </article>
             </div>
 
+            <div class="diagram-container">
+                <h3>תרשים ארבעת רכיבי הרשת</h3>
+                <p>להלן תרשים הממחיש את ארבעת הרכיבים ואיך הם משתלבים יחד ברשת:</p>
+                <div class="diagram-img-wrap">
+                    <img id="components-img" src="https://lh3.googleusercontent.com/d/134636C0KfNojbgKUTTfCY8XKB9EGNzEM" alt="תרשים ארבעת רכיבי הרשת" onclick="openLightboxCustom('https://lh3.googleusercontent.com/d/134636C0KfNojbgKUTTfCY8XKB9EGNzEM', 'תרשים ארבעת רכיבי הרשת מוגדל')">
+                </div>
+                <div style="margin-top: 12px; text-align: center;">
+                    <button class="btn" onclick="openLightboxCustom('https://lh3.googleusercontent.com/d/134636C0KfNojbgKUTTfCY8XKB9EGNzEM', 'תרשים ארבעת רכיבי הרשת מוגדל')">🔍 פתח תרשים במסך מלא</button>
+                </div>
+            </div>
+
             <h3>איך הכול עובד ביחד?</h3>
             <p>שולחים תמונה מהטלפון: הטלפון הוא מכשיר קצה, ה-Wi-Fi הוא התווך, הנתב הוא מכשיר ביניים שמעביר את החבילות הלאה, והפרוטוקול הוא החוקים שכולם מקבלים ומבינים.</p>
 
@@ -904,7 +940,7 @@
 
     <div id="lightbox-modal" class="overlay hidden" onclick="handleLightboxBackdrop(event)" style="flex-direction:column; background:rgba(0,0,0,0.95);">
         <div class="lightbox-scroll" id="lightbox-scroll">
-            <img id="lightbox-img" src="https://lh3.googleusercontent.com/d/1RM-ZFn_U9stEL_bdN2bPgyU7FyCXn--9=s0" alt="תרשים הרשת המקומית מוגדל" onclick="event.stopPropagation()">
+            <img id="lightbox-img" src="https://lh3.googleusercontent.com/d/1RM-ZFn_U9stEL_bdN2bPgyU7FyCXn--9=s0" alt="תרשים מוגדל" onclick="event.stopPropagation()">
         </div>
         <div class="lightbox-bar">
             <button onclick="zoomLightbox(0.25)">🔍 הגדל</button>
@@ -1048,8 +1084,15 @@
         }
 
         function openLightbox() {
+            openLightboxCustom('https://lh3.googleusercontent.com/d/1RM-ZFn_U9stEL_bdN2bPgyU7FyCXn--9=s0', 'תרשים הרשת המקומית מוגדל');
+        }
+
+        function openLightboxCustom(src, alt) {
             lightboxScale = 0.9;
-            document.getElementById('lightbox-img').style.width = '90vw';
+            const img = document.getElementById('lightbox-img');
+            img.src = src;
+            img.alt = alt;
+            img.style.width = '90vw';
             document.getElementById('lightbox-modal').classList.remove('hidden');
         }
 
@@ -1235,4 +1278,3 @@
     </script>
 </body>
 </html>
-
